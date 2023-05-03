@@ -11,11 +11,14 @@ interface IProps {
   dropContent: Array<{ link: string; text: string }>;
   text: string;
   type: DropTypes;
+  extraStyle?:string
 }
 const NavItem = ({
   type,
   dropContent,
   text,
+  extraStyle
+
 }: IProps) => {
   const viewportWidth = useViewportWidth();
   const dropType = useSelector((state: RootState) => state.navbar.dropType);
@@ -39,11 +42,11 @@ const NavItem = ({
   };
   return (
     <li
-      className="px-7 xsm:px-2 hover:bg-primary relative flex"
+      className={"px-7 xsm:px-2 sm:px-1 hover:bg-primary relative flex "+extraStyle}
       onMouseEnter={() => showDrop()}
       onMouseLeave={() => hideDrop()}>
       <div className=" py-1 flex items-center w-[100%] xsm:w-auto justify-between">
-        <Link to={`/${type}`} className="mr-2">
+        <Link to={`/${type}`} className="mr-2 sm:mr-1 sm:text-sm">
           {text}
         </Link>
         <Icons.AiOutlineCaretDown />

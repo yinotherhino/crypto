@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import NavbarReducer from './slices/NavbarSlice'
+import FormReducer from './slices/FormSlice'
 
 export const store = configureStore({
   reducer: {
-    navbar:NavbarReducer
+    navbar:NavbarReducer,
+    form: FormReducer 
   },
 })
 

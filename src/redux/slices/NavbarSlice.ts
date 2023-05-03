@@ -5,16 +5,15 @@ import { DropTypes } from "../../components/Navbar/Navbar";
 export interface NavbarState {
   showHamburger: boolean;
   showLinkDrop: boolean;
-  dropType: DropTypes|null;
-  showAuth: "login"|"register"|null;
-
+  dropType: DropTypes | null;
+  showAuth: "login" | "register" | null;
 }
 
 const initialState: NavbarState = {
-    showHamburger: false,
-    showLinkDrop: false,
-    dropType: null,
-    showAuth: null,
+  showHamburger: false,
+  showLinkDrop: false,
+  dropType: null,
+  showAuth: null,
 };
 
 export const navbarSlice = createSlice({
@@ -28,22 +27,23 @@ export const navbarSlice = createSlice({
       // immutable state based off those changes
       state.showHamburger = !state.showHamburger;
     },
-    changeLinkDrop: (state, action:PayloadAction<boolean|undefined>) => {
-        if(action?.payload !== undefined){
-            state.showLinkDrop = action.payload;
-            return;
-        }
-        state.showLinkDrop = !state.showLinkDrop;
+    changeLinkDrop: (state, action: PayloadAction<boolean | undefined>) => {
+      if (action?.payload !== undefined) {
+        state.showLinkDrop = action.payload;
+        return;
+      }
+      state.showLinkDrop = !state.showLinkDrop;
     },
-    changeDropType: (state, action: PayloadAction<DropTypes|null>) => {
+    changeDropType: (state, action: PayloadAction<DropTypes | null>) => {
       state.dropType = action.payload;
     },
-    changeAuth: (state,action:PayloadAction<"login"|"register"|null>)=>{
-        state.showAuth = action.payload
-    }
+    changeAuth: (state, action: PayloadAction<"login" | "register" | null>) => {
+      state.showAuth = action.payload;
+    },
   },
 });
 
-export const { changeHamburger, changeLinkDrop, changeDropType, changeAuth } = navbarSlice.actions;
+export const { changeHamburger, changeLinkDrop, changeDropType, changeAuth } =
+  navbarSlice.actions;
 
 export default navbarSlice.reducer;

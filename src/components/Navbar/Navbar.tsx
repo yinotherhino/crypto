@@ -26,18 +26,12 @@ export type DropTypes =
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const viewportWidth = useViewportWidth();
-  const dropType = useSelector((state: RootState) => state.navbar.dropType);
-  const showLinkDrop = useSelector(
-    (state: RootState) => state.navbar.showLinkDrop
-  );
   const showHamburger = useSelector(
     (state: RootState) => state.navbar.showHamburger
   );
   const showAuthModal = () => {
     dispatch(changeAuth("register"))
   };
-
 
   return (
     <nav className=" bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10">
@@ -57,6 +51,7 @@ const Navbar = () => {
           />
           <NavItem
             text="PLATFORM"
+            extraStyle="xsm:hidden md:flex "
             type="platform"
             dropContent={[
               { link: "/platform", text: "PLATFORM" },
@@ -66,6 +61,7 @@ const Navbar = () => {
           <NavItem
             text="PRODUCTS"
             type="products"
+            extraStyle="xsm:hidden md:flex "
             dropContent={[
               { link: "/products", text: "PRODUCTS" },
               { link: "/products", text: "PRODUCTS" },
@@ -74,6 +70,7 @@ const Navbar = () => {
           <NavItem
             text="LEGAL"
             type="legal"
+            extraStyle="xsm:hidden md:flex "
             dropContent={[
               { link: "/legal", text: "LEGAL" },
               { link: "/legal", text: "LEGAL" },
@@ -82,6 +79,7 @@ const Navbar = () => {
           <NavItem
             text="ABOUT"
             type="about"
+            extraStyle="xsm:hidden md:flex "
             dropContent={[
               { link: "/about", text: "ABOUT" },
               { link: "/about", text: "ABOUT" },
@@ -91,6 +89,7 @@ const Navbar = () => {
             <Button.Auth
               text="Register/Login"
               handleClick={() => showAuthModal()}
+              extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-7"
             />
           </li>
         </ul>
