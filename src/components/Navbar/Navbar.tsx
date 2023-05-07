@@ -8,12 +8,7 @@ import NavItem from "./NavItem";
 import MobileHamburger from "./MobileHamburger";
 import Logo from "./Logo";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  changeHamburger,
-  changeLinkDrop,
-  changeDropType,
-  changeAuth,
-} from "../../redux/slices/NavbarSlice";
+import { changeAuth } from "../../redux/slices/NavbarSlice";
 import { RootState } from "../../redux/store";
 
 export type DropTypes =
@@ -30,7 +25,7 @@ const Navbar = () => {
     (state: RootState) => state.navbar.showHamburger
   );
   const showAuthModal = () => {
-    dispatch(changeAuth("register"))
+    dispatch(changeAuth("register"));
   };
 
   return (

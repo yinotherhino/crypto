@@ -7,7 +7,7 @@ export default {
         lato: ["Lato", "sans-serif"],
       },
       boxShadow: {
-        "2sm": "0px 5px 15px rgba(59,2,132, 0.35)",
+        "2sm": "0 2px 4px 0 #5C469C",
       },
       hover: {
         normal: "transform: scale(1.05)",
@@ -17,7 +17,7 @@ export default {
         black: "#000",
         primary: "#A4D0A4",
         secondary: "#F2F2F2",
-        deep: "#146C94",
+        deep: "#5C469C",
         modal: "rgba(0, 0, 0, 0.5)",
       },
       screens: {
