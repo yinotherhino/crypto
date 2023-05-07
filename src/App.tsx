@@ -2,13 +2,11 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
-import Modal from "./components/Modals/Modal";
-import RegisterForm from "./components/Forms/RegisterForm";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import { changeAuth } from "./redux/slices/NavbarSlice";
-import LoginForm from "./components/Forms/LoginForm";
-import Icons from "./components/Icons";
+import About from "./pages/About";
+import Platform from "./pages/Platform";
+import Trading from "./pages/Trading";
 
 function App() {
   // const [isAuthOpen, setIsAuthOpen] = useState(false)
@@ -18,24 +16,15 @@ function App() {
 
   return (
     <>
-      <Modal
-        isOpen={Boolean(showAuth)}
-        closeModal = {() => dispatch(changeAuth(null))}>
-        {showAuth =="register" ? <RegisterForm /> : <LoginForm />}
-      </Modal>
       <Router>
         <Layout />
         <Routes>
           <Route element={<Home />} path="/" />
-          {/* <Route element={<Home />} path='/' />
-        <Route element={<Home />} path='/' />
-        <Route element={<Home />} path='/' />
-        <Route element={<Home />} path='/' /> */}
+          <Route element={<About />} path="/about" />
+          <Route element={<Platform />} path="/platform" />
+          <Route element={<Trading />} path="/trading" />
         </Routes>
       </Router>
-      <div className="rounded-full bg-white p-5"> 
-        <Icons.HiOutlineChatAlt2 className="text-[50px] text-blue-700 fixed bottom-[50px] right-[50px]" />
-      </div>
     </>
   );
 }

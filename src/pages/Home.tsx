@@ -66,9 +66,7 @@ const Home = () => {
         </a>
       </div>
       <Socials />
-      <div>
-        
-      </div>
+
     </div>
   );
 };
