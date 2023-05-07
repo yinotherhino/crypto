@@ -1,7 +1,11 @@
 import React from "react";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
 
-const Cards = () => {
+interface IProps {
+    extraStyle?: string;
+}
+
+const Cards = ({extraStyle}:IProps) => {
   const { scrollYProgress } = useViewportScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   return (
@@ -13,7 +17,7 @@ const Cards = () => {
         stiffness: 260,
         damping: 20,
       }}>
-      <div className=" hover:2sm max-w-sm bg-white border border-gray-200 rounded-lg ">
+      <div className={" mb-[50px] xsm:mb-0 hover:2sm max-w-sm bg-white border border-gray-200 rounded-lg "+ extraStyle}>
         <a href="#">
           <img
             className="rounded-t-lg"

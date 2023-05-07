@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../Input";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
-import { changeForm } from "../../redux/slices/FormSlice";
+import { changeAuth } from "../../redux/slices/NavbarSlice";
 
 const LoginForm = () => {
     const dispatch = useDispatch()
@@ -47,7 +47,7 @@ const LoginForm = () => {
         handleClick={login}
       />
       <p>Not registered? <span className="text-deep cursor-pointer" onClick={()=>{
-        dispatch(changeForm("register"))
+        dispatch(changeAuth("register"))
       }}>signup</span></p>
 
     </form>

@@ -3,27 +3,33 @@ import Cards from "../components/Cards/Cards";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
 import { changeAuth } from "../redux/slices/NavbarSlice";
 import { useDispatch } from "react-redux";
-
+import Button from "../components/Button/Button";
+import Icons from "../components/Icons";
+import Socials from "../components/Socials";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { scrollYProgress } = useViewportScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
+  const showLoginModal = () => {
+    dispatch(changeAuth("login"));
+  };
   return (
     <div>
-      <div className="banner mb-[100px]"></div>
-      <div className="m-[100px] flex justify-between ">
+      <div className="banner mb-[50px] xsm:mb-[100px]"></div>
+      <Button.Centered text="Start here!" handleClick={showAuthModal} />
+      <div className="mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
         <Cards />
-        <Cards />
+        <Cards extraStyle=" xsm:hidden md:block" />
       </div>
-      <div className="m-[100px] flex justify-between">
+      <Button.Centered text="Login here!" handleClick={showLoginModal} />
+
+      <div className="m-[50px] xsm:m-[70px] md:m-[100px] flex-col xsm:flex-row flex justify-between">
         <a
           href="#"
-          className="flex flex-col items-center bg-white border border-gray-200 rounded-lg  shadow-lg shadow-deep md:flex-row md:max-w-xl hover:bg-gray-100 hover:transform-[scale(1.05)]">
+          className="mb-5 xsm:mb-0 flex flex-col items-center bg-white border border-gray-200 rounded-lg  shadow-lg shadow-deep md:flex-row md:max-w-xl hover:bg-gray-100 hover:transform-[scale(1.05)]">
           <img
             className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
             src="/docs/images/blog/image-4.jpg"
@@ -59,11 +65,9 @@ const Home = () => {
           </div>
         </a>
       </div>
-      <div className="flex justify-center mb-[50px]">
-
-        <button onClick={() => showAuthModal()} className=" text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep">
-          Start here!
-        </button>
+      <Socials />
+      <div>
+        
       </div>
     </div>
   );

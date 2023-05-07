@@ -29,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10">
+    <nav className="fixed w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10">
       <div className=" px-7 xsm:px-0 flex justify-between items-center ">
         <Logo />
         <MobileHamburger />

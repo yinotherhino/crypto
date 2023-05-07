@@ -8,7 +8,7 @@
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
-  transition: all 0.25s linear;
+  transition: all 0.5s ease-in-out;
 }
 
 body{
@@ -32,6 +32,18 @@ a{
   background-repeat: no-repeat;
 }
 
+.block{
+  transition: display 0.5s ease-in-out;
+}
+
+.hidden{
+  transition: display 0.5s ease-in-out;
+}
+@layer utilities {
+  .icon-social{
+    @apply text-[50px] hover:text-primary cursor-pointer w-1/4 xsm:w-auto inline-block mb-5 mr-3;
+  }
+}
 @media only screen and (min-width:600px){
   .banner{
   background: url("./assets/tablet.jpg");
