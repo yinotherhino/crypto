@@ -42,7 +42,7 @@ const NavItem = ({
   };
   return (
     <li
-      className={"px-7 xsm:px-2 sm:px-1 hover:bg-primary relative flex "+extraStyle}
+      className={"px-7 xsm:px-2 sm:px-5 hover:bg-primary relative flex "+extraStyle}
       onMouseEnter={() => showDrop()}
       onMouseLeave={() => hideDrop()}>
       <div className=" py-1 flex items-center w-[100%] xsm:w-auto justify-between">
