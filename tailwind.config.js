@@ -19,7 +19,8 @@ export default {
         secondary: "#F2F2F2",
         deep: "#5C469C",
         modal: "rgba(0, 0, 0, 0.5)",
-        faint: "#F6F1F1"
+        faint: "#F6F1F1",
+        lBlue:"#D4FAFC"
       },
       screens: {
         xxxs: "280px",

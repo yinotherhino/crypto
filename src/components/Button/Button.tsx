@@ -48,18 +48,20 @@ const Primary = ({
 const Centered = ({
   handleClick,
   text,
-  extraStyle
+  extraStyle,
+  Icon
 }: {
   handleClick: Function;
   text: string;
-  extraStyle?:string
+  extraStyle?:string;
+  Icon?: React.ElementType;
 }) => {
   return (
     <div className="flex justify-center mb-[50px]">
       <button
         onClick={() => handleClick()}
         className={" text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep "+extraStyle}>
-        {text}
+        {Icon && <Icon className="inline-block " />} {text}
       </button>
     </div>
   );

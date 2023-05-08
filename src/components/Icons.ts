@@ -10,8 +10,9 @@ import {BsDiscord} from "react-icons/bs"
 import {FaEthereum} from "react-icons/fa"
 import {FaTelegramPlane} from "react-icons/fa"
 import {BsChatLeftText} from "react-icons/bs"
+import {BsArrowRightCircle} from "react-icons/bs"
 
 
 
 
-export default {BsChatLeftText,FaTelegramPlane,FaEthereum,BsDiscord,FaBitcoin,SiBinance, AiFillTwitterCircle,IoLogoDeviantart,RxHamburgerMenu,RiCloseLine,AiOutlineCaretDown,FaFacebookMessenger} as const;
+export default {BsArrowRightCircle,BsChatLeftText,FaTelegramPlane,FaEthereum,BsDiscord,FaBitcoin,SiBinance, AiFillTwitterCircle,IoLogoDeviantart,RxHamburgerMenu,RiCloseLine,AiOutlineCaretDown,FaFacebookMessenger} as const;

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Button from "../components/Button/Button";
 import Icons from "../components/Icons";
 import Socials from "../components/Socials";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,13 +19,21 @@ const Home = () => {
   return (
     <div>
       <div className="banner mb-[50px] xsm:mb-[100px]"></div>
-      <Button.Centered text="Start here!" handleClick={showAuthModal} />
+      <Button.Centered
+        text="Start here!"
+        Icon={Icons.BsArrowRightCircle}
+        handleClick={showAuthModal}
+      />
       <div className="mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
         <Cards />
         <Cards extraStyle=" xsm:hidden md:block" />
       </div>
-      <Button.Centered text="Login here!" handleClick={showLoginModal} />
+      <Button.Centered
+        text="Login here!"
+        Icon={Icons.BsArrowRightCircle}
+        handleClick={showLoginModal}
+      />
 
       <div className="m-[50px] xsm:m-[70px] md:m-[100px] flex-col xsm:flex-row flex justify-between">
         <a
@@ -66,7 +75,19 @@ const Home = () => {
         </a>
       </div>
       <Socials />
-
+      <div className="flex flex-col items-center justify-center bg-white p-[50px]">
+        <h1 className="text-primary mb-[30px] text-[30px] sm:text-[50px]">Manage all your wallets in one place!</h1>
+        <div className="flex flex-wrap justify-center">
+        <Icons.FaFacebookMessenger className="icon-social text-blue-500 " />
+        <Icons.FaBitcoin className="icon-social text-green-700  " />
+        <Icons.BsDiscord className="icon-social text-blue-600 " />
+        <Icons.AiFillTwitterCircle className="icon-social text-blue-700 " />
+        <Icons.FaEthereum className="icon-social text-blue-500 " />
+        <Icons.SiBinance className="icon-social text-yellow-500 " />
+        <Icons.FaTelegramPlane className="icon-social text-blue-500 " />
+      </div>
+      </div>
+      <Footer />
     </div>
   );
 };
