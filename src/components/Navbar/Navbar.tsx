@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icons from "../Icons";
 import { Link } from "react-router-dom";
 import List from "../List";
@@ -28,8 +28,28 @@ const Navbar = () => {
     dispatch(changeAuth("register"));
   };
 
+  const [opacity, setOpacity] = useState(1);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+    const handleScroll= ()=> {
+      const distance = window.scrollY;
+      const threshold = 100;
+      const newOpacity = Math.max(0.5, 1 - (distance - threshold) / (threshold*4));
+      setOpacity(newOpacity);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }
+  }, []);
+  
+
   return (
-    <nav className="fixed z-100 w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10">
+    <nav className="fixed z-50 w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"  style={{ opacity }} >
       <div className=" px-7 xsm:px-0 flex justify-between items-center ">
         <Logo />
         <MobileHamburger />

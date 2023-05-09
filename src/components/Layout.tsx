@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "./Navbar/Navbar";
-import Icons from "./Icons";
 import Modal from "./Modals/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import RegisterForm from "./Forms/RegisterForm";
 import LoginForm from "./Forms/LoginForm";
 import { changeAuth } from "../redux/slices/NavbarSlice";
+import Chat from "./Sections/Chat";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -19,9 +19,7 @@ const Layout = () => {
         closeModal = {() => dispatch(changeAuth(null))}>
         {showAuth =="register" ? <RegisterForm /> : <LoginForm />}
       </Modal>
-      <div className="rounded-full rounded-tr-[10px] bg-primary p-5 fixed bottom-[20px] right-[20px] xsm:bottom-[50px] xsm:right-[50px]"> 
-        <Icons.BsChatLeftText className="text-[15px] xsm:text-[30px] text-blue-700" />
-      </div>
+      <Chat />
     </>
   );
 };
