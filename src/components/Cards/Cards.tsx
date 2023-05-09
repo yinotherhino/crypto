@@ -10,6 +10,7 @@ const Cards = ({extraStyle}:IProps) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   return (
     <motion.div
+      className="z-1"
       initial={{ scale: 0, rotate: 360 }}
       animate={{ rotate: 0, scale: 1, transition: { duration: 1 } }}
       transition={{
