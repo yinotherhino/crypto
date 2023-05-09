@@ -9,15 +9,6 @@ const Cards = ({extraStyle}:IProps) => {
   const { scrollYProgress } = useViewportScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   return (
-    <motion.div
-      className="z-1"
-      initial={{ scale: 0, rotate: 360 }}
-      animate={{ rotate: 0, scale: 1, transition: { duration: 1 } }}
-      transition={{
-        type: "spring",
-        stiffness: 260,
-        damping: 20,
-      }}>
       <div className={" mb-[50px] xsm:mb-0 hover:2sm max-w-sm bg-white border border-gray-200 rounded-lg "+ extraStyle}>
         <a href="#">
           <img
@@ -54,7 +45,6 @@ const Cards = ({extraStyle}:IProps) => {
           </a>
         </div>
       </div>
-    </motion.div>
   );
 };
 
