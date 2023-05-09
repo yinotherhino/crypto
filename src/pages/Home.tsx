@@ -80,7 +80,7 @@ const Home = () => {
       <Socials />
 
       <Manage />
-<Circular />
+      <Circular />
       <Footer />
     </div>
   );
