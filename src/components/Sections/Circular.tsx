@@ -13,6 +13,9 @@ const Circular = () => {
           <p className=" mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
           </p>
+          <p className="text-un">
+            Start now! <span className="text-2xl">👉</span>
+          </p>
         </div>
       </div>
     </div>
