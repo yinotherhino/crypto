@@ -48,6 +48,7 @@ svg{
   cursor: pointer;
   
 }
+
 @media only screen and (min-width:600px){
   .banner{
   background: url("./assets/tablet.jpg");

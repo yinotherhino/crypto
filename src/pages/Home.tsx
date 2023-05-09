@@ -8,6 +8,8 @@ import Icons from "../components/Icons";
 import Socials from "../components/Sections/Socials";
 import Footer from "../components/Sections/Footer";
 import Manage from "../components/Sections/Manage";
+import { RiH1 } from "react-icons/ri";
+import Circular from "../components/Sections/Circular";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -78,6 +80,7 @@ const Home = () => {
       <Socials />
 
       <Manage />
+<Circular />
       <Footer />
     </div>
   );

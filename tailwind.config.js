@@ -8,6 +8,7 @@ export default {
       },
       boxShadow: {
         "2sm": "0 2px 4px 0 #5C469C",
+        "allcorners": "rgba(0, 0, 0, 0.35) 20px 20px 20px"
       },
       hover: {
         normal: "transform: scale(1.05)",
