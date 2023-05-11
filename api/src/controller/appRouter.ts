@@ -1,7 +1,8 @@
 import express, { Express, Request, Response,NextFunction } from "express";
 import userController from "./User.controller"
 import adminController from "./Admin.controller"
-import { User } from "../model";
+import { UserRepository } from "../model";
+import { restrictTo } from "../others";
 
 
 const userRouter = express.Router();
@@ -12,7 +13,7 @@ const loginRouter = express.Router();
 
 loginRouter.post("/", async(req:Request,res:Response, next: NextFunction)=>{
     const {email, password} = req.body;
-    const user = await User.find({email: email}).select({email:1, password:1});
+    const user = await UserRepository.getByPKey(email);
     
     if (user && user.password === password) {
         res.status(200).send({
@@ -29,16 +30,18 @@ loginRouter.post("/", async(req:Request,res:Response, next: NextFunction)=>{
     }
 })
 
+userRouter.post("/", userController.create)
+userRouter.use(restrictTo("user"))
 userRouter.get("/:id", userController.getOne)
 userRouter.get("/", userController.getAll)
-userRouter.post("/", userController.create)
-userRouter.patch("/", userController.update)
+userRouter.patch("/:email", userController.update)
 userRouter.delete("/", userController.deleteOne)
 
+adminRouter.use(restrictTo("admin"))
 adminRouter.get("/:id", adminController.getOne)
 adminRouter.get("/", adminController.getAll)
 adminRouter.post("/", adminController.create)
-adminRouter.patch("/", adminController.update)
+adminRouter.patch("/:id", adminController.update)
 adminRouter.delete("/", adminController.deleteOne)
 
 indexRouter.get("/", (req:Request,res:Response)=>{
@@ -53,4 +56,10 @@ export default (app: Express) => {
   app.use("/admin", adminRouter);
   app.use("/premium", PremiumRouter);
   app.use("/", indexRouter);
+  app.use("*", (req: Request, res: Response) => {
+    res.status(404).send({
+      Message: "Not Found",
+      Code: "NOT_FOUND",
+    });
+  })
 };

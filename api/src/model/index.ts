@@ -1,2 +1,2 @@
 
-export {User} from "./User.model"
+export {UserRepository} from "./repository/User.repository"

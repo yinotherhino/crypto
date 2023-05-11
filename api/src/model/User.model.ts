@@ -1,11 +1,8 @@
-import mongoose from "mongoose";
+export interface UserModel {
+    email: string,
+    fullName: string, 
+    dob?: string, 
+    role?: string, 
+    password: string
+};
 
-const UserSchema = new mongoose.Schema({
-    email: String,
-    fullName:String, 
-    dob: String, 
-    role:String, 
-    password: String
-});
-
-export const User = mongoose.model('User', UserSchema);
