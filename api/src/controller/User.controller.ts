@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserRepository } from "../model";
-import { generatePassword } from "../others";
+import { generatePassword } from "../others";import {validatePassword} from "../others"
+import { generateSignature, generateToken } from "../others/utils";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -27,7 +28,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password, fullName, dob } = req.body;
     const hashedPwd = generatePassword(password);
     const user = await UserRepository.addOne(
-      { email, password: hashedPwd, fullName, dob },
+      { email, password: hashedPwd, fullName, dob, role:"user" },
       email
     );
     res.status(200).send({email:user.email, dob:user.dob, fullName:user.fullName, role:user.role});
@@ -35,6 +36,31 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     next(err)
   }
 };
+
+const loginController = async (req: Request, res: Response, next: NextFunction) => {
+  try{
+  const { email, password } = req.body;
+  const user = await UserRepository.getByPKey(email);
+
+  if (user && validatePassword(password, user.password)) {
+    res.status(200).send({
+      token: await generateSignature({ email: user.email, password: user.password, role:user.role }),
+      Message: "Login Success",
+      Code: "SUCCESS",
+      user: {
+        email: user.email,
+        fullName: user.fullName,
+        dob: user.dob,
+        role: user.role,
+      }
+    });
+  } else {
+    throw new Error("Login failed", {cause:"UNAUTHORIZED"});
+  }
+}catch(err:any){
+  next(err)
+}
+}
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -93,4 +119,5 @@ export default {
   create,
   update,
   deleteOne,
+  loginController
 } as const;

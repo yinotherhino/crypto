@@ -10,7 +10,7 @@ export interface IUser {
 declare global {
     namespace Express {
       interface Request {
-        userEmail?: string;
+        user: {[key:string]:any};
       }
     }
   }
