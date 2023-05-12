@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { UserRepository } from "../model";
-import { GeneratePassword } from "../others";
+import { generatePassword } from "../others";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -25,12 +25,12 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password, fullName, dob } = req.body;
-    const hashedPwd = GeneratePassword(password);
+    const hashedPwd = generatePassword(password);
     const user = await UserRepository.addOne(
       { email, password: hashedPwd, fullName, dob },
       email
     );
-    res.status(200).send(user);
+    res.status(200).send({email:user.email, dob:user.dob, fullName:user.fullName, role:user.role});
   } catch (err: any) {
     next(err)
   }

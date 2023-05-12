@@ -1,8 +1,10 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import userController from "./User.controller";
 import adminController from "./Admin.controller";
+import {validatePassword} from "../others"
 import { UserRepository } from "../model";
 import { restrictTo } from "../others";
+import { generateToken } from "../others/utils";
 
 const userRouter = express.Router();
 const adminRouter = express.Router();
@@ -13,21 +15,28 @@ const loginRouter = express.Router();
 loginRouter.post(
   "/",
   async (req: Request, res: Response, next: NextFunction) => {
+    try{
     const { email, password } = req.body;
     const user = await UserRepository.getByPKey(email);
 
-    if (user && user.password === password) {
+    if (user && validatePassword(password, user.password)) {
       res.status(200).send({
-        token: "",
+        token: generateToken({ email: user.email, password: user.password }),
         Message: "Login Success",
         Code: "SUCCESS",
+        user: {
+          email: user.email,
+          fullName: user.fullName,
+          dob: user.dob,
+          role: user.role,
+        }
       });
     } else {
-      res.status(403).send({
-        Message: "Login failed",
-        Code: "FAILURE",
-      });
+      throw new Error("Login failed", {cause:"UNAUTHORIZED"});
     }
+  }catch(err:any){
+    next(err)
+  }
   }
 );
 

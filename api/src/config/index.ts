@@ -1,1 +1,3 @@
-export {connectDb} from "./connectdb"
+import ENV from "./ENV";
+
+export {ENV};
