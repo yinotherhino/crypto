@@ -1,12 +1,13 @@
 import fs from "fs/promises";
 import {existsSync} from "fs"
+import { dirname } from "path";
 
 export default class Repository<T> {
   private fullpath: string;
   private name: string;
   private pkey: string;
   constructor(path:string, pkey:string) {
-    this.fullpath = `../db/${path}`;
+    this.fullpath = `${dirname("..")}/db/${path}`;
     this.name = path;
     this.pkey = pkey;
     if(!existsSync(this.fullpath)) {
@@ -50,7 +51,7 @@ export default class Repository<T> {
       throw new Error(`${this.name} already exists`,{cause:"DUPLICATE"});
     }
     fs.writeFile(`${this.fullpath}/${pkey}.json`, JSON.stringify(obj));
-    return {} as T;
+    return obj;
   }
 
   public async deleteOne(pkey:string) {

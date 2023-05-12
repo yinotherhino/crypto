@@ -12,21 +12,28 @@ export const verifySignature = async (signature: string) => {
   return jwt.verify(signature, ENV.secret);
 };
 
+const iv = crypto.randomBytes(16);
+const key = crypto.randomBytes(32);
+const algo = "aes-256-cbc";
+
 export const GeneratePassword = (password: string) => {
-  return crypto.createCipheriv("sha256", ENV.secret, "1234")
-    .update(password,"utf-8", "hex")
+  let cipher = crypto.createCipheriv(algo, Buffer.from(key), iv);
+  let encrypted = cipher.update(password);
+  encrypted = Buffer.concat([encrypted, cipher.final()]);
+  return encrypted.toString("hex");
 };
 
 export const DecipherPassword = (password: string) => {
-    let decipher = crypto.createDecipheriv("sha256", ENV.secret, "1234")
-    let pword = decipher.update(password, "hex", "utf-8")
-    pword += decipher.final("utf8");
-    return password;
-}
+  let encryptedPassword = Buffer.from(password, "hex");
+  let decipher = crypto.createDecipheriv(algo, Buffer.from(key), Buffer.from(iv.toString("hex"), "hex"));
+  let decryptedPword = decipher.update(encryptedPassword);
+  decryptedPword = Buffer.concat([decryptedPword, decipher.final()]);
+  return decryptedPword.toString();
+};
 
 export const validatePassword = async (
   enteredPassword: string,
-  savedPassword: string,
+  savedPassword: string
 ) => {
   return GeneratePassword(enteredPassword) === savedPassword;
 };

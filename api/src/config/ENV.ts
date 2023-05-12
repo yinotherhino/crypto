@@ -4,5 +4,5 @@ config();
 
 export default {
     URI: process.env.URI!,
-    secret: process.env.SECRET!,
+    secret: process.env.SECRET! || "secret",
 }

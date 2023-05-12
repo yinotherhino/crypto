@@ -21,6 +21,7 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
     });
   }
 };
+
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password, fullName, dob } = req.body;
@@ -29,22 +30,12 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       { email, password: hashedPwd, fullName, dob },
       email
     );
-    res.status(200).send({
-      email: user.email,
-      fullName: user.fullName,
-      dob: user.dob,
-      role: user.role,
-    });
+    res.status(200).send(user);
   } catch (err: any) {
-    let status = 500;
-    if (err.cause === "DUPLICATE") {
-      status = 409;
-    }
-    res.status(status).send({
-      Message: err.message,
-    });
+    next(err)
   }
 };
+
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const email = req.params.email;
@@ -62,13 +53,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
       role: user.role,
     });
   } catch (err: any) {
-    let status = 500;
-    if (err.cause === "NOT_FOUND") {
-      status = 404;
-    }
-    res.status(status).send({
-      Message: err.message,
-    });
+    next(err)
   }
 };
 
@@ -81,13 +66,7 @@ const deleteOne = async (req: Request, res: Response, next: NextFunction) => {
       email: req.params.email,
     });
   } catch (err: any) {
-    let status = 500;
-    if (err.cause === "NOT_FOUND") {
-      status = 404;
-    }
-    res.status(status).send({
-      Message: err.message,
-    });
+    next(err)
   }
 };
 
@@ -104,9 +83,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
     });
     res.status(200).send(userOmitPwd);
   } catch (err: any) {
-    res.status(500).send({
-      Message: err.message,
-    });
+    next(err)
   }
 };
 
