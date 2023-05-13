@@ -1,7 +1,7 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import Cards from "../components/Cards/Cards";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
-import { changeAuth } from "../redux/slices/NavbarSlice";
+import { changeAuth, changeToast } from "../redux/slices/NavbarSlice";
 import { useDispatch } from "react-redux";
 import Button from "../components/Button/Button";
 import Icons from "../components/Icons";
@@ -10,9 +10,13 @@ import Footer from "../components/Sections/Footer";
 import Manage from "../components/Sections/Manage";
 import { RiH1 } from "react-icons/ri";
 import Circular from "../components/Sections/Circular";
+import Toast from "../components/Toast";
 
 const Home = () => {
   const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(changeToast({open:true,message:"Welcome to the home page",variant:"success"}));
+  },[])
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
@@ -20,13 +24,17 @@ const Home = () => {
     dispatch(changeAuth("login"));
   };
   return (
-    <div>
-      <div className="banner mb-[50px] xsm:mb-[100px]"></div>
+    <div className="flex flex-col justify-center">
+      <Toast />
+
+      <div className="banner mb-[50px] flex items-center justify-center xsm:mb-[100px]">
+
       <Button.Centered
         text="Start here!"
         Icon={Icons.BsArrowRightCircle}
         handleClick={showAuthModal}
-      />
+        />
+        </div>
       <div className="mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
         <Cards />

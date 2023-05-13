@@ -2,11 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { DropTypes } from "../../components/Navbar/Navbar";
 
+export interface IToast {
+  message: string | null;
+  variant?: "success" | "error" | "warning";
+  open: boolean;
+}
+
+export interface IUser {
+  email: string | null;
+  token: string | null;
+  role: "user" | "admin" | "premium" | "guest";
+  fullName: string | null;
+  dob?: string;
+}
 export interface NavbarState {
   showHamburger: boolean;
   showLinkDrop: boolean;
+  showToast: IToast;
   dropType: DropTypes | null;
   showAuth: "login" | "register" | null;
+  user: IUser;
 }
 
 const initialState: NavbarState = {
@@ -14,6 +29,8 @@ const initialState: NavbarState = {
   showLinkDrop: false,
   dropType: null,
   showAuth: null,
+  showToast: { message: null, variant: "warning", open: false },
+  user: { email: null, token: null, role: "guest", fullName: null, dob: "" },
 };
 
 export const navbarSlice = createSlice({
@@ -40,10 +57,22 @@ export const navbarSlice = createSlice({
     changeAuth: (state, action: PayloadAction<"login" | "register" | null>) => {
       state.showAuth = action.payload;
     },
+    changeToast: (state, action: PayloadAction<IToast>) => {
+      state.showToast = action.payload;
+    },
+    changeUser: (state, action: PayloadAction<IUser>) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { changeHamburger, changeLinkDrop, changeDropType, changeAuth } =
-  navbarSlice.actions;
+export const {
+  changeHamburger,
+  changeLinkDrop,
+  changeDropType,
+  changeAuth,
+  changeToast,
+  changeUser,
+} = navbarSlice.actions;
 
 export default navbarSlice.reducer;

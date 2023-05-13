@@ -16,7 +16,7 @@ const Circular = () => {
             them
           </h1>
           <p className=" mb-3">Trade with us today and make a lot</p>
-          <p onClick={() => showAuthModal()}>
+          <p className=" cursor-pointer " onClick={() => showAuthModal()}>
             <span className="underline">Start now!</span>{" "}
             <span className="text-2xl">👉</span>
           </p>

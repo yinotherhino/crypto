@@ -35,7 +35,7 @@ const Navbar = () => {
     const handleScroll= ()=> {
       const distance = window.scrollY;
       const threshold = 100;
-      const newOpacity = Math.max(0.5, 1 - (distance - threshold) / (threshold*4));
+      const newOpacity = Math.max(0, 1 - (distance - threshold) / (threshold*8));
       setOpacity(newOpacity);
     }
 
@@ -49,7 +49,7 @@ const Navbar = () => {
   
 
   return (
-    <nav className="fixed z-50 w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"  style={{ opacity }} >
+    <nav className="fixed z-20 w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"  style={{ opacity }} >
       <div className=" px-7 xsm:px-0 flex justify-between items-center ">
         <Logo />
         <MobileHamburger />

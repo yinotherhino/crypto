@@ -8,7 +8,7 @@
 * {
   box-sizing: border-box;
   font-family: "Montserrat", sans-serif;
-  transition: all 0.5s ease-in-out;
+  /* transition: all 0.5s ease-in-out; */
 }
 
 body{
@@ -39,6 +39,23 @@ a{
 .hidden{
   transition: display 0.5s ease-in-out;
 }
+
+@keyframes example {
+  from {top: 0px; display: block;}
+  to {top: 50px; display: none;}
+}
+
+.toast {
+  display:block;
+  top: 0px;
+  right: 200px;
+  position: absolute;
+  animation-name: example;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+  transition: display 0.5s ease-in-out;
+}
+
 @layer utilities {
   .icon-social{
     @apply text-[50px] hover:text-primary cursor-pointer w-1/4 xsm:w-auto inline-block mb-5 mr-3;
