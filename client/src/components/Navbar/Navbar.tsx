@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Icons from "../Icons";
-import { Link } from "react-router-dom";
-import List from "../List";
-import useViewportWidth from "../../hooks/useViewPortWidth";
 import Button from "../Button/Button";
 import NavItem from "./NavItem";
 import MobileHamburger from "./MobileHamburger";
@@ -35,7 +31,7 @@ const Navbar = () => {
     const handleScroll= ()=> {
       const distance = window.scrollY;
       const threshold = 100;
-      const newOpacity = Math.max(0, 1 - (distance - threshold) / (threshold*8));
+      const newOpacity = Math.max(0, 1 - (distance - threshold) / (threshold*5));
       setOpacity(newOpacity);
     }
 

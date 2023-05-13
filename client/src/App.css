@@ -41,15 +41,13 @@ a{
 }
 
 @keyframes example {
-  from {top: 0px; display: block;}
-  to {top: 50px; display: none;}
+  from {top: 0px;}
+  to {top: 50px;}
 }
 
 .toast {
-  display:block;
   top: 0px;
   right: 200px;
-  position: absolute;
   animation-name: example;
   animation-duration: 6s;
   animation-fill-mode: forwards;

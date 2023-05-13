@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserRepository } from "../model";
-import { generatePassword } from "../others";import {validatePassword} from "../others"
+import { generatePassword } from "../others";
+import { validatePassword } from "../others";
 import { generateSignature, generateToken } from "../others/utils";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
@@ -28,39 +29,54 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password, fullName, dob } = req.body;
     const hashedPwd = generatePassword(password);
     const user = await UserRepository.addOne(
-      { email, password: hashedPwd, fullName, dob, role:"user" },
+      { email, password: hashedPwd, fullName, dob, role: "user" },
       email
     );
-    res.status(200).send({email:user.email, dob:user.dob, fullName:user.fullName, role:user.role});
+    res
+      .status(200)
+      .send({
+        email: user.email,
+        dob: user.dob,
+        fullName: user.fullName,
+        role: user.role,
+      });
   } catch (err: any) {
-    next(err)
+    next(err);
   }
 };
 
-const loginController = async (req: Request, res: Response, next: NextFunction) => {
-  try{
-  const { email, password } = req.body;
-  const user = await UserRepository.getByPKey(email);
+const loginController = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email, password } = req.body;
+    const user = await UserRepository.getByPKey(email);
 
-  if (user && validatePassword(password, user.password)) {
-    res.status(200).send({
-      token: await generateSignature({ email: user.email, password: user.password, role:user.role }),
-      Message: "Login Success",
-      Code: "SUCCESS",
-      user: {
-        email: user.email,
-        fullName: user.fullName,
-        dob: user.dob,
-        role: user.role,
-      }
-    });
-  } else {
-    throw new Error("Login failed", {cause:"UNAUTHORIZED"});
+    if (user && validatePassword(password, user.password)) {
+      res.status(200).send({
+        token: await generateSignature({
+          email: user.email,
+          password: user.password,
+          role: user.role,
+        }),
+        Message: "Login Success",
+        Code: "SUCCESS",
+        user: {
+          email: user.email,
+          fullName: user.fullName,
+          dob: user.dob,
+          role: user.role,
+        },
+      });
+    } else {
+      throw new Error("Login failed", { cause: "UNAUTHORIZED" });
+    }
+  } catch (err: any) {
+    next(err);
   }
-}catch(err:any){
-  next(err)
-}
-}
+};
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -79,7 +95,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
       role: user.role,
     });
   } catch (err: any) {
-    next(err)
+    next(err);
   }
 };
 
@@ -92,7 +108,7 @@ const deleteOne = async (req: Request, res: Response, next: NextFunction) => {
       email: req.params.email,
     });
   } catch (err: any) {
-    next(err)
+    next(err);
   }
 };
 
@@ -109,7 +125,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
     });
     res.status(200).send(userOmitPwd);
   } catch (err: any) {
-    next(err)
+    next(err);
   }
 };
 
@@ -119,5 +135,5 @@ export default {
   create,
   update,
   deleteOne,
-  loginController
+  loginController,
 } as const;

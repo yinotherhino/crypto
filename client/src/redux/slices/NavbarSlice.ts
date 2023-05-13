@@ -5,13 +5,13 @@ import { DropTypes } from "../../components/Navbar/Navbar";
 export interface IToast {
   message: string | null;
   variant?: "success" | "error" | "warning";
-  open: boolean;
 }
+type Role = "user" | "admin" | "premium" | "guest";
 
 export interface IUser {
   email: string | null;
   token: string | null;
-  role: "user" | "admin" | "premium" | "guest";
+  role: Role;
   fullName: string | null;
   dob?: string;
 }
@@ -19,9 +19,11 @@ export interface NavbarState {
   showHamburger: boolean;
   showLinkDrop: boolean;
   showToast: IToast;
+  isToastOpen: boolean;
   dropType: DropTypes | null;
   showAuth: "login" | "register" | null;
   user: IUser;
+  role: Role;
 }
 
 const initialState: NavbarState = {
@@ -29,8 +31,10 @@ const initialState: NavbarState = {
   showLinkDrop: false,
   dropType: null,
   showAuth: null,
-  showToast: { message: null, variant: "warning", open: false },
+  showToast: { message: null, variant: "warning" },
+  isToastOpen: false,
   user: { email: null, token: null, role: "guest", fullName: null, dob: "" },
+  role: "guest",
 };
 
 export const navbarSlice = createSlice({
@@ -58,10 +62,15 @@ export const navbarSlice = createSlice({
       state.showAuth = action.payload;
     },
     changeToast: (state, action: PayloadAction<IToast>) => {
+      state.isToastOpen = true;
       state.showToast = action.payload;
+    },
+    hideToast: (state) => {
+      state.isToastOpen = false;
     },
     changeUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
+      state.role = action.payload.role;
     },
   },
 });
@@ -73,6 +82,7 @@ export const {
   changeAuth,
   changeToast,
   changeUser,
+  hideToast,
 } = navbarSlice.actions;
 
 export default navbarSlice.reducer;

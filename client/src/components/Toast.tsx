@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { IToast, changeToast } from "../redux/slices/NavbarSlice";
+import { IToast, changeToast, hideToast } from "../redux/slices/NavbarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
@@ -8,9 +8,15 @@ interface IProps {
 }
 const Toast = ({ extraStyle }: IProps) => {
   const dispatch = useDispatch();
-  const isOpen = useSelector((state: RootState) => state.navbar.showToast.open);
-  const message = useSelector((state: RootState) => state.navbar.showToast.message);
-  const variant = useSelector((state: RootState) => state.navbar.showToast.variant);
+  const isToastOpen = useSelector(
+    (state: RootState) => state.navbar.isToastOpen
+  );
+  const message = useSelector(
+    (state: RootState) => state.navbar.showToast.message
+  );
+  const variant = useSelector(
+    (state: RootState) => state.navbar.showToast.variant
+  );
 
   const variantColor =
     variant == "success"
@@ -18,16 +24,16 @@ const Toast = ({ extraStyle }: IProps) => {
       : variant == "error"
       ? "bg-[#E76161]"
       : "bg-[#F79540]";
-  const style = `z-50 block w-[200px] px-[20px] py-[10px] ${variantColor} border border-gray-400 text-white px-4 py-3 rounded ${extraStyle}`;
+  const style = `absolute font-lato toast z-50 block w-[200px] px-[20px] py-[10px] ${variantColor} border border-gray-400 text-white px-4 py-3 rounded ${extraStyle}`;
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const toast: IToast = { open: false, message: null, variant: "warning" };
-      dispatch(changeToast(toast));
-    }, 3000);
+      dispatch(hideToast());
+    }, 2000);
     return () => clearTimeout(timeout);
-  }, []);
-  return <>{isOpen && <div className={style + " toast"}>{message}</div>}</>;
+  });
+  if(!isToastOpen) return (<></>)
+  return <>{isToastOpen && <div className={style}>{message}</div>}</>;
 };
 
 export default Toast;

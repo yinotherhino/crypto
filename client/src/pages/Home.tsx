@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards/Cards";
 import { motion, useTransform, useViewportScroll } from "framer-motion";
 import { changeAuth, changeToast } from "../redux/slices/NavbarSlice";
@@ -14,9 +14,15 @@ import Toast from "../components/Toast";
 
 const Home = () => {
   const dispatch = useDispatch();
-  useEffect(()=>{
-    dispatch(changeToast({open:true,message:"Welcome to the home page",variant:"success"}));
-  },[])
+  // useEffect(() => {
+  //   dispatch(
+  //     changeToast({
+  //       open: true,
+  //       message: "Welcome to the home page",
+  //       variant: "success",
+  //     })
+  //   );
+  // }, []);
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
@@ -25,16 +31,13 @@ const Home = () => {
   };
   return (
     <div className="flex flex-col justify-center">
-      <Toast />
-
       <div className="banner mb-[50px] flex items-center justify-center xsm:mb-[100px]">
-
-      <Button.Centered
-        text="Start here!"
-        Icon={Icons.BsArrowRightCircle}
-        handleClick={showAuthModal}
+        <Button.Centered
+          text="Start here!"
+          Icon={Icons.BsArrowRightCircle}
+          handleClick={showAuthModal}
         />
-        </div>
+      </div>
       <div className="mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
         <Cards />

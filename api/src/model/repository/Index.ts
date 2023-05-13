@@ -22,7 +22,7 @@ export default class Repository<T> {
   public async getByPKey(pkeyValue:string): Promise<T> {
     const exists = this.checkExists(pkeyValue);
     if(!exists){
-      throw new Error(`${this.name} not found`);
+      throw new Error(`${this.name} not found`, {cause:"NOT_FOUND"});
     }
     const resJSON =  await fs.readFile(`${this.fullpath}/${pkeyValue}.json`, "utf-8");
     return JSON.parse(resJSON) as T;  

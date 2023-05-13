@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../Input";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import {
   IToast,
   changeAuth,
@@ -20,12 +20,17 @@ const LoginForm = () => {
     password: "",
   });
   const login = () => {
-    const toast: IToast = {
-      open: true,
-      message: `Please fill your ${!formData.email ? "email" : "password"}`,
-      variant: "warning",
-    };
-    if (!formData.email || !formData.password) {
+    const notFilled: string | undefined = !formData.email
+      ? "email"
+      : !formData.password
+      ? "password"
+      : undefined;
+    if (notFilled) {
+      console.log(notFilled);
+      const toast: IToast = {
+        message: `Please fill your ${notFilled} `,
+        variant: "warning",
+      };
       dispatch(changeToast(toast));
       return;
     }
@@ -35,25 +40,28 @@ const LoginForm = () => {
       .post("/login", formData)
       .then((res) => {
         console.log(res);
-        const { user:{email,role,fullName,dob}, token} = res.data;
-        dispatch(changeUser({ email, token, role, fullName,dob}))
+        const {
+          user: { email, role, fullName, dob },
+          token,
+        } = res.data;
+        dispatch(changeUser({ email, token, role, fullName, dob }));
         navigate("/");
-        setIsDisabled(false);
       })
       .catch((err) => {
         console.log(err);
         const toast: IToast = {
-          open: true,
-          message: err.response.data.message,
+          message: err.response.data.Message,
           variant: "error",
         };
         dispatch(changeToast(toast));
-      });
+      })
+      .finally(() => setIsDisabled(false));
   };
   const handleChange = (name: string, value: any) =>
     setFormData((prev) => ({ ...prev, [name]: value }));
   return (
     <form>
+      <h1 className="text-2xl font-roboto mb-3">Login</h1>
       <Input.Text
         placeholder="email"
         name="email"

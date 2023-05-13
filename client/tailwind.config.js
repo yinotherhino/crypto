@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         lato: ["Lato", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       boxShadow: {
         "2sm": "0 2px 4px 0 #5C469C",
