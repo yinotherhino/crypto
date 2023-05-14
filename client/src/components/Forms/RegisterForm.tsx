@@ -6,7 +6,9 @@ import {
   IToast,
   changeAuth,
   changeToast,
+  handleServerError,
 } from "../../redux/slices/NavbarSlice";
+import { client } from "../../constants";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -21,38 +23,64 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
+
   const register = () => {
     console.log(formData);
     let notFilled: string | undefined = !formData.email
-    ? "Email"
-    : !formData.firstName
-    ? "Firstname"
-    : !formData.lastName
-    ? "Lastname"
-    : !formData.phone
-    ? "Phone"
-    : !formData.country
-    ? "Country"
-    : !formData.password
-    ? "Password"
-    : undefined;
-    
-    if (notFilled !== undefined) {
+      ? "Email"
+      : !formData.firstName
+      ? "Firstname"
+      : !formData.lastName
+      ? "Lastname"
+      : !formData.phone
+      ? "Phone"
+      : !formData.country
+      ? "Country"
+      : !formData.password
+      ? "Password"
+      : undefined;
+
+    if (notFilled) {
       const toast: IToast = {
-        message: `Please fill your ${
-          notFilled
-        }`,
+        message: `Please fill your ${notFilled}`,
+        variant: "warning",
+      };
+      changeToast(toast);
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      const toast: IToast = {
+        message: "Password and Confirm Password do not match",
         variant: "warning",
       };
       changeToast(toast);
       return;
     }
     setIsDisabled(true);
+    client
+      .post("/users", formData)
+      .then((res) => {
+        console.log(res)
+        const toast: IToast = {
+          message: res.data.Message,
+          variant: "success",
+          time: 10000
+        };
+        dispatch(changeToast(toast));
+        dispatch(changeAuth(null));
+      })
+      .catch((err) => {
+        dispatch(handleServerError(err))
+      })
+      .finally(() => {
+        setIsDisabled(false);
+      });
   };
+
   const handleChange = (name: string, value: any) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-  
+  };
+
   return (
     <form>
       <h1 className="text-2xl font-roboto mb-3">Sign up</h1>
@@ -67,6 +95,12 @@ const RegisterForm = () => {
         placeholder="Last Name"
         name="lastName"
         value={formData.lastName}
+        onChange={handleChange}
+      />
+      <Input.Text
+        placeholder="Gender"
+        name="gender"
+        value={formData.gender}
         onChange={handleChange}
       />
       <Input.Text

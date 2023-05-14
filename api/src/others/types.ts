@@ -3,8 +3,9 @@ export interface IUser {
     email: string;
     fullName: string;
     dob: string;
-    role: "user" | "admin" | "premium", 
-    password?:string
+    role: "user" | "admin" | "premium";
+    password?:string;
+    gender?:string;
 }
 
 declare global {

@@ -2,16 +2,19 @@ import { Request, Response, NextFunction } from "express";
 import { UserRepository } from "../model";
 import { generatePassword } from "../others";
 import { validatePassword } from "../others";
-import { generateSignature, generateToken } from "../others/utils";
+import { generateSignature } from "../others/utils";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await UserRepository.getByPKey(req.params.email);
     res.status(200).send({
       email: user.email,
-      fullName: user.fullName,
-      dob: user.dob,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      country: user.country,
+      phone: user.phone,
       role: user.role,
+      gender: user.gender,
     });
   } catch (err: any) {
     let status = 500;
@@ -26,20 +29,35 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password, fullName, dob } = req.body;
+    const { email, password, firstName, lastName, country, phone, gender } =
+      req.body;
     const hashedPwd = generatePassword(password);
     const user = await UserRepository.addOne(
-      { email, password: hashedPwd, fullName, dob, role: "user" },
+      {
+        email,
+        password: hashedPwd,
+        firstName,
+        lastName,
+        country,
+        gender,
+        phone,
+        role: "user",
+      },
       email
     );
-    res
-      .status(200)
-      .send({
-        email: user.email,
-        dob: user.dob,
-        fullName: user.fullName,
+    res.status(200).send({
+      User: {
+        firstName,
+        lastName,
+        country,
+        phone,
+        email,
+        gender,
         role: user.role,
-      });
+      },
+      Message: "Check your email to verify your account",
+      Code: "SUCCESS",
+    });
   } catch (err: any) {
     next(err);
   }
@@ -65,8 +83,11 @@ const loginController = async (
         Code: "SUCCESS",
         user: {
           email: user.email,
-          fullName: user.fullName,
-          dob: user.dob,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          country: user.country,
+          phone: user.phone,
+          gender: user.gender,
           role: user.role,
         },
       });
@@ -89,10 +110,17 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
     }
     const user = await UserRepository.updateOne(req.body, email);
     res.status(200).send({
-      email: user.email,
-      fullName: user.fullName,
-      dob: user.dob,
-      role: user.role,
+      user: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: user.gender,
+        country: user.country,
+        phone: user.phone,
+        role: user.role,
+      },
+      Message: "Profile updated",
+      Code: "SUCCESS",
     });
   } catch (err: any) {
     next(err);
@@ -118,8 +146,11 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
     const userOmitPwd = users.map((user) => {
       return {
         email: user.email,
-        fullName: user.fullName,
-        dob: user.dob,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: user.gender,
+        country: user.country,
+        phone: user.phone,
         role: user.role,
       };
     });

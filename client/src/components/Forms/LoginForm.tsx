@@ -8,6 +8,7 @@ import {
   changeAuth,
   changeToast,
   changeUser,
+  handleServerError,
 } from "../../redux/slices/NavbarSlice";
 import { client } from "../../constants";
 
@@ -48,12 +49,7 @@ const LoginForm = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
-        const toast: IToast = {
-          message: err.response.data.Message,
-          variant: "error",
-        };
-        dispatch(changeToast(toast));
+        dispatch(handleServerError(err))
       })
       .finally(() => setIsDisabled(false));
   };

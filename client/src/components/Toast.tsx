@@ -14,6 +14,7 @@ const Toast = ({ extraStyle }: IProps) => {
   const message = useSelector(
     (state: RootState) => state.navbar.showToast.message
   );
+  const time = useSelector((state: RootState) => state.navbar.showToast.time);
   const variant = useSelector(
     (state: RootState) => state.navbar.showToast.variant
   );
@@ -29,7 +30,7 @@ const Toast = ({ extraStyle }: IProps) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       dispatch(hideToast());
-    }, 2000);
+    }, time || 2000);
     return () => clearTimeout(timeout);
   });
   if(!isToastOpen) return (<></>)

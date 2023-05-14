@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { DropTypes } from "../../components/Navbar/Navbar";
+import { AxiosError } from "axios";
 
 export interface IToast {
   message: string | null;
   variant?: "success" | "error" | "warning";
+  time?: number;
 }
 type Role = "user" | "admin" | "premium" | "guest";
 
@@ -63,14 +65,26 @@ export const navbarSlice = createSlice({
     },
     changeToast: (state, action: PayloadAction<IToast>) => {
       state.isToastOpen = true;
-      state.showToast = action.payload;
+      state.showToast = {time:undefined, ...action.payload};
     },
     hideToast: (state) => {
       state.isToastOpen = false;
     },
     changeUser: (state, action: PayloadAction<IUser>) => {
       state.user = action.payload;
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem("token", action.payload.token || "");
       state.role = action.payload.role;
+    },
+    handleServerError: (state, action: PayloadAction<any>) => {
+      console.log(action.payload);
+      if(action.payload && action.payload instanceof AxiosError){
+        state.showToast =
+          action.payload.code === "ERR_NETWORK"
+            ? { message: "Network Error", variant: "error" }
+            : { message: action.payload.response?.data.Message, variant: "error" };
+      }
+      state.isToastOpen = true;
     },
   },
 });
@@ -83,6 +97,7 @@ export const {
   changeToast,
   changeUser,
   hideToast,
+  handleServerError
 } = navbarSlice.actions;
 
 export default navbarSlice.reducer;
