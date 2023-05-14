@@ -37,8 +37,8 @@ indexRouter.get("/", (req: Request, res: Response) => {
 export default (app: Express) => {
   app.use("/users", userRouter);
   app.use("/login", loginRouter);
-  app.use("/admin", adminRouter);
-  app.use("/premium", PremiumRouter);
+  app.use("/admins", adminRouter);
+  app.use("/premiums", PremiumRouter);
   app.use("/", indexRouter);
   app.use("*", (req: Request, res: Response) => {
     res.status(404).send({
@@ -61,6 +61,9 @@ export default (app: Express) => {
       case "UNAUTHORIZED":
         status = 403;
         break;
+      case "BAD_REQUEST":
+          status = 400;
+          break;
       default:
         status = 500;
         message = "an error occured.";

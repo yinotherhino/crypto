@@ -16,36 +16,40 @@ const iv = Buffer.from("kshjdgsjak109827");
 const key = Buffer.from("dhgvbsanuyt87636hjdgdfsfdsadf23d");
 const algo = "aes-256-cbc";
 
-const decrypt  = (text: string, personalIv?:string)=>{
+const decrypt = (text: string, personalIv?: string) => {
   let encrypted = Buffer.from(text, "hex");
-  let decipher = crypto.createDecipheriv(algo, Buffer.from(key), personalIv || iv);
+  let decipher = crypto.createDecipheriv(
+    algo,
+    Buffer.from(key),
+    personalIv || iv
+  );
   let decrypted = decipher.update(encrypted);
   decrypted = Buffer.concat([decrypted, decipher.final()]);
   return decrypted.toString();
-}
+};
 
-const encrypt = (text: string)=>{
+const encrypt = (text: string) => {
   let cipher = crypto.createCipheriv(algo, Buffer.from(key), iv);
   let encrypted = cipher.update(text);
   encrypted = Buffer.concat([encrypted, cipher.final()]);
-  return encrypted.toString("hex")
-}
+  return encrypted.toString("hex");
+};
 
 export const generatePassword = (password: string) => {
   const encrypted = encrypt(password);
   return encrypted;
 };
 
-export const generateToken = (payload: {email:string,password:string}) => {
-  return encrypt(JSON.stringify(payload))
-}
+export const generateToken = (payload: { email: string; password: string }) => {
+  return encrypt(JSON.stringify(payload));
+};
 
-export const decryptToken = (token:string) => {
-  return decrypt(token)
-}
+export const decryptToken = (token: string) => {
+  return decrypt(token);
+};
 
 export const decipherPassword = (password: string) => {
-  return decrypt(password)  
+  return decrypt(password);
 };
 
 export const validatePassword = (
@@ -53,4 +57,22 @@ export const validatePassword = (
   savedPassword: string
 ) => {
   return enteredPassword === decipherPassword(savedPassword);
+};
+
+export const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000);
+};
+
+export const validator = (obj: any, typeMap: { [key: string]: string }, requireMap: {[key:string]:boolean}) => {
+  const typedKeys = Object.keys(typeMap);
+  const requiredKeys = Object.keys(requireMap);
+  const errors = [];
+  for (const key in typedKeys) {
+    typeof obj[key] !== typeMap[key] &&
+      errors.push(`Invalid ${key} type, expected ${typeMap[key]}`);
+  }
+  for(const key in requiredKeys){
+    !obj[key] && errors.push(`${key} is required`)
+  }
+  return errors;
 };

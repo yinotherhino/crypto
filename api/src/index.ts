@@ -4,7 +4,7 @@ import cors from "cors";
 import route from "./controller/appRouter"
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors({origin:"*",allowedHeaders:"*"}));

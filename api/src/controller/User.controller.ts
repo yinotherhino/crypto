@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { UserRepository } from "../model";
+import { AdminRepository, UserRepository } from "../model";
 import { generatePassword } from "../others";
 import { validatePassword } from "../others";
 import { generateSignature } from "../others/utils";
@@ -69,20 +69,33 @@ const loginController = async (
   next: NextFunction
 ) => {
   try {
+    const role = req.query.role;
     const { email, password } = req.body;
-    const user = await UserRepository.getByPKey(email);
+    if (!email || !password) {
+      throw new Error("Email and password are required", {
+        cause: "BAD_REQUEST",
+      });
+    }
+    let user: any;
+    switch (role) {
+      case "admin":
+        user = await AdminRepository.getByPKey(email);
+        break;
+      default:
+        user = await UserRepository.getByPKey(email);
+    }
 
     if (user && validatePassword(password, user.password)) {
       res.status(200).send({
         token: await generateSignature({
-          email: user.email,
+          email: user.email || user.username,
           password: user.password,
           role: user.role,
         }),
         Message: "Login Success",
         Code: "SUCCESS",
         user: {
-          email: user.email,
+          email: user.email || user.username,
           firstName: user.firstName,
           lastName: user.lastName,
           country: user.country,
