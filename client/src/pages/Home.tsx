@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards/Cards";
-import { motion, useTransform, useViewportScroll } from "framer-motion";
-import { changeAuth, changeToast } from "../redux/slices/NavbarSlice";
-import { useDispatch } from "react-redux";
+import { changeAuth } from "../redux/slices/NavbarSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button/Button";
 import Icons from "../components/Icons";
 import Socials from "../components/Sections/Socials";
 import Footer from "../components/Sections/Footer";
 import Manage from "../components/Sections/Manage";
-import { RiH1 } from "react-icons/ri";
 import Circular from "../components/Sections/Circular";
-import Toast from "../components/Toast";
+import { RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(
-  //     changeToast({
-  //       open: true,
-  //       message: "Welcome to the home page",
-  //       variant: "success",
-  //     })
-  //   );
-  // }, []);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(isLoggedIn){
+      navigate("/dashboard")
+    }
+  })
+  
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };

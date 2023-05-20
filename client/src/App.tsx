@@ -5,8 +5,10 @@ import Layout from "./components/Layout";
 import About from "./pages/About";
 import Platform from "./pages/Platform";
 import Trading from "./pages/Trading";
+import { useEffect } from "react";
 
 function App() {
+  
   return (
     <>
       <Router>

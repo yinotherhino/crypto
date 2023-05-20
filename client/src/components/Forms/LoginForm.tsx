@@ -7,9 +7,9 @@ import {
   IToast,
   changeAuth,
   changeToast,
-  changeUser,
   handleServerError,
 } from "../../redux/slices/NavbarSlice";
+import {changeUser} from "../../redux/slices/AuthSlice"
 import { client } from "../../constants";
 
 const LoginForm = () => {

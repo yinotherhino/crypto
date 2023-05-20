@@ -67,4 +67,18 @@ const Centered = ({
   );
 };
 
-export default { Auth, Primary, Centered } as const;
+const Round = ({
+  handleClick,
+  text,
+  extraStyle,
+}: {
+  handleClick: Function;
+  text: string;
+  extraStyle?:string;
+})=>{
+  return <button className={"w-[40px] hover:bg-gray-700 h-[40px] rounded-[100px] text-white text-2xl border-1 bg-deep hover:border-primary"+extraStyle} onClick={()=>handleClick}>
+    {text}
+  </button>
+}
+
+export default { Auth, Primary, Centered, Round } as const;
