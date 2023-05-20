@@ -51,7 +51,10 @@ const LoginForm = () => {
       .catch((err) => {
         dispatch(handleServerError(err))
       })
-      .finally(() => setIsDisabled(false));
+      .finally(() => {
+        setIsDisabled(false);
+        dispatch(changeAuth(null))
+      });
   };
   const handleChange = (name: string, value: any) =>
     setFormData((prev) => ({ ...prev, [name]: value }));

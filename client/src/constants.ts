@@ -8,3 +8,7 @@ export const client = axios.create({
         "Authorization": `Bearer ${localStorage.getItem("token")}`
     }
 })
+
+export const ETH_WALLETS = ["123RESAASDFHEWQYUI"]
+export const BTC_WALLETS = ["SDHJBSAHGWEQTYUI8E7Y"]
+export const SOL_WALLETS = ["WESDJHXBVSGFAWQTY8"]

@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeAuth } from "../../redux/slices/NavbarSlice";
 import { RootState } from "../../redux/store";
 import ProfileIcon from "../ProfileIcon";
+import { Link } from "react-router-dom";
 
 export type DropTypes =
   | "trading"
@@ -14,7 +15,8 @@ export type DropTypes =
   | "products"
   | "legal"
   | "about"
-  | "register";
+  | "register"
+  | "deposit";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -68,70 +70,86 @@ const Navbar = () => {
               {isLoggedIn && <ProfileIcon className=" xsm:hidden" />}
             </div>
           </div>
-          <div className="flex items-center">
-            <div className="bg-white py-0 xsm:bg-slate-300 xsm:py-0">
-              <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
+          {/* <div className="flex items-center"> */}
+          <div className="bg-white py-0 xsm:bg-slate-300 xsm:py-0">
+            <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
+              <NavItem
+                text="TRADING"
+                type="trading"
+                dropContent={[
+                  { link: "/trading", text: "TRADING" },
+                  { link: "/trading", text: "TRADING" },
+                ]}
+              />
+              {!isLoggedIn && (
                 <NavItem
-                  text="TRADING"
-                  type="trading"
+                  text="PLATFORM"
+                  extraStyle="xsm:hidden md:flex "
+                  type="platform"
                   dropContent={[
-                    { link: "/trading", text: "TRADING" },
-                    { link: "/trading", text: "TRADING" },
+                    { link: "/platform", text: "PLATFORM" },
+                    { link: "/platform", text: "PLATFORM" },
                   ]}
                 />
-                {!isLoggedIn && (
-                  <NavItem
-                    text="PLATFORM"
-                    extraStyle="xsm:hidden md:flex "
-                    type="platform"
-                    dropContent={[
-                      { link: "/platform", text: "PLATFORM" },
-                      { link: "/platform", text: "PLATFORM" },
-                    ]}
-                  />
-                )}
+              )}
+              <NavItem
+                text="PRODUCTS"
+                type="products"
+                extraStyle="xsm:hidden md:flex "
+                dropContent={[
+                  { link: "/products", text: "PRODUCTS" },
+                  { link: "/products", text: "PRODUCTS" },
+                ]}
+              />
+              <NavItem
+                text="LEGAL"
+                type="legal"
+                extraStyle="xsm:hidden md:flex "
+                dropContent={[
+                  { link: "/legal", text: "LEGAL" },
+                  { link: "/legal", text: "LEGAL" },
+                ]}
+              />
+              {!isLoggedIn && (
                 <NavItem
-                  text="PRODUCTS"
-                  type="products"
+                  text="ABOUT"
+                  type="about"
                   extraStyle="xsm:hidden md:flex "
                   dropContent={[
-                    { link: "/products", text: "PRODUCTS" },
-                    { link: "/products", text: "PRODUCTS" },
+                    { link: "/about", text: "ABOUT" },
+                    { link: "/about", text: "ABOUT" },
                   ]}
                 />
+              )}
+              {isLoggedIn && (
                 <NavItem
-                  text="LEGAL"
-                  type="legal"
+                  text="DEPOSIT"
+                  type="deposit"
                   extraStyle="xsm:hidden md:flex "
                   dropContent={[
-                    { link: "/legal", text: "LEGAL" },
-                    { link: "/legal", text: "LEGAL" },
+                    { link: "/btc", text: "BTC" },
+                    { link: "/eth", text: "ETH" },
                   ]}
                 />
-                {!isLoggedIn && (
-                  <NavItem
-                    text="ABOUT"
-                    type="about"
-                    extraStyle="xsm:hidden md:flex "
-                    dropContent={[
-                      { link: "/about", text: "ABOUT" },
-                      { link: "/about", text: "ABOUT" },
-                    ]}
+              )}
+              {isLoggedIn && (
+                <li className="xsm:hidden md:flex items-center text-md cursor-pointer hover:bg-primary ">
+                  <Link to="/withdraw">WITHDRAW</Link>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li className="py-3 px-7 flex items-center">
+                  <Button.Auth
+                    text="Register/Login"
+                    handleClick={() => showAuthModal()}
+                    extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-7"
                   />
-                )}
-                {!isLoggedIn && (
-                  <li className="py-3 px-7 flex items-center">
-                    <Button.Auth
-                      text="Register/Login"
-                      handleClick={() => showAuthModal()}
-                      extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-7"
-                    />
-                  </li>
-                )}
-              </ul>
-            </div>
-            <ProfileIcon className=" hidden xsm:block" />
+                </li>
+              )}
+            </ul>
           </div>
+          {/* </div> */}
+          {isLoggedIn && <ProfileIcon className=" hidden xsm:block" />}
         </nav>
       )}
     </>

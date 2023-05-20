@@ -31,11 +31,12 @@ const Home = () => {
   return (
     <div className="flex flex-col justify-center">
       <div className="banner mb-[50px] flex items-center justify-center xsm:mb-[100px]">
-        <Button.Centered
-          text="Start here!"
-          Icon={Icons.BsArrowRightCircle}
-          handleClick={showAuthModal}
-        />
+      <Button.Centered
+        text="Login here!"
+        Icon={Icons.BsArrowRightCircle}
+        handleClick={showLoginModal}
+      />
+        
       </div>
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
@@ -43,10 +44,10 @@ const Home = () => {
         <Cards extraStyle=" xsm:hidden md:block" />
       </div>
       <Button.Centered
-        text="Login here!"
-        Icon={Icons.BsArrowRightCircle}
-        handleClick={showLoginModal}
-      />
+          text="Start here!"
+          Icon={Icons.BsArrowRightCircle}
+          handleClick={showAuthModal}
+        />
 
       <div className="m-[50px] xsm:m-[70px] md:m-[100px] flex-col xsm:flex-row flex justify-between">
         <a
