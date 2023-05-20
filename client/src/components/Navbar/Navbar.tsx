@@ -25,6 +25,8 @@ const Navbar = () => {
   };
 
   const [opacity, setOpacity] = useState(1);
+  const [showNavbar, setShowNavbar] = useState(true)
+  
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -33,6 +35,12 @@ const Navbar = () => {
       const threshold = 100;
       const newOpacity = Math.max(0, 1 - (distance - threshold) / (threshold*5));
       setOpacity(newOpacity);
+      if(newOpacity===0){
+        setShowNavbar(false)
+      }
+      else{
+        setShowNavbar(true)
+      }
     }
 
     window.addEventListener('scroll', handleScroll);
@@ -45,7 +53,8 @@ const Navbar = () => {
   
 
   return (
-    <nav className="fixed z-20 w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"  style={{ opacity }} >
+    <>
+    {showNavbar && <nav className="fixed z-20 w-full bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"  style={{ opacity }} >
       <div className=" px-7 xsm:px-0 flex justify-between items-center ">
         <Logo />
         <MobileHamburger />
@@ -105,7 +114,9 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-    </nav>
+    </nav>}
+    </>
+
   );
 };
 

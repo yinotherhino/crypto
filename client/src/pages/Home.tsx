@@ -38,7 +38,7 @@ const Home = () => {
           handleClick={showAuthModal}
         />
       </div>
-      <div className="mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
+      <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
         <Cards />
         <Cards extraStyle=" xsm:hidden md:block" />
