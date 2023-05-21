@@ -25,7 +25,7 @@ const Toast = ({ extraStyle }: IProps) => {
       : variant == "error"
       ? "bg-[#E76161]"
       : "bg-[#F79540]";
-  const style = `absolute font-lato toast z-50 block w-[200px] px-[20px] py-[10px] ${variantColor} border border-gray-400 text-white px-4 py-3 rounded ${extraStyle}`;
+  const style = `absolute fixed font-lato toast z-50 top-[20px] left-[30px] block w-[200px] px-[20px] py-[10px] ${variantColor} border border-gray-400 text-white px-4 py-3 rounded ${extraStyle}`;
 
   useEffect(() => {
     const timeout = setTimeout(() => {

@@ -53,7 +53,6 @@ const LoginForm = () => {
       })
       .finally(() => {
         setIsDisabled(false);
-        dispatch(changeAuth(null))
       });
   };
   const handleChange = (name: string, value: any) =>

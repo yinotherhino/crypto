@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Icons from "../Icons";
+import { COMPANY_NAME } from "../../constants";
 
 const Logo=()=> {
     return (
@@ -8,7 +9,7 @@ const Logo=()=> {
           <span>
             <Icons.IoLogoDeviantart className="text-2xl inline-block mr-2 text-primary" />
           </span>
-          <span>Cryptokingfxtm</span>
+          <span>{COMPANY_NAME}</span>
         </h1>{" "}
       </Link>
     );
