@@ -6,9 +6,9 @@ import About from "./pages/About";
 import Platform from "./pages/Platform";
 import Trading from "./pages/Trading";
 import { useEffect } from "react";
+import Verify from "./pages/Verify";
 
-function App() {
-  
+const App = () => {
   return (
     <>
       <Router>
@@ -21,10 +21,11 @@ function App() {
           <Route element={<Trading />} path="/trading" />
           <Route element={<Trading />} path="/trading" />
           <Route element={<Trading />} path="/trading" />
+          <Route element={<Verify />} path="/verify" />
         </Routes>
       </Router>
     </>
   );
-}
+};
 
 export default App;

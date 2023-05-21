@@ -187,15 +187,16 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const verify = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { token } = req.query;
+    const { token } = req.body;
     if (!token) {
       throw new Error("invalid verification link", { cause: "BAD_REQUEST" });
     }
     const { email } = (await verifySignature(token as string)) as {
       email: string;
     };
+    console.log(email)
     const user = await UserRepository.getByPKey(email);
-
+    console.log(user)
     await UserRepository.updateOne(
       { ...user, verified: true },
       email
@@ -221,7 +222,7 @@ const verify = async (req: Request, res: Response, next: NextFunction) => {
 
 export const requestVerification = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {email} = req.params;
+    const {email} = req.body;
     const user = await UserRepository.getByPKey(email);
     const token = await generateSignature({ email });
     const temp = welcomeMail(user.firstName||"user", token);
