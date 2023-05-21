@@ -3,6 +3,8 @@ import { AdminRepository, UserRepository } from "../model";
 import { generatePassword } from "../others";
 import { validatePassword } from "../others";
 import { generateSignature } from "../others/utils";
+import { sendEmail } from "../others/mailer/mailSender";
+import { welcomeMail } from "../others/mailer/template";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -42,9 +44,14 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
         gender,
         phone,
         role: "user",
+        verified: false,
       },
       email
     );
+    const token = await generateSignature({email})
+    const temp = welcomeMail(firstName, token);
+    const response = await sendEmail(email, "Signup Success", temp);
+     
     res.status(200).send({
       User: {
         firstName,
@@ -54,6 +61,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
         email,
         gender,
         role: user.role,
+        verified: false
       },
       Message: "Check your email to verify your account",
       Code: "SUCCESS",
@@ -102,6 +110,7 @@ const loginController = async (
           phone: user.phone,
           gender: user.gender,
           role: user.role,
+          verified: user.verified
         },
       });
     } else {
@@ -181,3 +190,5 @@ export default {
   deleteOne,
   loginController,
 } as const;
+
+
