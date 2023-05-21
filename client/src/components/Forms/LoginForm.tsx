@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../Input";
 import Button from "../Button/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   IToast,
@@ -11,15 +11,20 @@ import {
 } from "../../redux/slices/NavbarSlice";
 import {changeUser} from "../../redux/slices/AuthSlice"
 import { client } from "../../constants";
+import { RootState } from "../../redux/store";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(false);
+  const showAuth = useSelector((state:RootState) => state.navbar.showAuth);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  useEffect(() => {
+    console.log(showAuth)
+  },[showAuth])
   const login = () => {
     const notFilled: string | undefined = !formData.email
       ? "email"
@@ -40,7 +45,6 @@ const LoginForm = () => {
     client
       .post("/login", formData)
       .then((res) => {
-        console.log(res);
         const {
           user: { email, role, fullName, dob },
           token,

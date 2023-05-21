@@ -1,16 +1,16 @@
 import fs from "fs/promises";
-import {existsSync} from "fs"
+import { existsSync } from "fs";
 import { dirname } from "path";
 
 export default class Repository<T> {
   private fullpath: string;
   private name: string;
   private pkey: string;
-  constructor(path:string, pkey:string) {
+  constructor(path: string, pkey: string) {
     this.fullpath = `${dirname("..")}/db/${path}`;
     this.name = path;
     this.pkey = pkey;
-    if(!existsSync(this.fullpath)) {
+    if (!existsSync(this.fullpath)) {
       fs.mkdir(this.fullpath);
     }
   }
@@ -19,72 +19,78 @@ export default class Repository<T> {
     return existsSync(`${this.fullpath}/${suffix}.json`);
   }
 
-  public async getByPKey(pkeyValue:string): Promise<T> {
+  public async getByPKey(pkeyValue: string): Promise<T> {
     const exists = this.checkExists(pkeyValue);
-    if(!exists){
-      throw new Error(`${this.name} not found`, {cause:"NOT_FOUND"});
+    if (!exists) {
+      throw new Error(`${this.name} not found`, { cause: "NOT_FOUND" });
     }
-    const resJSON =  await fs.readFile(`${this.fullpath}/${pkeyValue}.json`, "utf-8");
-    return JSON.parse(resJSON) as T;  
+    const resJSON = await fs.readFile(
+      `${this.fullpath}/${pkeyValue}.json`,
+      "utf-8"
+    );
+    return JSON.parse(resJSON) as T;
   }
 
-  public async getOne({key,value}:{key:string,value:any}):Promise<T> {
-    if(!this.checkExists(this.pkey)){
-      throw new Error(`${this.name} already exists`,{cause:"NOT_FOUND"});
-    };
+  public async getOne({ key, value }: { key: string; value: any }): Promise<T> {
     const objs = await this.getAll();
-    const obj = objs.find((obj:any) => {
-      if(obj[key] === value) {
+    const obj = objs.find((obj: any) => {
+      if (obj[key] === value) {
         return true;
       }
-    })
-    if(obj) {
+    });
+    if (obj) {
       return obj as T;
-    }
-    else{
+    } else {
       throw new Error(`${this.name} not found`);
     }
   }
 
-  public async addOne(obj:T, pkey:string, ): Promise<T> {
-    if(this.checkExists(pkey)){
-      throw new Error(`${this.name} already exists`,{cause:"DUPLICATE"});
+  public async addOne(obj: T, pKeyValue: string): Promise<T> {
+    if (this.checkExists(pKeyValue)) {
+      throw new Error(`${this.name} already exists`, { cause: "DUPLICATE" });
     }
-    fs.writeFile(`${this.fullpath}/${pkey}.json`, JSON.stringify(obj));
+    fs.writeFile(`${this.fullpath}/${pKeyValue}.json`, JSON.stringify(obj));
     return obj;
   }
 
-  public async deleteOne(pkey:string) {
-    const exists = this.checkExists(pkey);
-    if(!exists){
-      throw new Error(`${this.name} not found`, {cause:"NOT_FOUND"});
+  public async deleteOne(pKeyValue: string) {
+    const exists = this.checkExists(pKeyValue);
+    if (!exists) {
+      throw new Error(`${this.name} not found`, { cause: "NOT_FOUND" });
     }
-    await fs.rm(`${this.fullpath}/${pkey}.json`);
+    await fs.rm(`${this.fullpath}/${pKeyValue}.json`);
     return;
   }
 
-  public async getAll(length?:number):Promise<T[]> {
+  public async getAll(length?: number): Promise<T[]> {
     const files = await fs.readdir(this.fullpath);
-    if(files.length > 0) {
-      const res = await Promise.all(files.slice(0,length || files.length).map(async (file) => {
-        const resJSON =  await fs.readFile(`${this.fullpath}/${file}`, "utf-8");
-        return JSON.parse(resJSON) as T;
-      }));
+    if (files.length > 0) {
+      const res = await Promise.all(
+        files.slice(0, length || files.length).map(async (file) => {
+          const resJSON = await fs.readFile(
+            `${this.fullpath}/${file}`,
+            "utf-8"
+          );
+          return JSON.parse(resJSON) as T;
+        })
+      );
       return res;
-    }
-    else {
+    } else {
       return [];
     }
   }
 
-  public async updateOne(updateDetails: T,pkey:string): Promise<T> {
-    const exists = this.checkExists(pkey);
-    if(!exists){
-      throw new Error(`${this.name} not found`, {cause:"NOT_FOUND"});
+  public async updateOne(updateDetails: T, pKeyValue: string): Promise<T> {
+    const exists = this.checkExists(pKeyValue);
+    if (!exists) {
+      throw new Error(`${this.name} not found`, { cause: "NOT_FOUND" });
     }
-    const obj = await this.getByPKey(this.pkey);
-    const updatedObj = {...obj, ...updateDetails};
-    await fs.writeFile(`${this.fullpath}/${pkey}.json`, JSON.stringify(updatedObj));
+    const obj = await this.getByPKey(pKeyValue);
+    const updatedObj = { ...obj, ...updateDetails };
+    await fs.writeFile(
+      `${this.fullpath}/${pKeyValue}.json`,
+      JSON.stringify(updatedObj)
+    );
     return updatedObj as T;
   }
 }

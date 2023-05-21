@@ -15,6 +15,8 @@ loginRouter.post(
 );
 
 userRouter.post("/", userController.create);
+userRouter.post("/verify", userController.verify);
+userRouter.post("/request-verification",userController.requestVerification)
 userRouter.use(restrictTo("user"));
 userRouter.get("/:id", userController.getOne);
 userRouter.get("/", userController.getAll);

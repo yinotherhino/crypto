@@ -1,9 +1,4 @@
 import React from "react";
-import Icons from "../../Icons";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { changeAuth } from "../../../redux/slices/NavbarSlice";
-import { RootState } from "../../../redux/store";
 import Contact from "./Contact";
 import FooterSocials from "./FooterSocials";
 import Links from "./Links";

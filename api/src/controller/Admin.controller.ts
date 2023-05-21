@@ -44,6 +44,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
           country,
           phone,
           role: "admin",
+          verified: true
         },
         username
       ),

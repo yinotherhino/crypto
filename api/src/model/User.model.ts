@@ -6,6 +6,7 @@ export interface UserModel {
     phone: string;
     role?: string;
     password: string;
-    gender: string
+    gender: string;
+    verified: boolean;
 };
 

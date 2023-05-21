@@ -16,12 +16,6 @@ const Home = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate("/dashboard");
-  //   }
-  // });
-
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };

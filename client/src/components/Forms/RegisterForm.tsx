@@ -67,7 +67,7 @@ const RegisterForm = () => {
           time: 10000
         };
         dispatch(changeToast(toast));
-        dispatch(changeAuth(null));
+        dispatch(changeAuth("login"));
       })
       .catch((err) => {
         dispatch(handleServerError(err))
