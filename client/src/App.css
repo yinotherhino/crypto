@@ -46,6 +46,7 @@ a{
 }
 
 .toast {
+  position: fixed;
   top: 0px;
   right: 200px;
   animation-name: example;

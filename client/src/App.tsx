@@ -16,7 +16,10 @@ function App() {
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<About />} path="/about" />
-          <Route element={<Platform />} path="/platform" />
+          {/* <Route element={<Platform />} path="/platform" /> */}
+          <Route element={<Trading />} path="/trading" />
+          <Route element={<Trading />} path="/trading" />
+          <Route element={<Trading />} path="/trading" />
           <Route element={<Trading />} path="/trading" />
         </Routes>
       </Router>

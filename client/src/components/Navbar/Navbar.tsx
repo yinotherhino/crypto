@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import NavItem from "./NavItem";
 import MobileHamburger from "./MobileHamburger";
-import Logo from "./Logo";
+import Logo from "../Logo/Logo";
 import { useSelector, useDispatch } from "react-redux";
 import { changeAuth } from "../../redux/slices/NavbarSlice";
 import { RootState } from "../../redux/store";
@@ -82,7 +82,7 @@ const Navbar = () => {
                   { link: "/trading", text: "TRADING" },
                 ]}
               />
-              {!isLoggedIn && (
+              {/* {!isLoggedIn && (
                 <NavItem
                   text="PLATFORM"
                   extraStyle="xsm:hidden md:flex "
@@ -92,7 +92,7 @@ const Navbar = () => {
                     { link: "/platform", text: "PLATFORM" },
                   ]}
                 />
-              )}
+              )} */}
               <NavItem
                 text="PRODUCTS"
                 type="products"
@@ -111,6 +111,15 @@ const Navbar = () => {
                   { link: "/legal", text: "LEGAL" },
                 ]}
               />
+              <NavItem
+                  text="DEPOSIT"
+                  type="deposit"
+                  extraStyle="xsm:hidden md:flex "
+                  dropContent={[
+                    { link: "/btc", text: "BTC" },
+                    { link: "/eth", text: "ETH" },
+                  ]}
+                />
               {!isLoggedIn && (
                 <NavItem
                   text="ABOUT"
@@ -122,23 +131,15 @@ const Navbar = () => {
                   ]}
                 />
               )}
-              {isLoggedIn && (
-                <NavItem
-                  text="DEPOSIT"
-                  type="deposit"
-                  extraStyle="xsm:hidden md:flex "
-                  dropContent={[
-                    { link: "/btc", text: "BTC" },
-                    { link: "/eth", text: "ETH" },
-                  ]}
-                />
-              )}
+              
+                
+              
               {isLoggedIn && (
                 <li className="py-1 xsm:hidden md:flex items-center cursor-pointer mr-2 sm:mr-1 sm:text-sm hover:bg-primary ">
                   <Link to="/withdraw">WITHDRAW</Link>
                 </li>
               )}
-              {isLoggedIn ?(
+              {isLoggedIn ? (
                 <li className="py-3 px-7 flex items-center">
                   <Button.Auth
                     text="Dashboard"
