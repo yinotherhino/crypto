@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeAuth } from "../../redux/slices/NavbarSlice";
 import { RootState } from "../../redux/store";
 import ProfileIcon from "../ProfileIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export type DropTypes =
   | "trading"
@@ -20,6 +20,7 @@ export type DropTypes =
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const showHamburger = useSelector(
     (state: RootState) => state.navbar.showHamburger
   );
@@ -133,11 +134,19 @@ const Navbar = () => {
                 />
               )}
               {isLoggedIn && (
-                <li className="xsm:hidden md:flex items-center text-md cursor-pointer hover:bg-primary ">
+                <li className="py-1 xsm:hidden md:flex items-center cursor-pointer mr-2 sm:mr-1 sm:text-sm hover:bg-primary ">
                   <Link to="/withdraw">WITHDRAW</Link>
                 </li>
               )}
-              {!isLoggedIn && (
+              {isLoggedIn ?(
+                <li className="py-3 px-7 flex items-center">
+                  <Button.Auth
+                    text="Dashboard"
+                    handleClick={() => navigate("/dahsboard")}
+                    extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-7"
+                  />
+                </li>
+              ) : (
                 <li className="py-3 px-7 flex items-center">
                   <Button.Auth
                     text="Register/Login"
