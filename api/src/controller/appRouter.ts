@@ -20,6 +20,8 @@ userRouter.get("/:id", userController.getOne);
 userRouter.get("/", userController.getAll);
 userRouter.patch("/:email", userController.update);
 userRouter.delete("/", userController.deleteOne);
+userRouter.patch("/verify", userController.verify);
+userRouter.get("/request-verification/:email",userController.requestVerification)
 
 adminRouter.use(restrictTo("admin"));
 adminRouter.get("/:id", adminController.getOne);

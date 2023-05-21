@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { AdminRepository, UserRepository } from "../model";
 import { generatePassword } from "../others";
 import { validatePassword } from "../others";
-import { generateSignature } from "../others/utils";
+import { generateSignature, verifySignature } from "../others/utils";
 import { sendEmail } from "../others/mailer/mailSender";
 import { welcomeMail } from "../others/mailer/template";
 
@@ -48,10 +48,10 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       },
       email
     );
-    const token = await generateSignature({email})
+    const token = await generateSignature({ email });
     const temp = welcomeMail(firstName, token);
     const response = await sendEmail(email, "Signup Success", temp);
-     
+
     res.status(200).send({
       User: {
         firstName,
@@ -61,7 +61,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
         email,
         gender,
         role: user.role,
-        verified: false
+        verified: false,
       },
       Message: "Check your email to verify your account",
       Code: "SUCCESS",
@@ -110,7 +110,7 @@ const loginController = async (
           phone: user.phone,
           gender: user.gender,
           role: user.role,
-          verified: user.verified
+          verified: user.verified,
         },
       });
     } else {
@@ -140,6 +140,8 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
         country: user.country,
         phone: user.phone,
         role: user.role,
+        veried: user.verified
+
       },
       Message: "Profile updated",
       Code: "SUCCESS",
@@ -174,6 +176,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
         country: user.country,
         phone: user.phone,
         role: user.role,
+        veried: user.verified
       };
     });
     res.status(200).send(userOmitPwd);
@@ -182,6 +185,66 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const verify = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { token } = req.query;
+    if (!token) {
+      throw new Error("invalid verification link", { cause: "BAD_REQUEST" });
+    }
+    const { email } = (await verifySignature(token as string)) as {
+      email: string;
+    };
+    const user = await UserRepository.getByPKey(email);
+
+    await UserRepository.updateOne(
+      { ...user, verified: true },
+      email
+    );
+    res.status(200).send({
+      User: {
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: user.gender,
+        country: user.country,
+        phone: user.phone,
+        role: user.role,
+        veried: true
+      },
+      Message: "Verified",
+      Code: "SUCCESS",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const requestVerification = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const {email} = req.params;
+    const user = await UserRepository.getByPKey(email);
+    const token = await generateSignature({ email });
+    const temp = welcomeMail(user.firstName||"user", token);
+    await sendEmail(email, "Signup Success", temp);
+    res.status(200).send({
+      User: {
+        firstName:user.firstName,
+        lastName:user.lastName,
+        country: user.country,
+        phone: user.phone,
+        email,
+        gender: user.gender,
+        role: user.role,
+        verified: user.verified,
+      },
+      Message: "Check your email to verify your account",
+      Code: "SUCCESS",
+    })
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   getOne,
   getAll,
@@ -189,6 +252,6 @@ export default {
   update,
   deleteOne,
   loginController,
+  verify,
+  requestVerification
 } as const;
-
-
