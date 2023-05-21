@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Cards from "../components/Cards/Cards";
-import { motion, useTransform, useViewportScroll } from "framer-motion";
-import { changeAuth, changeToast } from "../redux/slices/NavbarSlice";
-import { useDispatch } from "react-redux";
+import { changeAuth } from "../redux/slices/NavbarSlice";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../components/Button/Button";
 import Icons from "../components/Icons";
 import Socials from "../components/Sections/Socials";
-import Footer from "../components/Sections/Footer";
+import Footer from "../components/Sections/Footer/Footer";
 import Manage from "../components/Sections/Manage";
-import { RiH1 } from "react-icons/ri";
 import Circular from "../components/Sections/Circular";
-import Toast from "../components/Toast";
+import { RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
   // useEffect(() => {
-  //   dispatch(
-  //     changeToast({
-  //       open: true,
-  //       message: "Welcome to the home page",
-  //       variant: "success",
-  //     })
-  //   );
-  // }, []);
+  //   if (isLoggedIn) {
+  //     navigate("/dashboard");
+  //   }
+  // });
+
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
@@ -32,22 +31,38 @@ const Home = () => {
   return (
     <div className="flex flex-col justify-center">
       <div className="banner mb-[50px] flex items-center justify-center xsm:mb-[100px]">
-        <Button.Centered
-          text="Start here!"
-          Icon={Icons.BsArrowRightCircle}
-          handleClick={showAuthModal}
-        />
+        {isLoggedIn ? (
+          <Button.Centered
+            text="Go to Dashboard"
+            Icon={Icons.BsArrowRightCircle}
+            handleClick={() => navigate("/dashboard")}
+          />
+        ) : (
+          <Button.Centered
+            text="Login here!"
+            Icon={Icons.BsArrowRightCircle}
+            handleClick={showLoginModal}
+          />
+        )}
       </div>
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards />
         <Cards />
         <Cards extraStyle=" xsm:hidden md:block" />
       </div>
-      <Button.Centered
-        text="Login here!"
-        Icon={Icons.BsArrowRightCircle}
-        handleClick={showLoginModal}
-      />
+      {isLoggedIn ? (
+        <Button.Centered
+          text="Deposit!"
+          Icon={Icons.BsArrowRightCircle}
+          handleClick={() => navigate("/deposit")}
+        />
+      ) : (
+        <Button.Centered
+          text="Start here!"
+          Icon={Icons.BsArrowRightCircle}
+          handleClick={showAuthModal}
+        />
+      )}
 
       <div className="m-[50px] xsm:m-[70px] md:m-[100px] flex-col xsm:flex-row flex justify-between">
         <a

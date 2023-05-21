@@ -1,12 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeAuth } from "../../redux/slices/NavbarSlice";
+import { RootState } from "../../redux/store";
+import { useNavigate } from "react-router-dom";
 
 const Circular = () => {
   const dispatch = useDispatch();
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state:RootState) => state.auth.isLoggedIn);
   return (
     <div className="p-[50px] flex justify-center ">
       <div className="w-[270px] h-[270px] mx-[-50px] xxs:w-[320px] xxs:h-[320px] xs:w-[480px] xs:h-[480px] xsm:w-[600px] xsm:h-[600px] sm:w-[370px] sm:h-[370px] md:w-[640px] md:h-[640px] flex justify-center items-center rounded-full border-2 border-lBlue bg-gray-100">
@@ -16,8 +20,8 @@ const Circular = () => {
             them
           </h1>
           <p className=" mb-3">Trade with us today and make a lot</p>
-          <p className=" cursor-pointer " onClick={() => showAuthModal()}>
-            <span className="underline">Start now!</span>{" "}
+          <p className=" cursor-pointer " onClick={() => isLoggedIn ? navigate("/deposit") : showAuthModal()}>
+            <span className="underline">{isLoggedIn ? "Deposit" : "Start now!"}</span>{" "}
             <span className="text-2xl">👉</span>
           </p>
         </div>

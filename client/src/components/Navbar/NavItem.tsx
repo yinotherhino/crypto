@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useViewportWidth from "../../hooks/useViewPortWidth";
 import { DropTypes } from "./Navbar";
 import Icons from "../Icons";
@@ -20,6 +20,7 @@ const NavItem = ({
   extraStyle
 
 }: IProps) => {
+  const navigate=useNavigate()
   const viewportWidth = useViewportWidth();
   const dropType = useSelector((state: RootState) => state.navbar.dropType);
   const showLinkDrop = useSelector((state: RootState) => state.navbar.showLinkDrop);
@@ -45,11 +46,11 @@ const NavItem = ({
       className={"px-7 xsm:px-2 sm:px-5 hover:bg-primary relative flex "+extraStyle}
       onMouseEnter={() => showDrop()}
       onMouseLeave={() => hideDrop()}>
-      <div className=" py-1 flex items-center w-[100%] xsm:w-auto justify-between">
+      <div onClick={()=>navigate(`/${type}`)} className=" py-1 flex items-center w-[100%] xsm:w-auto justify-between">
         <Link to={`/${type}`} className="mr-2 sm:mr-1 sm:text-sm">
           {text}
         </Link>
-        <Icons.AiOutlineCaretDown />
+        {viewportWidth>800 && <Icons.AiOutlineCaretDown />}
       </div>
       <div className="absolute top-[100%] left-0 bg-white w-[100%]">
         {showLinkDrop && dropType == type && (

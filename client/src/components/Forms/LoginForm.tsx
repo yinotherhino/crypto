@@ -7,9 +7,9 @@ import {
   IToast,
   changeAuth,
   changeToast,
-  changeUser,
   handleServerError,
 } from "../../redux/slices/NavbarSlice";
+import {changeUser} from "../../redux/slices/AuthSlice"
 import { client } from "../../constants";
 
 const LoginForm = () => {
@@ -46,12 +46,15 @@ const LoginForm = () => {
           token,
         } = res.data;
         dispatch(changeUser({ email, token, role, fullName, dob }));
-        navigate("/");
+        navigate("/dashboard")
       })
       .catch((err) => {
         dispatch(handleServerError(err))
       })
-      .finally(() => setIsDisabled(false));
+      .finally(() => {
+        setIsDisabled(false);
+        dispatch(changeAuth(null))
+      });
   };
   const handleChange = (name: string, value: any) =>
     setFormData((prev) => ({ ...prev, [name]: value }));

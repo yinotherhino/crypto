@@ -8,15 +8,7 @@ export interface IToast {
   variant?: "success" | "error" | "warning";
   time?: number;
 }
-type Role = "user" | "admin" | "premium" | "guest";
 
-export interface IUser {
-  email: string | null;
-  token: string | null;
-  role: Role;
-  fullName: string | null;
-  dob?: string;
-}
 export interface NavbarState {
   showHamburger: boolean;
   showLinkDrop: boolean;
@@ -24,8 +16,6 @@ export interface NavbarState {
   isToastOpen: boolean;
   dropType: DropTypes | null;
   showAuth: "login" | "register" | null;
-  user: IUser;
-  role: Role;
 }
 
 const initialState: NavbarState = {
@@ -35,8 +25,6 @@ const initialState: NavbarState = {
   showAuth: null,
   showToast: { message: null, variant: "warning" },
   isToastOpen: false,
-  user: { email: null, token: null, role: "guest", fullName: null, dob: "" },
-  role: "guest",
 };
 
 export const navbarSlice = createSlice({
@@ -70,12 +58,6 @@ export const navbarSlice = createSlice({
     hideToast: (state) => {
       state.isToastOpen = false;
     },
-    changeUser: (state, action: PayloadAction<IUser>) => {
-      state.user = action.payload;
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      localStorage.setItem("token", action.payload.token || "");
-      state.role = action.payload.role;
-    },
     handleServerError: (state, action: PayloadAction<any>) => {
       console.log(action.payload);
       if(action.payload && action.payload instanceof AxiosError){
@@ -95,7 +77,6 @@ export const {
   changeDropType,
   changeAuth,
   changeToast,
-  changeUser,
   hideToast,
   handleServerError
 } = navbarSlice.actions;
