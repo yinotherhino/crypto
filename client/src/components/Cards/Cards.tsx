@@ -3,13 +3,14 @@ import { motion, useScroll, useTransform, useViewportScroll } from "framer-motio
 
 interface IProps {
     extraStyle?: string;
+    header: string;
 }
 
-const Cards = ({extraStyle}:IProps) => {
+const Cards = ({extraStyle, header}:IProps) => {
   const { scrollYProgress } = useScroll();
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   return (
-      <div className={" mb-[50px] xsm:mb-0 hover:2sm max-w-sm bg-white border border-gray-200 rounded-lg "+ extraStyle}>
+      <div className={" mb-[50px] xsm:mb-0 hover:2sm bg-white border border-gray-200 rounded-lg "+ extraStyle}>
         <a href="#">
           <img
             className="rounded-t-lg"
@@ -20,7 +21,7 @@ const Cards = ({extraStyle}:IProps) => {
         <div className="p-5">
           <a href="#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              Noteworthy technology acquisitions 2021
+              {header}
             </h5>
           </a>
           <p className="mb-3 font-normal text-gray-700 ">

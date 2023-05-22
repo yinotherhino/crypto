@@ -62,7 +62,7 @@ const Navbar = () => {
     <>
       {showNavbar && (
         <nav
-          className="fixed z-20 w-full min-h-[50px] bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"
+          className="sticky top-0 z-20 w-full min-h-[50px] bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"
           style={{ opacity }}>
           <div className=" px-7 xsm:px-0 flex justify-between items-center ">
             <Logo />
@@ -143,7 +143,7 @@ const Navbar = () => {
                 <li className="py-3 px-7 flex items-center">
                   <Button.Auth
                     text="Dashboard"
-                    handleClick={() => navigate("/dahsboard")}
+                    handleClick={() => navigate("/dashboard")}
                     extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-7"
                   />
                 </li>

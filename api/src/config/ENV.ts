@@ -8,5 +8,5 @@ export default {
     GMAIL_USER: process.env.GMAIL_USER!,
     GMAIL_PASS: process.env.GMAIL_PASS!,
     FROM_ADMIN_EMAIL: process.env.FROM_ADMIN_EMAIL!,
-    FRONTEND_URL: "http://localhost:5173"
+    FRONTEND_URL: process.env.FRONTEND_URL
 }

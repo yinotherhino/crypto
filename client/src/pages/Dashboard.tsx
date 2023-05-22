@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import Cards from "../components/Cards/Cards";
 
 const Dashboard = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
@@ -14,7 +15,18 @@ const Dashboard = () => {
 
   return (
     <>
-      {isLoggedIn && <div>Dashboard</div>}
+      {isLoggedIn && (
+        <div>
+          <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
+            <Cards header="BTC" extraStyle=" mr-5" />
+            <Cards header="ETH"  extraStyle=" mr-5" />
+            <Cards header="SOL" />
+          </div>
+          <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
+            <Cards header="Balances" extraStyle=" w-[100%]" />
+          </div>
+        </div>
+      )}
     </>
   );
 };
