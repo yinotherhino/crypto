@@ -194,9 +194,7 @@ const verify = async (req: Request, res: Response, next: NextFunction) => {
     const { email } = (await verifySignature(token as string)) as {
       email: string;
     };
-    console.log(email)
     const user = await UserRepository.getByPKey(email);
-    console.log(user)
     await UserRepository.updateOne(
       { ...user, verified: true },
       email

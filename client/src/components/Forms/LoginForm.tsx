@@ -50,7 +50,9 @@ const LoginForm = () => {
           token,
         } = res.data;
         dispatch(changeUser({ email, token, role, fullName, dob }));
+        dispatch(changeAuth(null))
         navigate("/dashboard")
+        
       })
       .catch((err) => {
         dispatch(handleServerError(err))

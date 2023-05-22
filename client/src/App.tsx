@@ -7,6 +7,7 @@ import Platform from "./pages/Platform";
 import Trading from "./pages/Trading";
 import { useEffect } from "react";
 import Verify from "./pages/Verify";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
           <Route element={<Trading />} path="/trading" />
           <Route element={<Trading />} path="/trading" />
           <Route element={<Trading />} path="/trading" />
-          <Route element={<Trading />} path="/trading" />
+          <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Verify />} path="/verify" />
         </Routes>
       </Router>
