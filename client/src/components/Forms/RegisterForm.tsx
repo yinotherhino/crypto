@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../Input";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
@@ -8,7 +8,7 @@ import {
   changeToast,
   handleServerError,
 } from "../../redux/slices/NavbarSlice";
-import { client } from "../../constants";
+import { ALL_COUNTRIES, client } from "../../constants";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
+  useEffect(() => console.log(formData),[formData])
 
   const register = () => {
     console.log(formData);
@@ -60,17 +61,17 @@ const RegisterForm = () => {
     client
       .post("/users", formData)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         const toast: IToast = {
           message: res.data.Message,
           variant: "success",
-          time: 10000
+          time: 10000,
         };
         dispatch(changeToast(toast));
         dispatch(changeAuth("login"));
       })
       .catch((err) => {
-        dispatch(handleServerError(err))
+        dispatch(handleServerError(err));
       })
       .finally(() => {
         setIsDisabled(false);
@@ -97,18 +98,31 @@ const RegisterForm = () => {
         value={formData.lastName}
         onChange={handleChange}
       />
-      <Input.Text
-        placeholder="Gender"
-        name="gender"
-        value={formData.gender}
-        onChange={handleChange}
-      />
-      <Input.Text
-        placeholder="Country"
-        name="country"
-        value={formData.country}
-        onChange={handleChange}
-      />
+      <div className="my-3">
+        <label htmlFor="gender" className="mr-3">
+          Gender:{" "}
+        </label>
+        <Input.Radio
+          label="male"
+          name="gender"
+          value="female"
+          handleSelect={handleChange}
+          extraStyle=" mr-3"
+        />
+        <Input.Radio
+          name="gender"
+          label="female"
+          value={formData.country}
+          handleSelect={handleChange}
+        />
+      </div>
+      <div className="mb-3">
+        <label htmlFor="country">Country: </label>
+        <input list="countries" name="country" className="border-[1px solid red] " defaultValue="United States" onChange={(e)=>{setFormData(prev=>({...prev, country:e.target.value}))}}/>
+        <datalist id="countries">
+          {ALL_COUNTRIES.map((country, index) => <option key={index} value={country} />)}
+        </datalist>
+      </div>
       <Input.Text
         placeholder="Email"
         name="email"

@@ -33,4 +33,11 @@ const Text = ({
   );
 };
 
-export default { Text } as const;
+const Radio = ({label, value, name, handleSelect, extraStyle}:{label:string;value:string;name:string;handleSelect:Function;extraStyle?:string})=>{
+  return <span className={" inline-flex items-center" + extraStyle}>
+  <label htmlFor={name+value} className="mr-2">{label}</label>
+    <input type="radio" name={name} value={value} id={name+value} onSelect={()=>handleSelect()} />
+  </span>
+}
+
+export default { Text, Radio } as const;
