@@ -18,9 +18,12 @@ const Dashboard = () => {
       {isLoggedIn && (
         <div>
           <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
-            <Cards />
-            <Cards />
-            <Cards />
+            <Cards header="BTC" extraStyle=" mr-5" />
+            <Cards header="ETH"  extraStyle=" mr-5" />
+            <Cards header="SOL" />
+          </div>
+          <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
+            <Cards header="Balances" extraStyle=" w-[100%]" />
           </div>
         </div>
       )}

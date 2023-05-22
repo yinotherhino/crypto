@@ -40,9 +40,9 @@ const Home = () => {
         )}
       </div>
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
-        <Cards />
-        <Cards />
-        <Cards extraStyle=" xsm:hidden md:block" />
+        <Cards header="Noteworthy technology acquisitions 2021" extraStyle=" max-w-sm" />
+        <Cards header="Noteworthy technology acquisitions 2021" extraStyle=" max-w-sm"/>
+        <Cards header="Noteworthy technology acquisitions 2021" extraStyle=" xsm:hidden md:block max-w-sm" />
       </div>
       {isLoggedIn ? (
         <Button.Centered
