@@ -98,7 +98,7 @@ const RegisterForm = () => {
         value={formData.lastName}
         onChange={handleChange}
       />
-      <div className="my-3">
+      <div className="my-3 flex justify-between">
         <label htmlFor="gender" className="mr-3">
           Gender:{" "}
         </label>
@@ -117,11 +117,8 @@ const RegisterForm = () => {
         />
       </div>
       <div className="mb-3">
-        <label htmlFor="country">Country: </label>
-        <input list="countries" name="country" className="border-[1px solid red] " defaultValue="United States" onChange={(e)=>{setFormData(prev=>({...prev, country:e.target.value}))}}/>
-        <datalist id="countries">
-          {ALL_COUNTRIES.map((country, index) => <option key={index} value={country} />)}
-        </datalist>
+      <Input.List label="Country" name="country" list={ALL_COUNTRIES} handleChange={handleChange}  />
+        
       </div>
       <Input.Text
         placeholder="Email"
