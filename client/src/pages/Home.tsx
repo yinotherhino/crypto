@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Cards from "../components/Cards/Cards";
 import { changeAuth } from "../redux/slices/NavbarSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import Manage from "../components/Sections/Manage";
 import Circular from "../components/Sections/Circular";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import Banner from "../components/Sections/Banner";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,30 +20,31 @@ const Home = () => {
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
-  const showLoginModal = () => {
-    dispatch(changeAuth("login"));
-  };
   return (
     <div className="flex flex-col justify-center">
-      <div className="banner mb-[50px] flex items-center justify-center xsm:mb-[100px]">
-        {isLoggedIn ? (
-          <Button.Centered
-            text="Go to Dashboard"
-            Icon={Icons.BsArrowRightCircle}
-            handleClick={() => navigate("/dashboard")}
-          />
-        ) : (
-          <Button.Centered
-            text="Login here!"
-            Icon={Icons.BsArrowRightCircle}
-            handleClick={showLoginModal}
-          />
-        )}
-      </div>
+      <Banner />
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
-        <Cards header="Noteworthy technology acquisitions 2021" extraStyle=" max-w-sm" />
-        <Cards header="Noteworthy technology acquisitions 2021" extraStyle=" max-w-sm"/>
-        <Cards header="Noteworthy technology acquisitions 2021" extraStyle=" xsm:hidden md:block max-w-sm" />
+        <Cards.Basic
+          header="Noteworthy technology acquisitions 2021"
+          extraStyle=" max-w-sm"
+          text="Here are the biggest enterprise technology acquisitions of 2021 so
+          far, in reverse chronological order."
+          readmoreLink="#"
+        />
+        <Cards.Basic
+          header="Noteworthy technology acquisitions 2021"
+          extraStyle=" max-w-sm"
+          text="Here are the biggest enterprise technology acquisitions of 2021 so
+          far, in reverse chronological order."
+          readmoreLink="#"
+        />
+        <Cards.Basic
+          header="Noteworthy technology acquisitions 2021"
+          extraStyle=" xsm:hidden md:block max-w-sm"
+          text="Here are the biggest enterprise technology acquisitions of 2021 so
+          far, in reverse chronological order."
+          readmoreLink="#"
+        />
       </div>
       {isLoggedIn ? (
         <Button.Centered
@@ -101,7 +103,6 @@ const Home = () => {
 
       <Manage />
       <Circular />
-      <Footer />
     </div>
   );
 };

@@ -13,7 +13,4 @@ import {BsChatLeftText} from "react-icons/bs"
 import {BsArrowRightCircle} from "react-icons/bs"
 import {FaFacebookF} from "react-icons/fa"
 
-
-
-
 export default {BsArrowRightCircle,BsChatLeftText,FaFacebookF, FaTelegramPlane,FaEthereum,BsDiscord,FaBitcoin,SiBinance, AiFillTwitterCircle,IoLogoDeviantart,RxHamburgerMenu,RiCloseLine,AiOutlineCaretDown,FaFacebookMessenger} as const;

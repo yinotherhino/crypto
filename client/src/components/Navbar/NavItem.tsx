@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 interface IProps {
-  dropContent: Array<{ link: string; text: string }>;
+  dropContent: Array<{ link: string; text: string; action?:()=>void }> | null;
   text: string;
   type: DropTypes;
   extraStyle?:string
@@ -50,13 +50,13 @@ const NavItem = ({
         <Link to={`/${type}`} className="mr-2 sm:mr-1 sm:text-sm">
           {text}
         </Link>
-        {viewportWidth>800 && <Icons.AiOutlineCaretDown />}
+        {viewportWidth>800 && dropContent && <Icons.AiOutlineCaretDown />}
       </div>
-      <div className="absolute top-[100%] left-0 bg-white w-[100%]">
+      {dropContent && <div className="absolute top-[100%] left-0 bg-white w-[100%]">
         {showLinkDrop && dropType == type && (
           <List.WithLink content={dropContent} />
         )}
-      </div>
+      </div>}
     </li>
   );
 };

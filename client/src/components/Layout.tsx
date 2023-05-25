@@ -22,6 +22,7 @@ const Layout = () => {
         closeModal = {() => dispatch(changeAuth(null))}>
         {showAuth =="register" ? <RegisterForm /> : <LoginForm />}
       </Modal>
+      
       <Chat />
     </>
   );

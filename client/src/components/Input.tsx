@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 interface IProps {
   placeholder: string;
@@ -17,6 +17,7 @@ const Text = ({
   type,
   required,
 }: IProps) => {
+  const [focused, setFocused] = useState(false)
   return (
     <div className="block relative">
       {required !== false && value.length < 1 && (
@@ -24,6 +25,11 @@ const Text = ({
           *
         </span>
       )}
+      {value.length>0 &&
+        <span className="rounded-md inline-block absolute z-20 top-[-0.35rem] px-2 bg-white left-[3px] text-[0.7rem] text-gray-400">
+          {placeholder}
+        </span>
+      }
       <input
         value={value}
         name={name}
@@ -32,6 +38,8 @@ const Text = ({
         className="w-full inline-block z-10 border mb-2 border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"
         onChange={(e) => onChange(e.target.name, e.target.value)}
         required={required === false ? false : true}
+        // onFocus={() => setFocused(true)}
+        // onBlur={() => setFocused(false)}
       />
     </div>
   );
@@ -78,6 +86,7 @@ const List = ({list,handleChange,label,name,defaultValue,extraStyle}:{list:Array
         onChange={(e) => {
           handleChange(e.target.name, e.target.value);
         }}
+        
 
       />
       <datalist id={name}>

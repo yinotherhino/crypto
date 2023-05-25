@@ -8,6 +8,10 @@ import Trading from "./pages/Trading";
 import { useEffect } from "react";
 import Verify from "./pages/Verify";
 import Dashboard from "./pages/Dashboard";
+import Products from "./pages/Products";
+import Footer from "./components/Sections/Footer/Footer";
+import Deposit from "./pages/Deposit";
+import Legal from "./pages/Legal";
 
 const App = () => {
   return (
@@ -17,13 +21,14 @@ const App = () => {
         <Routes>
           <Route element={<Home />} path="/" />
           <Route element={<About />} path="/about" />
-          {/* <Route element={<Platform />} path="/platform" /> */}
           <Route element={<Trading />} path="/trading" />
-          <Route element={<Trading />} path="/trading" />
-          <Route element={<Trading />} path="/trading" />
+          <Route element={<Deposit />} path="/deposit" />
+          <Route element={<Products />} path="/products" />
           <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Verify />} path="/verify" />
+          <Route element={<Legal />} path="/legal" />
         </Routes>
+        <Footer />
       </Router>
     </>
   );

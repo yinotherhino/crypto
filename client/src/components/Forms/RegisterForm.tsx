@@ -83,7 +83,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <form>
+    <form className="transition ease-in duration-500">
       <h1 className="text-2xl font-roboto mb-3">Sign up</h1>
 
       <Input.Text

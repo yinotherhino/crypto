@@ -44,6 +44,9 @@ const Links = ({headerStyle,linkStyle,bodyStyle}:IProps) => {
           <Link to="/deposit" className={linkStyle}>
             Deposit
           </Link>
+          <Link to="/legal" className={linkStyle}>
+            Legal
+          </Link>
           <Link to="/withdraw" className={linkStyle}>
             Withdraw
           </Link>
