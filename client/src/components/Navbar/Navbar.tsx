@@ -39,13 +39,13 @@ const Navbar = () => {
         const distance = window.scrollY;
         const threshold = 100;
         const newOpacity = Math.max(
-          0,
+          0.5,
           1 - (distance - threshold) / (threshold * 5)
         );
-        setOpacity(newOpacity);
-        if (newOpacity === 0) {
+        if (newOpacity <= 0.5) {
           setShowNavbar(false);
         } else {
+          setOpacity(newOpacity);
           setShowNavbar(true);
         }
       };

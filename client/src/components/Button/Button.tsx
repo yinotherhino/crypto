@@ -31,8 +31,7 @@ const Primary = ({
   return (
     <button
       className={
-        "py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white " +
-          extraStyle || ""
+        `py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white ${extraStyle}`
       }
       type={type || "button"}
       disabled={disabled}

@@ -6,6 +6,7 @@ import {
   useViewportScroll,
 } from "framer-motion";
 import { Link } from "react-router-dom";
+import Button from "../Button/Button";
 
 interface IProps {
   extraStyle?: string;
@@ -19,10 +20,7 @@ const Basic = ({ extraStyle, header, text, readmoreLink }: IProps) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
   return (
     <div
-      className={
-        " mb-[50px] xsm:mb-0 hover:2sm bg-white border border-gray-200 rounded-lg " +
-        extraStyle
-      }>
+      className={` mb-[50px] xsm:mb-0 hover:2sm bg-white border border-gray-200 rounded-lg ${extraStyle}`}>
       <Link to={readmoreLink || ""}>
         <img
           className="rounded-t-lg"
@@ -78,4 +76,35 @@ const Long = ({
   );
 };
 
-export default { Basic, Long } as const;
+const Deposit = ({
+  extraStyle,
+  header,
+  text,
+  icon,
+}: Omit<IProps, "readmoreLink"> & { icon: React.ReactNode }) => {
+  return (
+    <div
+      className={` mb-[50px] py-5 px-10 flex flex-col justify-between w-full xsm:mb-0 hover:2sm rounded-lg bg-black text-white ${extraStyle}`}>
+      <div className="flex justify-between">
+
+      <div>{icon}</div>
+      <p>
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-white ">
+          {header}
+        </h5>
+      </p>
+      <div>
+        <div className="text-2xl">{text}</div>
+      </div>
+          </div>
+        <Button.Primary
+          text="Deposit"
+          handleClick={() => {}}
+          disabled={false}
+          extraStyle=" hover:bg-gold border-none"
+          />
+    </div>
+  );
+};
+
+export default { Basic, Long, Deposit } as const;

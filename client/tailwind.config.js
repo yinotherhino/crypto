@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}",'./*/*.html'],
   theme: {
     extend: {
       fontFamily: {
@@ -27,6 +27,7 @@ export default {
         modal: "rgba(0, 0, 0, 0.5)",
         faint: "#F6F1F1",
         lBlue: "#D4FAFC",
+        gold: "#FFD700",
       },
       screens: {
         xxxs: "280px",

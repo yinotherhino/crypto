@@ -10,7 +10,7 @@ const Manage = () => {
       <h1 className="text-primary mb-[30px] text-[12px] text-center xsm:text-[25px] sm:text-[35px]">
         Manage all your wallets in one place!
       </h1>
-      <Button.Centered text="Deposit" handleClick={()=>navigate("/deposit")} extraStyle=" shadow-none text-white rounded-full hover:bg-gray-300 bg-gray-500 "  />
+      <Button.Centered text="Deposit" handleClick={()=>navigate("/deposit")} extraStyle=" shadow-none text-white rounded-full hover:bg-gray-300 bg-gray-500 hover:text-deep "  />
       <div className="flex flex-wrap justify-center">
         <Icons.FaFacebookMessenger className="icon-social text-blue-500 " />
         <Icons.FaBitcoin className="icon-social text-green-700  " />
