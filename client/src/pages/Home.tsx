@@ -1,16 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import Cards from "../components/Cards/Cards";
+import React from "react";
+import {Cards,Button,Icons,Socials,Manage,Circular,Banner} from "../components";
 import { changeAuth } from "../redux/slices/NavbarSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "../components/Button/Button";
-import Icons from "../components/Icons";
-import Socials from "../components/Sections/Socials";
-import Footer from "../components/Sections/Footer/Footer";
-import Manage from "../components/Sections/Manage";
-import Circular from "../components/Sections/Circular";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import Banner from "../components/Sections/Banner";
 
 const Home = () => {
   const dispatch = useDispatch();

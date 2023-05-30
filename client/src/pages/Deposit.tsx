@@ -1,6 +1,5 @@
 import React from "react";
-import Cards from "../components/Cards/Cards";
-import Icons from "../components/Icons";
+import {Cards, Icons} from "../components";
 
 const Deposit = () => {
   const extraStyle = " mr-5 !bg-black basis-1/3"

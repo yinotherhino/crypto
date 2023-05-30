@@ -1,8 +1,7 @@
 import React from "react";
-import Button from "../components/Button/Button";
+import {Button,Icons} from "../components";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import Icons from "../components/Icons";
 
 const Profile = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);

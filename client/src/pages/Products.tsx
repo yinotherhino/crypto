@@ -1,6 +1,5 @@
 import React from "react";
-import Button from "../components/Button/Button";
-import Cards from "../components/Cards/Cards";
+import {Button, Cards} from "../components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
