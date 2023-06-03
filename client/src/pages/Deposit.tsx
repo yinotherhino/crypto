@@ -5,8 +5,8 @@ const Deposit = () => {
   const extraStyle = " mr-5 !bg-black basis-1/3"
   return (
     <>
-      <div>
-        <div className="mx-auto basis-1/3 sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
+      <div className="overflow-scroll sm:mx-[50px] mt-[50px] py-[2rem] xsm:m-[70px] md:m-[100px]">
+        <div className="mx-auto basis-1/3  flex flex-col xsm:flex-row justify-between ">
           <Cards.Deposit
             text="50$"
             header="BTC"

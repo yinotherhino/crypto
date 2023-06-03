@@ -13,7 +13,6 @@ import { client } from "../../constants";
 const ForgotForm = () => {
   const [tooltipText, setTooltipText] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const handleChange = (_: string, value: any) => setEmail(value);
@@ -30,7 +29,7 @@ const ForgotForm = () => {
     setIsDisabled(true);
 
     client
-      .post("/reset-password", {})
+      .post("/reset-password", {email})
       .then((_) => {
         const toast: IToast = {
           message: `Check your mail for password reset link`,
@@ -40,10 +39,8 @@ const ForgotForm = () => {
       })
       .catch((err) => {
         dispatch(handleServerError(err));
-      })
-      .finally(() => {
         setIsDisabled(false);
-      });
+      })
   };
   useEffect(() => {
     const tooltext = email.length == 0 ? "email is required" : "";
@@ -61,12 +58,14 @@ const ForgotForm = () => {
       />
       <Button.Primary
         extraStyle={
-          email.length == 0 || isDisabled ? "cursor-no-drop" : "cursor-pointer"
+          email.length == 0 || isDisabled|| tooltipText.length > 0 ? "cursor-no-drop" : "cursor-pointer"
         }
         disabled={email.length == 0 || isDisabled}
         type="submit"
         text="Send reset mail"
         handleClick={forgotPwd}
+        tooltip={tooltipText}
+        
       />
     </form>
   );

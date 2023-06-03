@@ -4,6 +4,7 @@ export enum SIGNATURE_USAGE {
 
 export enum SUCCESS_MESSAGES {
     CHECK_MAIL = "Check your email to verify your account",
+    CHECK_RESET_MAIL = "Check your email to reset your password",
     VERIFIED = "Verified",
     SUCCESS = "Success",
     PROFILE_UPDATED = "Profile updated",
@@ -11,11 +12,12 @@ export enum SUCCESS_MESSAGES {
 
 export enum ERROR_MESSAGES {
     EMAIL_REQUIRED = "Email is required",
-    INVALID_VERIFICATION_LINK ="invalid verification link",
+    INVALID_VERIFICATION_LINK ="Invalid verification link",
     EMAIL_AND_PWD_REQUIRED = "Email and password are required",
     LOGIN_FAILED = "Login failed",
-    DEFAULT = "an error occured.",
-    PAGE_NOT_FOUND = "Page Not Found"
+    DEFAULT = "An error occured.",
+    PAGE_NOT_FOUND = "Page Not Found",
+    INVALID_TOKEN = "Invalid token"
 }
 
 export enum CODES {

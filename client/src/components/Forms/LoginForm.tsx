@@ -22,9 +22,13 @@ const LoginForm = () => {
     password: "",
   });
   useEffect(() => {
-    const tooltext = formData.email.length == 0 ? "email is required" : 
-    formData.password.length == 0 ? "password is required" : "";
-    setTooltipText(tooltext)
+    const tooltext =
+      formData.email.length == 0
+        ? "email is required"
+        : formData.password.length == 0
+        ? "password is required"
+        : "";
+    setTooltipText(tooltext);
   }, [formData]);
   const login = () => {
     const notFilled: string | undefined = !formData.email
@@ -82,6 +86,7 @@ const LoginForm = () => {
         extraStyle={
           formData.email.length == 0 ||
           formData.password.length == 0 ||
+          tooltipText.length > 0 ||
           isDisabled
             ? "cursor-no-drop"
             : "cursor-pointer"

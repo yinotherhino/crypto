@@ -4,8 +4,10 @@ import { generatePassword } from "../others";
 import { validatePassword } from "../others";
 import { generateSignature, verifySignature } from "../others/utils";
 import { sendEmail } from "../others/mailer/mailSender";
-import { welcomeMail } from "../others/mailer/template";
+import { welcomeMail,resetMail } from "../others/mailer/template";
 import { CODES, ERROR_CAUSES, ERROR_MESSAGES, SIGNATURE_USAGE, STATUS_CODES, SUCCESS_MESSAGES } from "../constants";
+import { JwtPayload } from "jsonwebtoken";
+import transformers from "../others/transformers";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -54,16 +56,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     const response = await sendEmail(email, "Signup Success", temp);
 
     res.status(STATUS_CODES.SUCCESS).send({
-      User: {
-        firstName,
-        lastName,
-        country,
-        phone,
-        email,
-        gender,
-        role: user.role,
-        verified: false,
-      },
+      User: transformers.toUserObject(user),
       Message: SUCCESS_MESSAGES.CHECK_MAIL,
       Code: CODES.SUCCESS,
     });
@@ -194,16 +187,7 @@ const verify = async (req: Request, res: Response, next: NextFunction) => {
     const user = await UserRepository.getByPKey(email);
     await UserRepository.updateOne({ ...user, verified: true }, email);
     res.status(STATUS_CODES.SUCCESS).send({
-      User: {
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        gender: user.gender,
-        country: user.country,
-        phone: user.phone,
-        role: user.role,
-        veried: true,
-      },
+      User: transformers.toUserObject(user),
       Message: SUCCESS_MESSAGES.VERIFIED,
       Code: CODES.SUCCESS,
     });
@@ -224,16 +208,7 @@ export const requestVerification = async (
     const temp = welcomeMail(user.firstName || "user", token);
     await sendEmail(email, SUCCESS_MESSAGES.SUCCESS, temp);
     res.status(STATUS_CODES.SUCCESS).send({
-      User: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        country: user.country,
-        phone: user.phone,
-        email,
-        gender: user.gender,
-        role: user.role,
-        verified: user.verified,
-      },
+      User: transformers.toUserObject(user),
       Message: SUCCESS_MESSAGES.CHECK_MAIL,
       Code: CODES.SUCCESS,
     });
@@ -250,12 +225,38 @@ const requestReset = async (
   try {
     const { email } = req.body;
     const user = await UserRepository.getByPKey(email);
-    const token = await generateSignature({ email, password:user.password, for: SIGNATURE_USAGE.RESET });
-
+    const token = await generateSignature({ email, password:user.password, usage: SIGNATURE_USAGE.RESET });
+    const temp = resetMail(user.firstName || "user", token);
+    await sendEmail(email, SUCCESS_MESSAGES.SUCCESS, temp);
+    res.status(STATUS_CODES.SUCCESS).send({
+      Message: SUCCESS_MESSAGES.CHECK_RESET_MAIL,
+      Code: CODES.SUCCESS,
+    })
   } catch (err) {
     next(err);
   }
 };
+
+const verifyReset = async(  
+  req: Request,
+  res: Response,
+  next: NextFunction) =>{
+  try {
+    const { token, password: newPassword } = req.body;
+    const {email, password:oldPassword,usage} =  await verifySignature(token) as JwtPayload;
+    const user = await UserRepository.getByPKey(email);
+    if(usage !== SIGNATURE_USAGE.RESET || user.password !== oldPassword){
+      throw new Error (ERROR_MESSAGES.INVALID_TOKEN, {cause: ERROR_CAUSES.UNAUTHORIZED})
+    }
+    await UserRepository.updateOne({...user, password: newPassword}, email);
+    res.status(STATUS_CODES.SUCCESS).send({
+      Message: SUCCESS_MESSAGES.CHECK_RESET_MAIL,
+      Code: CODES.SUCCESS,
+    })
+  } catch (err) {
+    next(err);
+  }
+}
 
 export default {
   getOne,
@@ -267,4 +268,5 @@ export default {
   verify,
   requestReset,
   requestVerification,
+  verifyReset,
 } as const;

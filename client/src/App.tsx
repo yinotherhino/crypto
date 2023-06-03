@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {Dashboard, About, Deposit, Home, Legal, Trading, Profile, Security, Verify, Products, Withdraw} from "./pages"
+import {Dashboard, About, Deposit, Home, Legal, Trading, Profile, Security, Verify, Products, Withdraw, Reset} from "./pages"
 import {Layout, Footer} from "./components";
 
 const App = () => {
@@ -18,6 +18,7 @@ const App = () => {
           <Route element={<Profile />} path="/profile" />
           <Route element={<Dashboard />} path="/dashboard" />
           <Route element={<Verify />} path="/verify" />
+          <Route element={<Reset />} path="/reset-password" />
           <Route element={<Legal />} path="/legal" />
           <Route element={<Security />} path="/security" />
         </Routes>

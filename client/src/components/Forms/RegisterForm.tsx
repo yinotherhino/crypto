@@ -181,6 +181,7 @@ const RegisterForm = () => {
           formData.lastName.length == 0 ||
           formData.phone.length == 0 ||
           formData.password.length == 0 ||
+          tooltipText.length > 0 ||
           isDisabled
             ? "cursor-no-drop"
             : "cursor-pointer"

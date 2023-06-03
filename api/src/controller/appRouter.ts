@@ -16,6 +16,7 @@ loginRouter.post(
   userController.loginController
 );
 resetRouter.post("/", userController.requestReset)
+resetRouter.put("/", userController.verifyReset)
 
 userRouter.post("/", userController.create);
 userRouter.post("/verify", userController.verify);

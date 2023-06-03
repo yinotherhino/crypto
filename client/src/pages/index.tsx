@@ -11,5 +11,6 @@ import Verify from "./Verify"
 import Withdraw from "./Withdraw"
 import Security from "./Security"
 import Products from "./Products"
+import Reset from "./Reset"
 
-export {Dashboard, About, Deposit, Home, ErrorPage, Legal, Platform, Trading, Profile, Products, Withdraw, Verify,Security}; 
+export {Reset, Dashboard, About, Deposit, Home, ErrorPage, Legal, Platform, Trading, Profile, Products, Withdraw, Verify,Security}; 
