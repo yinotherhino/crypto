@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface IProps {
   handleClick: () => void;
@@ -27,20 +27,35 @@ const Primary = ({
   type,
   disabled,
   extraStyle,
-}: IProps & { type?: "submit" | "reset"; disabled: boolean }) => {
+  tooltip,
+}: IProps & {
+  type?: "submit" | "reset";
+  disabled: boolean;
+  tooltip?: string;
+}) => {
+  const [hovering, setHovering] = useState(false)
   return (
-    <button
-      className={
-        `py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white ${extraStyle}`
+    <div className="relative inline-flex justify-center">
+      {
+      tooltip && tooltip.length>0 && hovering && <span className="absolute left-[100%] bg-glass p-3 text-black rounded-md ">
+        {tooltip}
+      </span>
       }
-      type={type || "button"}
-      disabled={disabled}
-      onClick={(e) => {
-        e.preventDefault();
-        handleClick();
-      }}>
-      <span className="text-xl">{text}</span>
-    </button>
+      <button
+      onMouseEnter={()=>{setHovering(true)}}
+      onMouseLeave={()=>{setHovering(false)}}
+        className={`py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white ${extraStyle}`}
+        type={type || "button"}
+        onClick={(e) => {
+          if(disabled){
+            return;
+          }
+          e.preventDefault();
+          handleClick();
+        }}>
+        <span className="text-xl">{text}</span>
+      </button>
+    </div>
   );
 };
 

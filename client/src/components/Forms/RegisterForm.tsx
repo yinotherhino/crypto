@@ -11,6 +11,7 @@ import {
 import { ALL_COUNTRIES, client } from "../../constants";
 
 const RegisterForm = () => {
+  const [tooltipText, setTooltipText] = useState("");
   const dispatch = useDispatch();
   const [isDisabled, setIsDisabled] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const RegisterForm = () => {
     password: "",
     confirmPassword: "",
   });
-  useEffect(() => console.log(formData),[formData])
+  useEffect(() => console.log(formData), [formData]);
 
   const register = () => {
     console.log(formData);
@@ -82,6 +83,26 @@ const RegisterForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  useEffect(() => {
+    const tooltext =
+      formData.firstName.length == 0
+        ? "first name is required"
+        : formData.lastName.length == 0
+        ? "last name is required"
+        : formData.country.length == 0
+        ? "country is required"
+        : formData.email.length == 0
+        ? "email is required"
+        : formData.phone.length == 0
+        ? "phone is required"
+        : formData.password.length == 0
+        ? "password is required"
+        : formData.confirmPassword.length == 0
+        ? "confirm password is required"
+        : "";
+    setTooltipText(tooltext);
+  }, [formData]);
+
   return (
     <form className="transition ease-in duration-500">
       <h1 className="text-2xl font-roboto mb-3">Sign up</h1>
@@ -117,8 +138,12 @@ const RegisterForm = () => {
         />
       </div>
       <div className="mb-3">
-      <Input.List label="Country" name="country" list={ALL_COUNTRIES} handleChange={handleChange}  />
-        
+        <Input.List
+          label="Country"
+          name="country"
+          list={ALL_COUNTRIES}
+          handleChange={handleChange}
+        />
       </div>
       <Input.Text
         placeholder="Email"
@@ -173,6 +198,7 @@ const RegisterForm = () => {
         type="submit"
         text="Sign up"
         handleClick={register}
+        tooltip={tooltipText}
       />
       <p>
         Already registered?{" "}

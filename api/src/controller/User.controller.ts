@@ -5,11 +5,12 @@ import { validatePassword } from "../others";
 import { generateSignature, verifySignature } from "../others/utils";
 import { sendEmail } from "../others/mailer/mailSender";
 import { welcomeMail } from "../others/mailer/template";
+import { CODES, ERROR_CAUSES, ERROR_MESSAGES, SIGNATURE_USAGE, STATUS_CODES, SUCCESS_MESSAGES } from "../constants";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await UserRepository.getByPKey(req.params.email);
-    res.status(200).send({
+    res.status(STATUS_CODES.SUCCESS).send({
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -20,7 +21,7 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
     });
   } catch (err: any) {
     let status = 500;
-    if (err.cause === "NOT_FOUND") {
+    if (err.cause === ERROR_CAUSES.NOT_FOUND) {
       status = 404;
     }
     res.status(status).send({
@@ -52,7 +53,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
     const temp = welcomeMail(firstName, token);
     const response = await sendEmail(email, "Signup Success", temp);
 
-    res.status(200).send({
+    res.status(STATUS_CODES.SUCCESS).send({
       User: {
         firstName,
         lastName,
@@ -63,8 +64,8 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
         role: user.role,
         verified: false,
       },
-      Message: "Check your email to verify your account",
-      Code: "SUCCESS",
+      Message: SUCCESS_MESSAGES.CHECK_MAIL,
+      Code: CODES.SUCCESS,
     });
   } catch (err: any) {
     next(err);
@@ -80,8 +81,8 @@ const loginController = async (
     const role = req.query.role;
     const { email, password } = req.body;
     if (!email || !password) {
-      throw new Error("Email and password are required", {
-        cause: "BAD_REQUEST",
+      throw new Error(ERROR_MESSAGES.EMAIL_AND_PWD_REQUIRED, {
+        cause: ERROR_CAUSES.BAD_REQUEST,
       });
     }
     let user: any;
@@ -94,14 +95,14 @@ const loginController = async (
     }
 
     if (user && validatePassword(password, user.password)) {
-      res.status(200).send({
+      res.status(STATUS_CODES.SUCCESS).send({
         token: await generateSignature({
           email: user.email || user.username,
           password: user.password,
           role: user.role,
         }),
-        Message: "Login Success",
-        Code: "SUCCESS",
+        Message: SUCCESS_MESSAGES.SUCCESS,
+        Code: CODES.SUCCESS,
         user: {
           email: user.email || user.username,
           firstName: user.firstName,
@@ -114,7 +115,7 @@ const loginController = async (
         },
       });
     } else {
-      throw new Error("Login failed", { cause: "UNAUTHORIZED" });
+      throw new Error(ERROR_MESSAGES.LOGIN_FAILED, { cause: ERROR_CAUSES.UNAUTHORIZED });
     }
   } catch (err: any) {
     next(err);
@@ -125,13 +126,10 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const email = req.params.email;
     if (!email) {
-      res.status(400).send({
-        Message: "Email is required",
-      });
-      return;
+      throw new Error (ERROR_MESSAGES.EMAIL_REQUIRED, {cause: ERROR_CAUSES.BAD_REQUEST})
     }
     const user = await UserRepository.updateOne(req.body, email);
-    res.status(200).send({
+    res.status(STATUS_CODES.SUCCESS).send({
       user: {
         email: user.email,
         firstName: user.firstName,
@@ -140,11 +138,10 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
         country: user.country,
         phone: user.phone,
         role: user.role,
-        veried: user.verified
-
+        veried: user.verified,
       },
-      Message: "Profile updated",
-      Code: "SUCCESS",
+      Message: SUCCESS_MESSAGES.PROFILE_UPDATED,
+      Code: CODES.SUCCESS,
     });
   } catch (err: any) {
     next(err);
@@ -154,9 +151,9 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 const deleteOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
     await UserRepository.deleteOne(req.params.email);
-    res.status(200).send({
-      Message: "Success",
-      Code: "DELETED",
+    res.status(STATUS_CODES.SUCCESS).send({
+      Message: SUCCESS_MESSAGES.SUCCESS,
+      Code: CODES.DELETED,
       email: req.params.email,
     });
   } catch (err: any) {
@@ -176,10 +173,10 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
         country: user.country,
         phone: user.phone,
         role: user.role,
-        veried: user.verified
+        veried: user.verified,
       };
     });
-    res.status(200).send(userOmitPwd);
+    res.status(STATUS_CODES.SUCCESS).send(userOmitPwd);
   } catch (err: any) {
     next(err);
   }
@@ -189,17 +186,14 @@ const verify = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { token } = req.body;
     if (!token) {
-      throw new Error("invalid verification link", { cause: "BAD_REQUEST" });
+      throw new Error(ERROR_MESSAGES.INVALID_VERIFICATION_LINK, { cause: ERROR_CAUSES.BAD_REQUEST });
     }
     const { email } = (await verifySignature(token as string)) as {
       email: string;
     };
     const user = await UserRepository.getByPKey(email);
-    await UserRepository.updateOne(
-      { ...user, verified: true },
-      email
-    );
-    res.status(200).send({
+    await UserRepository.updateOne({ ...user, verified: true }, email);
+    res.status(STATUS_CODES.SUCCESS).send({
       User: {
         email: user.email,
         firstName: user.firstName,
@@ -208,27 +202,31 @@ const verify = async (req: Request, res: Response, next: NextFunction) => {
         country: user.country,
         phone: user.phone,
         role: user.role,
-        veried: true
+        veried: true,
       },
-      Message: "Verified",
-      Code: "SUCCESS",
+      Message: SUCCESS_MESSAGES.VERIFIED,
+      Code: CODES.SUCCESS,
     });
   } catch (err) {
     next(err);
   }
 };
 
-export const requestVerification = async (req: Request, res: Response, next: NextFunction) => {
+export const requestVerification = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const {email} = req.body;
+    const { email } = req.body;
     const user = await UserRepository.getByPKey(email);
     const token = await generateSignature({ email });
-    const temp = welcomeMail(user.firstName||"user", token);
-    await sendEmail(email, "Signup Success", temp);
-    res.status(200).send({
+    const temp = welcomeMail(user.firstName || "user", token);
+    await sendEmail(email, SUCCESS_MESSAGES.SUCCESS, temp);
+    res.status(STATUS_CODES.SUCCESS).send({
       User: {
-        firstName:user.firstName,
-        lastName:user.lastName,
+        firstName: user.firstName,
+        lastName: user.lastName,
         country: user.country,
         phone: user.phone,
         email,
@@ -236,13 +234,28 @@ export const requestVerification = async (req: Request, res: Response, next: Nex
         role: user.role,
         verified: user.verified,
       },
-      Message: "Check your email to verify your account",
-      Code: "SUCCESS",
-    })
+      Message: SUCCESS_MESSAGES.CHECK_MAIL,
+      Code: CODES.SUCCESS,
+    });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
+
+const requestReset = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email } = req.body;
+    const user = await UserRepository.getByPKey(email);
+    const token = await generateSignature({ email, password:user.password, for: SIGNATURE_USAGE.RESET });
+
+  } catch (err) {
+    next(err);
+  }
+};
 
 export default {
   getOne,
@@ -252,5 +265,6 @@ export default {
   deleteOne,
   loginController,
   verify,
-  requestVerification
+  requestReset,
+  requestVerification,
 } as const;

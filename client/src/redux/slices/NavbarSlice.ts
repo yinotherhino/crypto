@@ -15,7 +15,7 @@ export interface NavbarState {
   showToast: IToast;
   isToastOpen: boolean;
   dropType: DropTypes | null;
-  showAuth: "login" | "register" | null;
+  showAuth: "login" | "register" | "forgot" | null;
 }
 
 const initialState: NavbarState = {
@@ -48,7 +48,7 @@ export const navbarSlice = createSlice({
     changeDropType: (state, action: PayloadAction<DropTypes | null>) => {
       state.dropType = action.payload;
     },
-    changeAuth: (state, action: PayloadAction<"login" | "register" | null>) => {
+    changeAuth: (state, action: PayloadAction<"login" | "register" | "forgot" | null>) => {
       state.showAuth = action.payload;
     },
     changeToast: (state, action: PayloadAction<IToast>) => {
