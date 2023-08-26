@@ -8,6 +8,7 @@ import LoginForm from "./Forms/LoginForm";
 import { changeAuth } from "../redux/slices/NavbarSlice";
 import Chat from "./Sections/Chat";
 import Toast from "./Toast";
+import ForgotForm from "./Forms/ForgotForm";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,9 @@ const Layout = () => {
       <Modal
         isOpen={Boolean(showAuth)}
         closeModal = {() => dispatch(changeAuth(null))}>
-        {showAuth =="register" ? <RegisterForm /> : <LoginForm />}
+        {showAuth =="register" ? <RegisterForm /> :showAuth =="forgot" ? <ForgotForm /> :<LoginForm />}
       </Modal>
+      
       <Chat />
     </>
   );

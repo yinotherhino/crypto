@@ -2,17 +2,21 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import userController from "./User.controller";
 import adminController from "./Admin.controller";
 import { restrictTo } from "../others";
+import { CODES, ERROR_CAUSES, ERROR_MESSAGES, STATUS_CODES } from "../constants";
 
 const userRouter = express.Router();
 const adminRouter = express.Router();
 const PremiumRouter = express.Router();
 const indexRouter = express.Router();
 const loginRouter = express.Router();
+const resetRouter = express.Router();
 
 loginRouter.post(
   "/",
   userController.loginController
 );
+resetRouter.post("/", userController.requestReset)
+resetRouter.put("/", userController.verifyReset)
 
 userRouter.post("/", userController.create);
 userRouter.post("/verify", userController.verify);
@@ -39,36 +43,37 @@ indexRouter.get("/", (req: Request, res: Response) => {
 export default (app: Express) => {
   app.use("/users", userRouter);
   app.use("/login", loginRouter);
+  app.use("/reset-password", resetRouter);
   app.use("/admins", adminRouter);
   app.use("/premiums", PremiumRouter);
   app.use("/", indexRouter);
   app.use("*", (req: Request, res: Response) => {
     res.status(404).send({
-      Message: "Page Not Found",
-      Code: "NOT_FOUND",
+      Message: ERROR_MESSAGES.PAGE_NOT_FOUND,
+      Code: CODES.NOT_FOUND,
     });
   });
 
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
-    let status = 500;
+    let status = STATUS_CODES.SERVER_ERROR;
     let message = "";
     switch (err.cause) {
-      case "DUPLICATE":
-        status = 409;
+      case ERROR_CAUSES.DUPLICATE:
+        status = STATUS_CODES.DUPLICATE;
         break;
-      case "NOT_FOUND":
-        status = 404;
+      case ERROR_CAUSES.NOT_FOUND:
+        status = STATUS_CODES.NOT_FOUND;
         break;
-      case "UNAUTHORIZED":
-        status = 403;
+      case ERROR_CAUSES.UNAUTHORIZED:
+        status = STATUS_CODES.UNAUTHORIZED;
         break;
-      case "BAD_REQUEST":
-          status = 400;
+      case ERROR_CAUSES.BAD_REQUEST:
+          status = STATUS_CODES.BAD_REQUEST;
           break;
       default:
-        status = 500;
-        message = "an error occured.";
+        status = STATUS_CODES.SERVER_ERROR;
+        message = ERROR_MESSAGES.DEFAULT;
         break;
     }
     message = message.length > 0 ? message : err.message;

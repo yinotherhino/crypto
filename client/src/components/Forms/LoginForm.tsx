@@ -9,22 +9,27 @@ import {
   changeToast,
   handleServerError,
 } from "../../redux/slices/NavbarSlice";
-import {changeUser} from "../../redux/slices/AuthSlice"
+import { changeUser } from "../../redux/slices/AuthSlice";
 import { client } from "../../constants";
-import { RootState } from "../../redux/store";
 
 const LoginForm = () => {
+  const [tooltipText, setTooltipText] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(false);
-  const showAuth = useSelector((state:RootState) => state.navbar.showAuth);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   useEffect(() => {
-    console.log(showAuth)
-  },[showAuth])
+    const tooltext =
+      formData.email.length == 0
+        ? "email is required"
+        : formData.password.length == 0
+        ? "password is required"
+        : "";
+    setTooltipText(tooltext);
+  }, [formData]);
   const login = () => {
     const notFilled: string | undefined = !formData.email
       ? "email"
@@ -32,7 +37,6 @@ const LoginForm = () => {
       ? "password"
       : undefined;
     if (notFilled) {
-      console.log(notFilled);
       const toast: IToast = {
         message: `Please fill your ${notFilled} `,
         variant: "warning",
@@ -41,7 +45,6 @@ const LoginForm = () => {
       return;
     }
     setIsDisabled(true);
-    console.log(formData);
     client
       .post("/login", formData)
       .then((res) => {
@@ -50,12 +53,11 @@ const LoginForm = () => {
           token,
         } = res.data;
         dispatch(changeUser({ email, token, role, fullName, dob }));
-        dispatch(changeAuth(null))
-        navigate("/dashboard")
-        
+        dispatch(changeAuth(null));
+        navigate("/dashboard");
       })
       .catch((err) => {
-        dispatch(handleServerError(err))
+        dispatch(handleServerError(err));
       })
       .finally(() => {
         setIsDisabled(false);
@@ -84,6 +86,7 @@ const LoginForm = () => {
         extraStyle={
           formData.email.length == 0 ||
           formData.password.length == 0 ||
+          tooltipText.length > 0 ||
           isDisabled
             ? "cursor-no-drop"
             : "cursor-pointer"
@@ -96,7 +99,15 @@ const LoginForm = () => {
         type="submit"
         text="Log in"
         handleClick={login}
+        tooltip={tooltipText}
       />
+      <p
+        className="cursor-pointer text-deep"
+        onClick={() => {
+          dispatch(changeAuth("forgot"));
+        }}>
+        Forgot password?
+      </p>
       <p>
         Not registered?{" "}
         <span

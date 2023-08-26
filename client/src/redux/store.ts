@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import NavbarReducer from './slices/NavbarSlice'
 import AuthReducer from './slices/AuthSlice'
+import ProductReducer from './slices/Product'
 // import FormReducer from './slices/FormSlice'
 
 export const store = configureStore({
   reducer: {
     navbar:NavbarReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
+    product: ProductReducer
     // form: FormReducer 
   },
 })

@@ -1,0 +1,16 @@
+import About from "./About"
+import Dashboard from "./Dashboard"
+import Deposit from "./Deposit"
+import Home from "./Home"
+import ErrorPage from "./ErrorPage"
+import Legal from "./Legal"
+import Platform from "./Platform"
+import Trading from "./Trading"
+import Profile from "./Profile"
+import Verify from "./Verify"
+import Withdraw from "./Withdraw"
+import Security from "./Security"
+import Products from "./Products"
+import Reset from "./Reset"
+
+export {Reset, Dashboard, About, Deposit, Home, ErrorPage, Legal, Platform, Trading, Profile, Products, Withdraw, Verify,Security}; 

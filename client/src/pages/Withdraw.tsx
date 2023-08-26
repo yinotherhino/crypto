@@ -1,10 +1,10 @@
 import React from 'react'
 import ComingSoon from '../components/ComingSoon'
 
-const Trading = () => {
+const Withdraw = () => {
   return (
     <ComingSoon />
   )
 }
 
-export default Trading
+export default Withdraw

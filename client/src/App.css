@@ -48,9 +48,9 @@ a{
 .toast {
   position: fixed;
   top: 0px;
-  right: 200px;
+  left: 50vw;
   animation-name: example;
-  animation-duration: 6s;
+  animation-duration: 3s;
   animation-fill-mode: forwards;
   transition: display 0.5s ease-in-out;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface IProps {
   handleClick: () => void;
@@ -27,21 +27,35 @@ const Primary = ({
   type,
   disabled,
   extraStyle,
-}: IProps & { type?: "submit" | "reset"; disabled: boolean }) => {
+  tooltip,
+}: IProps & {
+  type?: "submit" | "reset";
+  disabled: boolean;
+  tooltip?: string;
+}) => {
+  const [hovering, setHovering] = useState(false)
   return (
-    <button
-      className={
-        "py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white " +
-          extraStyle || ""
+    <div className="relative inline-flex justify-center">
+      {
+      tooltip && tooltip.length>0 && hovering && <span className="absolute left-[100%] bg-glass p-3 text-black rounded-md ">
+        {tooltip}
+      </span>
       }
-      type={type || "button"}
-      disabled={disabled}
-      onClick={(e) => {
-        e.preventDefault();
-        handleClick();
-      }}>
-      <span className="text-xl">{text}</span>
-    </button>
+      <button
+      onMouseEnter={()=>{setHovering(true)}}
+      onMouseLeave={()=>{setHovering(false)}}
+        className={`py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white ${extraStyle}`}
+        type={type || "button"}
+        onClick={(e) => {
+          if(disabled){
+            return;
+          }
+          e.preventDefault();
+          handleClick();
+        }}>
+        <span className="text-xl">{text}</span>
+      </button>
+    </div>
   );
 };
 
@@ -49,18 +63,21 @@ const Centered = ({
   handleClick,
   text,
   extraStyle,
-  Icon
+  Icon,
 }: {
   handleClick: Function;
   text: string;
-  extraStyle?:string;
+  extraStyle?: string;
   Icon?: React.ElementType;
 }) => {
   return (
     <div className="flex justify-center mb-[50px]">
       <button
-        onClick={() => handleClick()}
-        className={" text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep "+extraStyle}>
+        onClick={(e) => {
+          e.preventDefault();
+          handleClick();
+        }}
+        className={` text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep ${extraStyle} `}>
         {Icon && <Icon className="inline-block " />} {text}
       </button>
     </div>
@@ -74,11 +91,48 @@ const Round = ({
 }: {
   handleClick: Function;
   text: string;
-  extraStyle?:string;
-})=>{
-  return <button className={"w-[40px] hover:bg-gray-700 h-[40px] rounded-[100px] text-white text-2xl border-1 bg-deep hover:border-primary"+extraStyle} onClick={()=>handleClick}>
-    {text}
-  </button>
-}
+  extraStyle?: string;
+}) => {
+  return (
+    <button
+      className={
+        "w-[40px] hover:bg-gray-700 h-[40px] rounded-[100px] text-white text-2xl border-1 bg-deep hover:border-primary" +
+        extraStyle
+      }
+      onClick={(e) => {
+        e.preventDefault();
+        handleClick();
+      }}>
+      {text}
+    </button>
+  );
+};
 
-export default { Auth, Primary, Centered, Round } as const;
+const FocusSensitive = ({
+  text,
+  handleClick,
+  extraStyle,
+  focusedStyle,
+  isFocused,
+}: {
+  text: string;
+  handleClick: () => void;
+  extraStyle?: string;
+  focusedStyle: string;
+  isFocused: boolean;
+}) => {
+  return (
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        handleClick();
+      }}
+      className={`transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep ${
+        isFocused ? focusedStyle : " "
+      } ${extraStyle}`}>
+      {text}
+    </button>
+  );
+};
+
+export default { Auth, Primary, Centered, Round, FocusSensitive } as const;

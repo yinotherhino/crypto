@@ -16,3 +16,17 @@ export const welcomeMail = (firstName: string, token: string) => {
         Thank you. <br /><br />
     `;
 };
+
+export const resetMail = (firstName: string, token: string) => {
+  if (token.length < 5) {
+    const errMessage = "token is not specified";
+    throw new Error(errMessage);
+  }
+  const link = `${ENV.FRONTEND_URL}/reset-password/?token=${token}`;
+  return `<!DOCTYPE html>
+        <p>Hello ${firstName || "user"}</p>
+        <a href="${link}">click here to reset your password</a>
+        <br />
+        Thank you. <br /><br />
+    `;
+};

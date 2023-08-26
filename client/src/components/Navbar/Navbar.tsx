@@ -8,12 +8,12 @@ import { changeAuth } from "../../redux/slices/NavbarSlice";
 import { RootState } from "../../redux/store";
 import ProfileIcon from "../ProfileIcon";
 import { Link, useNavigate } from "react-router-dom";
+import { changeProductCurrentlyShowing } from "../../redux/slices/Product";
 
 export type DropTypes =
   | "trading"
   | "platform"
   | "products"
-  | "legal"
   | "about"
   | "register"
   | "deposit";
@@ -39,13 +39,13 @@ const Navbar = () => {
         const distance = window.scrollY;
         const threshold = 100;
         const newOpacity = Math.max(
-          0,
+          0.5,
           1 - (distance - threshold) / (threshold * 5)
         );
-        setOpacity(newOpacity);
-        if (newOpacity === 0) {
+        if (newOpacity <= 0.5) {
           setShowNavbar(false);
         } else {
+          setOpacity(newOpacity);
           setShowNavbar(true);
         }
       };
@@ -71,69 +71,52 @@ const Navbar = () => {
               {isLoggedIn && <ProfileIcon className=" xsm:hidden" />}
             </div>
           </div>
-          {/* <div className="flex items-center"> */}
           <div className="bg-white py-0 xsm:bg-slate-300 xsm:py-0">
             <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
-              <NavItem
-                text="TRADING"
-                type="trading"
-                dropContent={[
-                  { link: "/trading", text: "TRADING" },
-                  { link: "/trading", text: "TRADING" },
-                ]}
-              />
-              {/* {!isLoggedIn && (
-                <NavItem
-                  text="PLATFORM"
-                  extraStyle="xsm:hidden md:flex "
-                  type="platform"
-                  dropContent={[
-                    { link: "/platform", text: "PLATFORM" },
-                    { link: "/platform", text: "PLATFORM" },
-                  ]}
-                />
-              )} */}
+              <NavItem text="TRADING" type="trading" dropContent={null} />
               <NavItem
                 text="PRODUCTS"
                 type="products"
                 extraStyle="xsm:hidden md:flex "
                 dropContent={[
-                  { link: "/products", text: "PRODUCTS" },
-                  { link: "/products", text: "PRODUCTS" },
+                  {
+                    link: "/products",
+                    text: "Annually",
+                    action: () =>
+                      dispatch(changeProductCurrentlyShowing("yearly")),
+                  },
+                  {
+                    link: "/products",
+                    text: "Bi-Annually",
+                    action: () =>
+                      dispatch(changeProductCurrentlyShowing("biannually")),
+                  },
+                  {
+                    link: "/products",
+                    text: "Monthly",
+                    action: () =>
+                      dispatch(changeProductCurrentlyShowing("monthly")),
+                  },
                 ]}
               />
               <NavItem
-                text="LEGAL"
-                type="legal"
+                text="DEPOSIT"
+                type="deposit"
                 extraStyle="xsm:hidden md:flex "
                 dropContent={[
-                  { link: "/legal", text: "LEGAL" },
-                  { link: "/legal", text: "LEGAL" },
+                  { link: "/btc", text: "BTC" },
+                  { link: "/eth", text: "ETH" },
                 ]}
               />
-              <NavItem
-                  text="DEPOSIT"
-                  type="deposit"
-                  extraStyle="xsm:hidden md:flex "
-                  dropContent={[
-                    { link: "/btc", text: "BTC" },
-                    { link: "/eth", text: "ETH" },
-                  ]}
-                />
               {!isLoggedIn && (
                 <NavItem
                   text="ABOUT"
                   type="about"
                   extraStyle="xsm:hidden md:flex "
-                  dropContent={[
-                    { link: "/about", text: "ABOUT" },
-                    { link: "/about", text: "ABOUT" },
-                  ]}
+                  dropContent={null}
                 />
               )}
-              
-                
-              
+
               {isLoggedIn && (
                 <li className="py-1 xsm:hidden md:flex items-center cursor-pointer mr-2 sm:mr-1 sm:text-sm hover:bg-primary ">
                   <Link to="/withdraw">WITHDRAW</Link>
@@ -158,7 +141,6 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          {/* </div> */}
           {isLoggedIn && <ProfileIcon className=" hidden xsm:block" />}
         </nav>
       )}
