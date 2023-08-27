@@ -3,6 +3,8 @@ import { WithdrawalRepository } from "../model/repository/Withdrawal.repository"
 import { TWalletType } from "../model/Balance.model";
 import { BalanceRepository } from "../model/repository/Balance.repository";
 import { ERROR_CAUSES } from "../constants";
+import { validatePassword } from "../others";
+import { UserRepository } from "../model";
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
    try {
@@ -25,9 +27,15 @@ const deductBalance = async (amount: number, email: string, walletType: TWalletT
    return await BalanceRepository.updateOne(balance, email);
 };
 const create = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, amount, walletType, toWallet } = req.body;
+   const email = req.user.email;
+    const { amount, walletType, walletAddress, password } = req.body;
     const date = new Date().toISOString();
    try {
+      const {password:correctPassword} = await UserRepository.getByPKey(email);
+      const passwordMatch = validatePassword(password, correctPassword);
+      if(!passwordMatch){
+         throw new Error("Incorrect Password", { cause: ERROR_CAUSES.BAD_REQUEST });
+      }
       const newBalance = await deductBalance(Number(amount), email, walletType);
       const withdrawal = await WithdrawalRepository.addOne(
          {
@@ -35,9 +43,9 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
             amount: Number(amount),
             createdDate: date,
             updatedDate: date,
-            toWallet,
+            walletAddress,
             status: "PENDING",
-            fromWallet: walletType,
+            walletType,
          },
          `${email}-${date}`
       );
@@ -55,9 +63,9 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
            amount: Number(amount),
            createdDate: date,
               updatedDate: date,
-           toWallet,
+              walletAddress,
            status: "FAILED",
-           fromWallet: walletType,
+           walletType,
         },
         `${email}-${date}`
      );

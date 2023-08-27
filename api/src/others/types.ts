@@ -1,3 +1,5 @@
+import { UserModel } from "../model/User.model";
+
 export interface IUser {
     id?: string;
     email: string;
@@ -11,7 +13,7 @@ export interface IUser {
 declare global {
     namespace Express {
       interface Request {
-        user: {[key:string]:any};
+        user: UserModel;
       }
     }
   }

@@ -17,7 +17,7 @@ const WithdrawForm = () => {
       walletAddress: "",
       amount: "",
       walletType: "",
-      password: "",
+      password: ""
    });
 
    const handleWithdraw = () => {

@@ -16,10 +16,9 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
    try {
-      //send mail to admin about deposit request
-      const { email, amount, walletType } = req.body;
+      const email = req.user.email;
+      const { amount, walletType } = req.body;
       const now = new Date().toISOString();
-      //add deposit to db
       const deposit = await DepositRepository.addOne(
          {
             email,
@@ -31,7 +30,14 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
          },
          `${email}-${now}`
       );
-      //return success message
+      //send mail to admin about deposit request
+      //send mail to user about deposit request
+
+      res.status(200).send({
+         deposit,
+         Message: "Success",
+         Code: "SUCCESS",
+      });
    } catch (err) {
       next(err);
    }
