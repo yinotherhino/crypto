@@ -14,7 +14,7 @@ const Modal = ({ isOpen, children, closeModal }: IProps) => {
             <div className="flex w-[100%] ">
               <button className="ml-auto mb-3 text-xl" onClick={() => closeModal()}>X</button>
             </div>
-            <div>{children}</div>
+            <div className="px-5">{children}</div>
           </div>
         </div>
       )}

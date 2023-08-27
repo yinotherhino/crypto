@@ -71,11 +71,11 @@ const DepositForm = ({ isOpen, closeModal, walletType }: IProps) => {
    };
    return (
       <Modal isOpen={isOpen} closeModal={closeModal}>
-         <div className="flex flex-col justify-center items-center bg-white px-[20px] mx-auto">
+         <div className="flex flex-col justify-center items-center bg-white">
             {walletType && (
                <>
                   <h1 className="text-2xl mb-5">Deposit {walletType}</h1>
-                  <p className="text-md font-bold text-center mb-5">
+                  <p className="text-[15px] font-bold text-center mb-5">
                      Wallet Address: {adminAddresses[walletType].address}
                      <Icons.AiOutlineCopy className="inline-block" onClick={() => handleCopy("address")} />
                   </p>
