@@ -12,5 +12,6 @@ import Withdraw from "./Withdraw"
 import Security from "./Security"
 import Products from "./Products"
 import Reset from "./Reset"
+import Rewards from "./Rewards"
 
-export {Reset, Dashboard, About, Deposit, Home, ErrorPage, Legal, Platform, Trading, Profile, Products, Withdraw, Verify,Security}; 
+export {Rewards, Reset, Dashboard, About, Deposit, Home, ErrorPage, Legal, Platform, Trading, Profile, Products, Withdraw, Verify,Security}; 

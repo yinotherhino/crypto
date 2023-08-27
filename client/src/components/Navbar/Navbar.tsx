@@ -16,7 +16,8 @@ export type DropTypes =
   | "products"
   | "about"
   | "register"
-  | "deposit";
+  | "deposit"
+  | "rewards";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -108,17 +109,16 @@ const Navbar = () => {
                   { link: "/eth", text: "ETH" },
                 ]}
               />
-              {!isLoggedIn && (
-                <NavItem
-                  text="ABOUT"
-                  type="about"
-                  extraStyle="xsm:hidden md:flex "
-                  dropContent={null}
-                />
-              )}
+              <NavItem
+                text="REWARDS"
+                type="rewards"
+                extraStyle="xsm:hidden md:flex "
+                dropContent={null}
+              />
+              
 
               {isLoggedIn && (
-                <li className="py-1 xsm:hidden md:flex items-center cursor-pointer mr-2 sm:mr-1 sm:text-sm hover:bg-primary ">
+                <li className="px-7 py-1 xsm:hidden md:flex items-center cursor-pointer mr-2 sm:mr-1 sm:text-sm hover:bg-primary ">
                   <Link to="/withdraw">WITHDRAW</Link>
                 </li>
               )}

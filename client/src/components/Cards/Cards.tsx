@@ -7,7 +7,7 @@ import {
 } from "framer-motion";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
-
+import {twMerge} from "tailwind-merge";
 interface IProps {
   extraStyle?: string;
   header: string;
@@ -84,7 +84,7 @@ const Deposit = ({
 }: Omit<IProps, "readmoreLink"> & { icon: React.ReactNode }) => {
   return (
     <div
-      className={` mb-[50px] py-5 px-10 flex flex-col justify-between w-full xsm:mb-0 hover:2sm rounded-lg bg-black text-white ${extraStyle}`}>
+      className={twMerge(` mb-[50px] py-5 px-10 flex flex-col justify-between w-full xsm:mb-0 hover:2sm rounded-lg bg-black text-white `, extraStyle)}>
       <div className="flex justify-between">
 
       <div>{icon}</div>
