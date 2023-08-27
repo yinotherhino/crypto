@@ -17,7 +17,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 const create = async (req: Request, res: Response, next: NextFunction) => {
    try {
       const email = req.user.email;
-      const { amount, walletType } = req.body;
+      const { amount, walletType, senderAddress } = req.body;
       const now = new Date().toISOString();
       const deposit = await DepositRepository.addOne(
          {
@@ -26,6 +26,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
             createdDate: now,
             updatedDate: now,
             walletType,
+            senderAddress,
             status: "PENDING",
          },
          `${email}-${now}`

@@ -80,7 +80,8 @@ const Deposit = ({
   header,
   text,
   icon,
-}: Omit<IProps, "readmoreLink"> & { icon: React.ReactNode }) => {
+  handleClick
+}: Omit<IProps, "readmoreLink"> & { icon: React.ReactNode, handleClick: ()=>void }) => {
   return (
     <div
       className={twMerge(` mb-[50px] py-5 px-10 flex flex-col justify-between w-full xsm:mb-0 hover:2sm rounded-lg bg-black text-white `, extraStyle)}>
@@ -98,7 +99,7 @@ const Deposit = ({
           </div>
         <Button.Primary
           text="Deposit"
-          handleClick={() => {}}
+          handleClick={handleClick}
           disabled={false}
           extraStyle=" hover:bg-gold border-none"
           />
