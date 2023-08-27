@@ -49,7 +49,7 @@ export default class Repository<T> {
     if (this.checkExists(pKeyValue)) {
       throw new Error(`${this.name} already exists`, { cause: "DUPLICATE" });
     }
-    fs.writeFile(`${this.fullpath}/${pKeyValue}.json`, JSON.stringify(obj));
+    await fs.writeFile(`${this.fullpath}/${pKeyValue}.json`, JSON.stringify(obj));
     return obj;
   }
 
