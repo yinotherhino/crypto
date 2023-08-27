@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface IProps {
   handleClick: () => void;
@@ -127,9 +128,8 @@ const FocusSensitive = ({
         e.preventDefault();
         handleClick();
       }}
-      className={`transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep ${
-        isFocused ? focusedStyle : " "
-      } ${extraStyle}`}>
+      className={twMerge(`transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep`,
+      extraStyle, isFocused ? focusedStyle : " ")}>
       {text}
     </button>
   );

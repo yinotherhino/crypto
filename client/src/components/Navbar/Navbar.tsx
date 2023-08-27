@@ -45,7 +45,7 @@ const Navbar = () => {
         );
         if (newOpacity <= 0.5) {
           setShowNavbar(false);
-        } else {
+        } else if(newOpacity > 0.5) {
           setOpacity(newOpacity);
           setShowNavbar(true);
         }

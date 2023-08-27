@@ -8,6 +8,7 @@ import {
   changePlan,
   changeProductCurrentlyShowing,
 } from "../redux/slices/Product";
+import { twMerge } from "tailwind-merge";
 
 const Products = () => {
   const productCurrentlyShowing = useSelector(
@@ -20,18 +21,20 @@ const Products = () => {
     minimumDep,
     roi,
     header,
+    headerStyle
   }: {
     minimumDep: number;
     roi: number;
     header: string;
+    headerStyle?: string;
   }) => {
     const navigate = useNavigate();
     return (
       <>
-        <h1 className="text-2xl font-bold mb-3 text-center">{header}</h1>
+        <h1 className={twMerge("text-2xl font-bold mb-3 text-center ", headerStyle)}>{header}</h1>
         <h2 className="text-deep text-xl text-center">ROI: {roi}%</h2>
         <p className="text-xl font-bold text-primary pt-[1rem] text-center">
-          Minimum Deposit: ${minimumDep}.00
+          Minimum Deposit: ${minimumDep.toLocaleString()}.00
         </p>
         <Button.Centered
           text="Get Started"
@@ -76,9 +79,19 @@ const Products = () => {
               isFocused={productCurrentlyShowing === "yearly"}
               extraStyle={"bg-gray-200 border-none my-0 rounded-full"}
             />
+
+            <Button.FocusSensitive
+              handleClick={() =>
+                dispatch(changeProductCurrentlyShowing("platinum"))
+              }
+              text="Platinum"
+              focusedStyle="bg-white text-platinum"
+              isFocused={productCurrentlyShowing === "platinum"}
+              extraStyle={" bg-platinum border-none my-0 rounded-full "}
+            />
           </div>
         </div>
-        <h1 className="text-2xl text-center mb-[2rem]">
+        <h1 className={twMerge("text-2xl text-center mb-[2rem]", productCurrentlyShowing==="platinum" ? "text-platinum":" ")}>
           {productCurrentlyShowing.charAt(0).toLocaleUpperCase() +
             productCurrentlyShowing.slice(1)}
         </h1>
@@ -86,14 +99,14 @@ const Products = () => {
           {productCurrentlyShowing === "monthly" ? (
             <>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={500} roi={30} header="Basic" />
+                <CardContent minimumDep={500} roi={10} header="Basic" />
               </Cards.Long>
 
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={3000} roi={30} header="Advance" />
+                <CardContent minimumDep={3000} roi={15} header="Advance" />
               </Cards.Long>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={10000} roi={30} header="Gold" />
+                <CardContent minimumDep={10000} roi={17} header="Gold" />
               </Cards.Long>
             </>
           ) : productCurrentlyShowing === "yearly" ? (
@@ -103,20 +116,32 @@ const Products = () => {
               </Cards.Long>
 
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={10000} roi={30} header="Advance" />
+                <CardContent minimumDep={10000} roi={40} header="Advance" />
               </Cards.Long>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={50000} roi={30} header="Gold" />
+                <CardContent minimumDep={50000} roi={50} header="Gold" />
+              </Cards.Long>
+            </>
+          ) : productCurrentlyShowing === "platinum" ? (
+            <>
+              <Cards.Long extraStyle={extraStyle} >
+                <CardContent minimumDep={500000} roi={100} header="Basic" headerStyle="text-platinum"  />
+              </Cards.Long>
+              <Cards.Long extraStyle={extraStyle}>
+                <CardContent minimumDep={1000000} roi={120} header="Advance" headerStyle="text-platinum"  />
+              </Cards.Long>
+              <Cards.Long extraStyle={extraStyle}>
+                <CardContent minimumDep={3000000} roi={150} header="Gold" headerStyle="text-platinum"  />
               </Cards.Long>
             </>
           ) : (
             <>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={5000} roi={30} header="Basic" />
+                <CardContent minimumDep={5000} roi={20} header="Basic" />
               </Cards.Long>
 
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={50000} roi={30} header="Advance" />
+                <CardContent minimumDep={50000} roi={25} header="Advance" />
               </Cards.Long>
               <Cards.Long extraStyle={extraStyle}>
                 <CardContent minimumDep={200000} roi={30} header="Gold" />

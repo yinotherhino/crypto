@@ -2,8 +2,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export type ProductCurrentlyShowing = "yearly" | "monthly" | "biannually";
-export type Plan = "basic" | "advanced" | "gold";
+export type ProductCurrentlyShowing = "yearly" | "monthly" | "biannually" | "platinum";
+export type Plan = "basic" | "advanced" | "gold" | "platinum";
 
 interface ProductState {
   productCurrentlyShowing: ProductCurrentlyShowing;

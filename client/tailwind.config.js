@@ -29,6 +29,7 @@ export default {
         faint: "#F6F1F1",
         lBlue: "#D4FAFC",
         gold: "#FFD700",
+        platinum: "#FF8400"
       },
       screens: {
         xxxs: "280px",

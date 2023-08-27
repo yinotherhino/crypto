@@ -68,8 +68,7 @@ const Long = ({
   return (
     <div
       className={
-        " transition-all ease-in-out duration-500 sm:mb-0 hover:2sm hover:shadow-lg border hover:border-none bg-white rounded-lg min-h-[30%] px-5 py-[2rem] mx-[20px] sm:mx-[1rem] md:mx-[3rem]" +
-        extraStyle
+        twMerge(" transition-all ease-in-out duration-500 sm:mb-0 hover:2sm hover:shadow-lg border hover:border-none bg-white rounded-lg min-h-[30%] px-5 py-[2rem] mx-[20px] sm:mx-[1rem] md:mx-[3rem]",extraStyle)
       }>
       {children}
     </div>
@@ -89,7 +88,7 @@ const Deposit = ({
 
       <div>{icon}</div>
       <p>
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-white ">
+        <h5 className={twMerge("mb-2 text-2xl font-bold tracking-tight text-white ")}>
           {header}
         </h5>
       </p>
