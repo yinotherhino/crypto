@@ -74,7 +74,7 @@ const Navbar = () => {
           </div>
           <div className="bg-white py-0 xsm:bg-slate-300 xsm:py-0">
             <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
-              <NavItem text="TRADING" type="trading" dropContent={null} />
+              {/* <NavItem text="TRADING" type="trading" dropContent={null} comingSoon={true} /> */}
               <NavItem
                 text="PRODUCTS"
                 type="products"
@@ -98,22 +98,30 @@ const Navbar = () => {
                     action: () =>
                       dispatch(changeProductCurrentlyShowing("monthly")),
                   },
+                  {
+                    link: "/products",
+                    text: "Platinum",
+                    action: () =>
+                      dispatch(changeProductCurrentlyShowing("platinum")),
+                  },
                 ]}
               />
               <NavItem
                 text="DEPOSIT"
                 type="deposit"
                 extraStyle="xsm:hidden md:flex "
-                dropContent={[
-                  { link: "/btc", text: "BTC" },
-                  { link: "/eth", text: "ETH" },
-                ]}
+                dropContent={null}
+                // dropContent={[
+                //   { link: "/btc", text: "BTC" },
+                //   { link: "/eth", text: "ETH" },
+                // ]}
               />
               <NavItem
                 text="REWARDS"
                 type="rewards"
                 extraStyle="xsm:hidden md:flex "
                 dropContent={null}
+                comingSoon={true}
               />
               
 

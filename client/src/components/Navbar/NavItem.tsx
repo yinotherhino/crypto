@@ -12,13 +12,14 @@ interface IProps {
   text: string;
   type: DropTypes;
   extraStyle?:string
+  comingSoon?:boolean
 }
 const NavItem = ({
   type,
   dropContent,
   text,
-  extraStyle
-
+  extraStyle,
+  comingSoon
 }: IProps) => {
   const navigate=useNavigate()
   const viewportWidth = useViewportWidth();
@@ -41,16 +42,24 @@ const NavItem = ({
     dispatch(changeLinkDrop(false));
     dispatch(changeDropType(null));
   };
+
+  const handleClick = () => {
+    if(comingSoon){
+      return
+    }
+    navigate(`/${type}`)
+  }
   return (
     <li
       className={"px-7 xsm:px-2 sm:px-5 hover:bg-primary relative flex "+extraStyle}
       onMouseEnter={() => showDrop()}
       onMouseLeave={() => hideDrop()}>
-      <div onClick={()=>navigate(`/${type}`)} className=" py-1 flex items-center w-[100%] xsm:w-auto justify-between">
+      <div onClick={handleClick} className=" py-1 flex items-center w-[100%] xsm:w-auto justify-between">
         <Link to={`/${type}`} className="mr-2 sm:mr-1 sm:text-sm">
           {text}
         </Link>
         {viewportWidth>800 && dropContent && <Icons.AiOutlineCaretDown />}
+        {comingSoon && <span className="text-yellow absolute text-[10px] bottom-5 text-[#F4EEEE]">coming soon!!!</span>}
       </div>
       {dropContent && <div className="absolute top-[100%] left-0 bg-white w-[100%]">
         {showLinkDrop && dropType == type && (

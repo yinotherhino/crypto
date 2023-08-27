@@ -79,6 +79,7 @@ const List = ({list,handleChange,label,name,defaultValue,extraStyle}:{list:Array
     <>
       <label htmlFor={name+label}>{label}: </label>
       <input
+        id={name+label}
         list={name}
         name={name}
         className={"bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:border-blue-500"+extraStyle}
