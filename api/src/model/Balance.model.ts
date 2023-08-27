@@ -1,4 +1,5 @@
-export type TWalletType = "BTC" | "USDT" | "ETH" | "SOL";
+export type TWalletType = "BTC" | "USDT" | "ETH" | "SOL" | "BNB" | "MATIC";
+
 export interface BalanceModel {
     email: string;
     BTC:{
@@ -21,4 +22,14 @@ export interface BalanceModel {
         createdDate: string;
         updatedDate: string;
     };
+    MATIC:{
+        amount: number;
+        createdDate: string;
+        updatedDate: string;
+    };
+    BNB:{
+        amount: number;
+        createdDate: string;
+        updatedDate: string;
+    }
 }
