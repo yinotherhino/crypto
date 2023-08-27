@@ -12,7 +12,7 @@ const Deposit = () => {
       <div className="overflow-scroll sm:mx-[50px] mt-[50px] py-[2rem] xsm:m-[70px] md:m-[100px]">
         <div className="mx-[10%] xsm:mx-auto basis-1/3  flex flex-col xsm:flex-row justify-between ">
           <Cards.Deposit
-            text="50$"
+            text="0$"
             header="BTC"
             extraStyle={extraStyle}
             icon={<Icons.FaBtc className=" text-gold text-5xl " />}
@@ -20,7 +20,7 @@ const Deposit = () => {
           />
 
           <Cards.Deposit
-            text="1000$"
+            text="0$"
             header="ETH"
             extraStyle={extraStyle}
             icon={<Icons.FaEthereum className="text-gold text-5xl" />}
@@ -28,28 +28,37 @@ const Deposit = () => {
           />
 
           <Cards.Deposit
-            text="200$"
+            text="0$"
             header="SOL"
             extraStyle={extraStyle}
             icon={<Icons.TbCurrencySolana className=" text-gold text-5xl " />}
-            handleClick={()=>{setIsOpen(true); setWalletType("ETH")}}
+            handleClick={()=>{setIsOpen(true); setWalletType("SOL")}}
 
           />
           <Cards.Deposit
-            text="50$"
-            header="BTC"
+            text="0$"
+            header="USDT"
             extraStyle={extraStyle}
             icon={<Icons.FaBtc className=" text-gold text-5xl " />}
-            handleClick={()=>{setIsOpen(true); setWalletType("BTC")}}
+            handleClick={()=>{setIsOpen(true); setWalletType("USDT")}}
 
           />
 
           <Cards.Deposit
-            text="1000$"
-            header="ETH"
+            text="0$"
+            header="BNB"
             extraStyle=" mr-5  "
             icon={<Icons.FaEthereum className="text-gold text-5xl" />}
-            handleClick={()=>{setIsOpen(true); setWalletType("ETH")}}
+            handleClick={()=>{setIsOpen(true); setWalletType("BNB")}}
+
+          />
+
+          <Cards.Deposit
+            text="0$"
+            header="MATIC"
+            extraStyle=" mr-5  "
+            icon={<Icons.FaEthereum className="text-gold text-5xl" />}
+            handleClick={()=>{setIsOpen(true); setWalletType("MATIC")}}
 
           />
 
