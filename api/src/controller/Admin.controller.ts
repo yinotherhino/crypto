@@ -112,6 +112,16 @@ const addBalance = async (req: Request, res: Response, next: NextFunction) => {
             createdDate: now,
             updatedDate: now,
          },
+         MATIC: {
+            amount: 0,
+            createdDate: now,
+            updatedDate: now,
+         },
+         BNB: {
+            amount: 0,
+            createdDate: now,
+            updatedDate: now,
+         },
       };
       const { email, amount, walletType }: { email: string; amount: string; walletType: TWalletType } = req.body;
       const oldBalance = await BalanceRepository.getByPKey(email).catch(async (err) => {
