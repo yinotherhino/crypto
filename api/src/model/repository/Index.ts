@@ -5,8 +5,8 @@ import { dirname } from "path";
 export default class Repository<T> {
   private fullpath: string;
   private name: string;
-  private pkey: string;
-  constructor(path: string, pkey: string) {
+  private pkey: string | string[];
+  constructor(path: string, pkey: string | string[]) {
     this.fullpath = `${dirname("..")}/db/${path}`;
     this.name = path;
     this.pkey = pkey;

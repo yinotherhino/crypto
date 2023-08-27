@@ -1,6 +1,9 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import userController from "./User.controller";
 import adminController from "./Admin.controller";
+import withdrawController from "./Withdraw.controller";
+import depositController from "./Deposit.controller";
+import balanceController from "./Balance.controller";
 import { restrictTo } from "../others";
 import { CODES, ERROR_CAUSES, ERROR_MESSAGES, STATUS_CODES } from "../constants";
 
@@ -10,6 +13,9 @@ const PremiumRouter = express.Router();
 const indexRouter = express.Router();
 const loginRouter = express.Router();
 const resetRouter = express.Router();
+const withdrawRouter = express.Router();
+const depositRouter = express.Router();
+const balanceRouter = express.Router();
 
 loginRouter.post(
   "/",
@@ -33,6 +39,20 @@ adminRouter.get("/", adminController.getAll);
 adminRouter.post("/", adminController.create);
 adminRouter.patch("/:id", adminController.update);
 adminRouter.delete("/", adminController.deleteOne);
+adminRouter.post("/addtobalance", adminController.addBalance);
+adminRouter.get("/balance", adminController.getAllBalance);
+
+withdrawRouter.use(restrictTo("user"));
+withdrawRouter.post("/", withdrawController.create);
+withdrawRouter.get("/", withdrawController.getAll);
+
+depositRouter.use(restrictTo("user"));
+depositRouter.post("/", depositController.create);
+depositRouter.get("/", depositController.getAll);
+
+balanceRouter.use(restrictTo("user"));
+balanceRouter.get("/:email", balanceController.getOne);
+
 
 indexRouter.get("/", (req: Request, res: Response) => {
   res.status(200).send({
@@ -42,6 +62,9 @@ indexRouter.get("/", (req: Request, res: Response) => {
 
 export default (app: Express) => {
   app.use("/users", userRouter);
+  app.use("/withdraw", withdrawRouter);
+  app.use("/deposit", withdrawRouter);
+  app.use("/balance", balanceRouter);
   app.use("/login", loginRouter);
   app.use("/reset-password", resetRouter);
   app.use("/admins", adminRouter);
