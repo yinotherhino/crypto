@@ -86,11 +86,11 @@ const Products = () => {
           {productCurrentlyShowing === "monthly" ? (
             <>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={100} roi={30} header="Basic" />
+                <CardContent minimumDep={500} roi={30} header="Basic" />
               </Cards.Long>
 
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={1000} roi={30} header="Advance" />
+                <CardContent minimumDep={3000} roi={30} header="Advance" />
               </Cards.Long>
               <Cards.Long extraStyle={extraStyle}>
                 <CardContent minimumDep={10000} roi={30} header="Gold" />
@@ -99,27 +99,27 @@ const Products = () => {
           ) : productCurrentlyShowing === "yearly" ? (
             <>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={100} roi={30} header="Basic" />
+                <CardContent minimumDep={3000} roi={30} header="Basic" />
               </Cards.Long>
 
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={4000} roi={30} header="Advance" />
+                <CardContent minimumDep={10000} roi={30} header="Advance" />
               </Cards.Long>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={4000} roi={30} header="Gold" />
+                <CardContent minimumDep={50000} roi={30} header="Gold" />
               </Cards.Long>
             </>
           ) : (
             <>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={100} roi={30} header="Basic" />
+                <CardContent minimumDep={5000} roi={30} header="Basic" />
               </Cards.Long>
 
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={4000} roi={30} header="Advance" />
+                <CardContent minimumDep={50000} roi={30} header="Advance" />
               </Cards.Long>
               <Cards.Long extraStyle={extraStyle}>
-                <CardContent minimumDep={4000} roi={30} header="Gold" />
+                <CardContent minimumDep={200000} roi={30} header="Gold" />
               </Cards.Long>
             </>
           )}
