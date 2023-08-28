@@ -16,15 +16,18 @@ export const modalSlice = createSlice({
    initialState,
    reducers: {
       showDepositModal: (state, action: PayloadAction<string>) => {
-         state.isDepositOpen = true;
          state.depositWalletType = action.payload;
+         state.isDepositOpen = true;
       },
       closeDepositModal: (state) => {
          state.isDepositOpen = false;
       },
+      changeDepositWalletType: (state, action: PayloadAction<string>) => {
+         state.depositWalletType = action.payload;
+      }
    },
 });
 
-export const { closeDepositModal, showDepositModal } = modalSlice.actions;
+export const { closeDepositModal, showDepositModal, changeDepositWalletType } = modalSlice.actions;
 
 export default modalSlice.reducer;

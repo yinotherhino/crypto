@@ -8,7 +8,7 @@ import { IToast, changeToast, handleServerError } from "../../redux/slices/Navba
 import Button from "../Button/Button";
 import { client } from "../../constants";
 import { RootState } from "../../redux/store";
-import { closeDepositModal } from "../../redux/slices/ModalSlice";
+import { changeDepositWalletType, closeDepositModal } from "../../redux/slices/ModalSlice";
 
 const DepositForm = () => {
    const dispatch = useDispatch();
@@ -27,11 +27,13 @@ const DepositForm = () => {
    const [tooltipText, setTooltipText] = useState("");
    const [isDisabled, setIsDisabled] = useState(false);
    const [formData, setFormData] = useState({
-      walletType: "",
+      walletType: walletType,
       amount: "",
       senderAddress: "",
    });
-   const handleChange = (name: string, value: any) => setFormData((prev) => ({ ...prev, [name]: value }));
+   const handleChange = (name: string, value: any) => {
+      console.log(formData)
+      setFormData((prev) => ({ ...prev, [name]: value }))};
    const handleDeposit = async () => {
       const notFilled: string | undefined = !formData.amount
          ? "Amount"
@@ -68,6 +70,7 @@ const DepositForm = () => {
             setIsDisabled(false);
          });
    };
+
    return (
       <Modal isOpen={isDepositOpen} closeModal={()=>{dispatch(closeDepositModal())}}>
          <div className="flex flex-col justify-center items-center bg-white">
@@ -106,22 +109,19 @@ const DepositForm = () => {
                   label="Wallet type"
                   name="walletType"
                   defaultValue={walletType}
-                  list={["BTC", "ETH", "SOL", "USDT"]}
-                  handleChange={handleChange}
+                  list={["BTC", "ETH", "SOL", "USDT", "MATIC", "BNB"]}
+                  handleChange={(name:string, value:string)=>{handleChange(name, value); dispatch(changeDepositWalletType(value))}}
                />
                <Button.Primary
                   extraStyle={
                      formData.amount.length == 0 ||
-                     formData.senderAddress.length == 0 ||
                      formData.walletType.length == 0 ||
-                     tooltipText.length > 0 ||
                      isDisabled
                         ? "cursor-no-drop"
                         : "cursor-pointer"
                   }
                   disabled={
                      formData.amount.length == 0 ||
-                     formData.senderAddress.length == 0 ||
                      formData.walletType.length == 0 ||
                      isDisabled
                   }

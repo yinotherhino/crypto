@@ -63,7 +63,7 @@ indexRouter.get("/", (req: Request, res: Response) => {
 export default (app: Express) => {
   app.use("/users", userRouter);
   app.use("/withdraw", withdrawRouter);
-  app.use("/deposit", withdrawRouter);
+  app.use("/deposit", depositRouter);
   app.use("/balance", balanceRouter);
   app.use("/login", loginRouter);
   app.use("/reset-password", resetRouter);

@@ -31,14 +31,7 @@ const App = () => {
                <Route element={<About />} path="/about" />
                <Route element={<Rewards />} path="/rewards" />
                <Route element={<Trading />} path="/trading" />
-               <Route
-                  element={
-                     <ProtectRoute>
-                        <Deposit />
-                     </ProtectRoute>
-                  }
-                  path="/deposit"
-               />
+               <Route element={<Deposit />} path="/deposit" />
                <Route element={<Products />} path="/products" />
                <Route
                   element={
