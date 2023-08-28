@@ -10,8 +10,12 @@ const ProtectRoute = ({children}:{children: React.ReactNode}) => {
     }
   }, [])
   return (
+    <>
+    {
     !isLoggedIn ? <div>You are not logged in</div>
     : children
+    }
+    </>
   )
 }
 
