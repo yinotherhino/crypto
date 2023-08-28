@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import Modal from "../Modals/Modal";
 import Input from "../Input";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { adminAddresses } from "../../pages/Deposit";
 import Icons from "../Icons";
 import { IToast, changeToast, handleServerError } from "../../redux/slices/NavbarSlice";
 import Button from "../Button/Button";
 import { client } from "../../constants";
-interface IProps {
-   isOpen: boolean;
-   closeModal: () => void;
-   walletType: string;
-}
-const DepositForm = ({ isOpen, closeModal, walletType }: IProps) => {
+import { RootState } from "../../redux/store";
+import { closeDepositModal } from "../../redux/slices/ModalSlice";
+
+const DepositForm = () => {
    const dispatch = useDispatch();
+  const walletType = useSelector((state:RootState) => state.modal.depositWalletType)
+   const isDepositOpen = useSelector((state:RootState) => state.modal.isDepositOpen);
    const handleCopy = (addressOrNetwork: "address" | "network") => {
       navigator.clipboard
          .writeText(adminAddresses[walletType][addressOrNetwork])
@@ -60,7 +59,7 @@ const DepositForm = ({ isOpen, closeModal, walletType }: IProps) => {
                   variant: "success",
                })
             );
-            closeModal();
+            dispatch(closeDepositModal());
          })
          .catch((err) => {
             dispatch(handleServerError(err));
@@ -70,7 +69,7 @@ const DepositForm = ({ isOpen, closeModal, walletType }: IProps) => {
          });
    };
    return (
-      <Modal isOpen={isOpen} closeModal={closeModal}>
+      <Modal isOpen={isDepositOpen} closeModal={()=>{dispatch(closeDepositModal())}}>
          <div className="flex flex-col justify-center items-center bg-white">
             {walletType && (
                <>

@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import {Cards,Icons} from "../components";
+import { showDepositModal } from "../redux/slices/ModalSlice";
 
 const ListItem = ({ name, value }: { name: string; value: string }) => {
   return (
@@ -14,6 +15,7 @@ const ListItem = ({ name, value }: { name: string; value: string }) => {
 };
 const Dashboard = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -31,6 +33,7 @@ const Dashboard = () => {
               header="BTC"
               extraStyle=" mr-5 !bg-black "
               icon={<Icons.FaBtc className=" text-gold text-5xl " />}
+              handleClick={()=>{dispatch(showDepositModal("BTC"))}}
             />
 
             <Cards.Deposit
@@ -38,6 +41,7 @@ const Dashboard = () => {
               header="ETH"
               extraStyle=" mr-5  "
               icon={<Icons.FaEthereum className="text-gold text-5xl" />}
+              handleClick={()=>{dispatch(showDepositModal("ETH"))}}
             />
 
             <Cards.Deposit
@@ -45,6 +49,7 @@ const Dashboard = () => {
               header="SOL"
               extraStyle=" !bg-black !text-white "
               icon={<Icons.TbCurrencySolana className=" text-gold text-5xl " />}
+              handleClick={()=>{dispatch(showDepositModal("SOL"))}}
             />
           </div>
           <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
@@ -52,9 +57,9 @@ const Dashboard = () => {
               <div>
                 <h1 className="text-lg font-bold mb-4">Popular Coins</h1>
                 <ul>
-                  <ListItem name="BTC:" value="0.03BTC" />
-                  <ListItem name="ETH:" value="3ETH" />
-                  <ListItem name="SOL:" value="70SOL" />
+                  <ListItem name="BTC:" value="0.00BTC" />
+                  <ListItem name="ETH:" value="0ETH" />
+                  <ListItem name="SOL:" value="0SOL" />
                 </ul>
               </div>
             </Cards.Long>
@@ -62,8 +67,8 @@ const Dashboard = () => {
               <div>
                 <h1 className="text-lg font-bold mb-4">Stable Coins</h1>
                 <ul>
-                  <ListItem name="USDT:" value="5000$" />
-                  <ListItem name="USDC:" value="4000$" />
+                  <ListItem name="USDT:" value="0$" />
+                  <ListItem name="USDC:" value="0$" />
                 </ul>
               </div>
             </Cards.Long>
@@ -82,16 +87,16 @@ const Dashboard = () => {
               <div>
                 <h1 className="text-lg font-bold mb-4">Popular Coins</h1>
                 <ul>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
-                  <li>BTC: $30</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
+                  <li>BTC: $0</li>
                 </ul>
               </div>
             </Cards.Long>
