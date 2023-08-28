@@ -29,7 +29,7 @@ const Dashboard = () => {
         <div>
           <div className="mx-[10%] sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
             <Cards.Deposit
-              text="50$"
+              text="0$"
               header="BTC"
               extraStyle=" mr-5 !bg-black "
               icon={<Icons.FaBtc className=" text-gold text-5xl " />}
@@ -37,7 +37,7 @@ const Dashboard = () => {
             />
 
             <Cards.Deposit
-              text="1000$"
+              text="0$"
               header="ETH"
               extraStyle=" mr-5  "
               icon={<Icons.FaEthereum className="text-gold text-5xl" />}
@@ -45,7 +45,7 @@ const Dashboard = () => {
             />
 
             <Cards.Deposit
-              text="200$"
+              text="0$"
               header="SOL"
               extraStyle=" !bg-black !text-white "
               icon={<Icons.TbCurrencySolana className=" text-gold text-5xl " />}
