@@ -4,6 +4,7 @@ import { changeAuth } from "../redux/slices/NavbarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import { COMPANY_NAME } from "../constants";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,25 +19,19 @@ const Home = () => {
       <Banner />
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards.Basic
-          header="Noteworthy technology acquisitions 2021"
+          header="Unlocking your Future"
           extraStyle=" max-w-sm"
-          text="Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          readmoreLink="#"
+          text={`Are you ready to explore the exciting and dynamic world of cryptocurrency investments? Look no further - ${COMPANY_NAME} is your gateway to a new era of financial opportunities.`}
         />
         <Cards.Basic
-          header="Noteworthy technology acquisitions 2021"
+          header="Join Us Today!"
           extraStyle=" max-w-sm"
-          text="Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          readmoreLink="#"
+          text={`"Don't miss out on the chance to be a part of the future of finance. Sign up with ${COMPANY_NAME} and embark on a journey of discovery, growth, and financial freedom through cryptocurrency investments."`}
         />
         <Cards.Basic
-          header="Noteworthy technology acquisitions 2021"
+          header="Embrace the Digital Revolution"
           extraStyle=" xsm:hidden md:block max-w-sm"
-          text="Here are the biggest enterprise technology acquisitions of 2021 so
-          far, in reverse chronological order."
-          readmoreLink="#"
+          text={`Step into a realm of endless possibilities as you delve into the realm of cryptocurrency investments. At ${COMPANY_NAME}, we open the doors to a realm where traditional finance meets cutting-edge technology, paving the way for remarkable financial growth.`}
         />
       </div>
       {isLoggedIn ? (
@@ -64,11 +59,10 @@ const Home = () => {
           />
           <div className="flex flex-col justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              Noteworthy technology acquisitions 2021
+            Your Path to Prosperity
             </h5>
             <p className="mb-3 font-normal text-gray-700">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+            Embark on a transformative journey into the world of crypto investments with [Crypto Investment Platform Name]. As traditional markets evolve, seize the chance to be a part of a revolution that's reshaping the very fabric of finance, and chart a course towards unprecedented prosperity.
             </p>
           </div>
         </a>
@@ -83,11 +77,10 @@ const Home = () => {
           />
           <div className="flex flex-col justify-between p-4 leading-normal">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
-              Noteworthy technology acquisitions 2021
+            Where Opportunities Know No Bounds
             </h5>
             <p className="mb-3 font-normal text-gray-700 ">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+            Discover a universe of investment opportunities that know no boundaries. With [Crypto Investment Platform Name], you're not just investing in cryptocurrencies; you're investing in a future that's borderless, dynamic, and teeming with opportunities that traditional markets simply can't match.
             </p>
           </div>
         </a>
