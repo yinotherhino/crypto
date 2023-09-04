@@ -6,7 +6,6 @@ import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { COMPANY_NAME } from "../constants";
 import { useScroll, animated, useSpring } from '@react-spring/web'
-import styles from '../assets/spring-styles.module.scss'
 import money1 from "../assets/money1.jpg";
 import money2 from "../assets/money2.jpg";
 
@@ -44,40 +43,9 @@ const Home = () => {
       immediate: true,
     },
   })
-
+  
   return (
-    <div ref={containerRef} className={"flex flex-col justify-center bg-[#ADC4CE]"}>
-      <div className={styles.animated__layers}>
-        <animated.div ref={barContainerRef} className={styles.bar__container}>
-          {Array.from({ length: X_LINES }).map((_, i) => (
-            <animated.div
-              key={i}
-              className={styles.bar}
-              style={{
-                width: scrollYProgress.to(scrollP => {
-                  const percentilePosition = (i + 1) / X_LINES
-
-                  return INITIAL_WIDTH / 4 + 40 * Math.cos(((percentilePosition - scrollP) * Math.PI) / 1.5) ** 32
-                }),
-              }}
-            />
-          ))}
-        </animated.div>
-        <animated.div className={styles.bar__container__inverted}>
-          {Array.from({ length: X_LINES }).map((_, i) => (
-            <animated.div
-              key={i}
-              className={styles.bar}
-              style={{
-                width: scrollYProgress.to(scrollP => {
-                  const percentilePosition = 1 - (i + 1) / X_LINES
-
-                  return INITIAL_WIDTH / 4 + 40 * Math.cos(((percentilePosition - scrollP) * Math.PI) / 1.5) ** 32
-                }),
-              }}
-            />
-          ))}
-        </animated.div>
+    <div className="flex flex-col justify-center bg-[#ADC4CE]">
       <Banner />
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards.Basic
@@ -152,10 +120,6 @@ const Home = () => {
       <Manage />
       <Circular />
     </div>
-    {new Array(PAGE_COUNT).fill(null).map((_, index) => (
-      <div className={styles.full__page} key={index} />
-    ))}
-  </div>
   );
 };
 
