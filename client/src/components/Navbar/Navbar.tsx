@@ -63,7 +63,7 @@ const Navbar = () => {
     <>
       {showNavbar && (
         <nav
-          className="sticky top-0 z-20 w-full min-h-[50px] bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10"
+          className="sticky top-0 z-20 w-full min-h-[50px] bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10 bg-[#053B50]"
           style={{ opacity }}>
           <div className=" px-7 xsm:px-0 flex justify-between items-center ">
             <Logo />
@@ -74,7 +74,7 @@ const Navbar = () => {
           </div>
           <div className="bg-white py-0 xsm:bg-slate-300 xsm:py-0">
             <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
-              {/* <NavItem text="TRADING" type="trading" dropContent={null} comingSoon={true} /> */}
+              <NavItem text="ABOUT" type="about" dropContent={null} />
               <NavItem
                 text="PRODUCTS"
                 type="products"
@@ -116,6 +116,8 @@ const Navbar = () => {
                 //   { link: "/eth", text: "ETH" },
                 // ]}
               />
+
+
               <NavItem
                 text="REWARDS"
                 type="rewards"

@@ -10,8 +10,7 @@ const Auth = ({ handleClick, text, extraStyle }: IProps) => {
   return (
     <button
       className={
-        "py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-white hover:text-deep " +
-        extraStyle
+        twMerge("py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-white hover:text-deep bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out ")
       }
       onClick={(e) => {
         e.preventDefault();
@@ -36,7 +35,7 @@ const Primary = ({
 }) => {
   const [hovering, setHovering] = useState(false)
   return (
-    <div className="relative inline-flex justify-center">
+    <div className="relative inline-flex justify-center ">
       {
       tooltip && tooltip.length>0 && hovering && <span className="absolute left-[100%] bg-glass p-3 text-black rounded-md ">
         {tooltip}
@@ -45,7 +44,7 @@ const Primary = ({
       <button
       onMouseEnter={()=>{setHovering(true)}}
       onMouseLeave={()=>{setHovering(false)}}
-        className={`py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white ${extraStyle}`}
+        className={`py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out ${extraStyle}`}
         type={type || "button"}
         onClick={(e) => {
           e.preventDefault();
@@ -78,7 +77,7 @@ const Centered = ({
           e.preventDefault();
           handleClick();
         }}
-        className={` text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep ${extraStyle} `}>
+        className={` text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out ${extraStyle} `}>
         {Icon && <Icon className="inline-block " />} {text}
       </button>
     </div>
@@ -128,7 +127,7 @@ const FocusSensitive = ({
         e.preventDefault();
         handleClick();
       }}
-      className={twMerge(`transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep`,
+      className={twMerge(`transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out`,
       extraStyle, isFocused ? focusedStyle : " ")}>
       {text}
     </button>

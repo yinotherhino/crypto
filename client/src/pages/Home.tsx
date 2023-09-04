@@ -15,7 +15,7 @@ const Home = () => {
     dispatch(changeAuth("register"));
   };
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center bg-[#ADC4CE]">
       <Banner />
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards.Basic
@@ -48,7 +48,7 @@ const Home = () => {
         />
       )}
 
-      <div className="m-[50px] xsm:m-[70px] md:m-[100px] flex-col xsm:flex-row flex justify-between">
+      <div className="p-[50px] xsm:p-[70px] md:p-[100px] flex-col xsm:flex-row flex justify-between bg-[#102C57]">
         <a
           href="#"
           className="mb-5 xsm:mb-0 flex flex-col items-center bg-white border border-gray-200 rounded-lg  shadow-lg shadow-deep md:flex-row md:max-w-xl hover:bg-gray-100 hover:transform-[scale(1.05)]">

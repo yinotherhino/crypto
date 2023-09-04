@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Manage = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-[50px]">
+    <div className="flex flex-col items-center justify-center bg-[#102C57] p-[50px]">
       <h1 className="text-primary mb-[30px] text-[12px] text-center xsm:text-[25px] sm:text-[35px]">
         Manage all your wallets in one place!
       </h1>

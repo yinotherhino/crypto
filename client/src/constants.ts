@@ -11,12 +11,8 @@ export const client = axios.create({
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
-
-export const ETH_WALLETS = ["123RESAASDFHEWQYUI"];
-export const BTC_WALLETS = ["SDHJBSAHGWEQTYUI8E7Y"];
-export const SOL_WALLETS = ["WESDJHXBVSGFAWQTY8"];
 export const CONTACT = "+1234567890";
-export const EMAIL = "example@gmail.com";
+export const EMAIL = "cryptokingfxtm@gmail.com";
 export const ADDRESS = "1234 Example St, Example, EX 12345";
 export const TWITTER = "https://twitter.com/example";
 export const FACEBOOK = "https://facebook.com/example";
