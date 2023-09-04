@@ -72,7 +72,7 @@ const Navbar = () => {
               {isLoggedIn && <ProfileIcon className=" xsm:hidden" />}
             </div>
           </div>
-          <div className="bg-white py-0 xsm:bg-slate-300 xsm:py-0">
+          <div className="bg-[#ADC4CE] py-0 xsm:bg-slate-300 xsm:py-0">
             <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
               <NavItem text="ABOUT" type="about" dropContent={null} />
               <NavItem
