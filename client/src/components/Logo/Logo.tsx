@@ -3,7 +3,7 @@ import Icons from "../Icons";
 import { COMPANY_NAME } from "../../constants";
 import { twMerge } from "tailwind-merge";
 
-const Logo=({extraStyle}: {extraStyle: string})=> {
+const Logo=({extraStyle}: {extraStyle?: string})=> {
     return (
       <Link to="/">
         <h1 className="cursor-pointer">
