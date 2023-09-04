@@ -5,10 +5,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { COMPANY_NAME } from "../constants";
+import { useScroll, animated, useSpring } from '@react-spring/web'
+import styles from '../assets/spring-styles.module.scss'
 import money1 from "../assets/money1.jpg";
 import money2 from "../assets/money2.jpg";
 
+const X_LINES = 40
+
+const PAGE_COUNT = 5
+
+const INITIAL_WIDTH = 20
+
 const Home = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null!)
+  const barContainerRef = React.useRef<HTMLDivElement>(null!)
+  const [textStyles, textApi] = useSpring(() => ({
+    y: '100%',
+  }))
+  
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   const navigate = useNavigate();
@@ -16,8 +30,54 @@ const Home = () => {
   const showAuthModal = () => {
     dispatch(changeAuth("register"));
   };
+
+  const { scrollYProgress } = useScroll({
+    container: containerRef,
+    onChange: ({ value: { scrollYProgress } }) => {
+      if (scrollYProgress > 0.7) {
+        textApi.start({ y: '0' })
+      } else {
+        textApi.start({ y: '100%' })
+      }
+    },
+    default: {
+      immediate: true,
+    },
+  })
+
   return (
-    <div className="flex flex-col justify-center bg-[#ADC4CE]">
+    <div ref={containerRef} className={"flex flex-col justify-center bg-[#ADC4CE]"}>
+      <div className={styles.animated__layers}>
+        <animated.div ref={barContainerRef} className={styles.bar__container}>
+          {Array.from({ length: X_LINES }).map((_, i) => (
+            <animated.div
+              key={i}
+              className={styles.bar}
+              style={{
+                width: scrollYProgress.to(scrollP => {
+                  const percentilePosition = (i + 1) / X_LINES
+
+                  return INITIAL_WIDTH / 4 + 40 * Math.cos(((percentilePosition - scrollP) * Math.PI) / 1.5) ** 32
+                }),
+              }}
+            />
+          ))}
+        </animated.div>
+        <animated.div className={styles.bar__container__inverted}>
+          {Array.from({ length: X_LINES }).map((_, i) => (
+            <animated.div
+              key={i}
+              className={styles.bar}
+              style={{
+                width: scrollYProgress.to(scrollP => {
+                  const percentilePosition = 1 - (i + 1) / X_LINES
+
+                  return INITIAL_WIDTH / 4 + 40 * Math.cos(((percentilePosition - scrollP) * Math.PI) / 1.5) ** 32
+                }),
+              }}
+            />
+          ))}
+        </animated.div>
       <Banner />
       <div className="mx-auto sm:mx-[50px] mt-[50px] xsm:m-[70px] md:m-[100px] flex flex-col xsm:flex-row justify-between ">
         <Cards.Basic
@@ -92,6 +152,10 @@ const Home = () => {
       <Manage />
       <Circular />
     </div>
+    {new Array(PAGE_COUNT).fill(null).map((_, index) => (
+      <div className={styles.full__page} key={index} />
+    ))}
+  </div>
   );
 };
 

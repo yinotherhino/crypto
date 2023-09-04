@@ -8,5 +8,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@react-spring/web": "^9.7.3"
+  },
+  "devDependencies": {
+    "sass": "^1.66.1"
+  }
 }
