@@ -18,6 +18,7 @@ import {
 import { Layout, Footer } from "./components";
 import ProtectRoute from "./components/ProtectRoute";
 import DepositForm from "./components/Forms/DepositForm";
+import Scroll from "./components/Scroll/Scroll";
 
 const App = () => {
    return (
@@ -68,6 +69,7 @@ const App = () => {
                   }
                   path="/security"
                />
+               <Route element={<Scroll />} path="/scroll" />
             </Routes>
             <Footer />
          </Router>
