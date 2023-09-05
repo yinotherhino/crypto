@@ -10,13 +10,13 @@ const Auth = ({ handleClick, text, extraStyle }: IProps) => {
   return (
     <button
       className={
-        twMerge("py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-white hover:text-deep bg-primary hover:from-primary hover:deep text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out ")
+        twMerge("hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-white hover:text-deep bg-primary hover:from-primary hover:deep text-white py-2 px-2 rounded-full shadow-md transition duration-300 ease-in-out ", extraStyle)
       }
       onClick={(e) => {
         e.preventDefault();
         handleClick();
       }}>
-      <span className="text:sm md:text-xl">{text}</span>
+      <span className="text-sm md:text-md">{text}</span>
     </button>
   );
 };

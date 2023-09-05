@@ -145,7 +145,7 @@ const Navbar = () => {
                   <Button.Auth
                     text="Register/Login"
                     handleClick={() => showAuthModal()}
-                    extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-7"
+                    extraStyle="xsm:py-2 xsm:px-3 md:py-3 md:px-4 text-[5px]"
                   />
                 </li>
               )}

@@ -49,7 +49,7 @@ const Products = () => {
   };
   return (
     <>
-      <div className="flex flex-col pt-[4rem]">
+      <div className="flex flex-col pt-[4rem] bg-[#102C57]">
         <div className="flex justify-center mb-[2rem]">
           <div className="flex w-fit flex-col xsm:flex-row rounded-[20px] p-[15px] xsm:p-[5px] xsm:rounded-full bg-gray-200">
             <Button.FocusSensitive
@@ -91,7 +91,7 @@ const Products = () => {
             />
           </div>
         </div>
-        <h1 className={twMerge("text-2xl text-center mb-[2rem]", productCurrentlyShowing==="platinum" ? "text-platinum":" ")}>
+        <h1 className={twMerge("text-2xl text-center mb-[2rem] text-white ", productCurrentlyShowing==="platinum" ? "text-platinum":" ")}>
           {productCurrentlyShowing.charAt(0).toLocaleUpperCase() +
             productCurrentlyShowing.slice(1)}
         </h1>

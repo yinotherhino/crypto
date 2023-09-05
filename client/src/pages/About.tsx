@@ -3,8 +3,8 @@ import { COMPANY_NAME } from "../constants";
 
 const About = () => {
    return (
-      <div className="my-[3rem] px-[4rem] text-justify">
-         <h1 className="text-2xl font-roboto font-bold text-center mb-[2rem]">About {COMPANY_NAME}</h1>
+      <div className="py-[3rem] px-[4rem] text-white text-justify bg-[#102C57]">
+         <h1 className="text-2xl text-white font-roboto font-bold text-center mb-[2rem]">About {COMPANY_NAME}</h1>
          <p>
             At {COMPANY_NAME}, we believe in the transformative power of cryptocurrencies and their
             potential to revolutionize the world of finance. Established with the vision of empowering individuals to
