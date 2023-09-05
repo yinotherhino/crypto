@@ -25,7 +25,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
       const [user] = await Promise.all([
          AdminRepository.addOne(
             {
-               username,
+               userName: username,
                password: hashedPwd,
                firstName,
                lastName,
