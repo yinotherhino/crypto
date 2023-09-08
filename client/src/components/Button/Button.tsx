@@ -10,7 +10,7 @@ const Auth = ({ handleClick, text, extraStyle }: IProps) => {
   return (
     <button
       className={
-        twMerge("hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-white hover:text-deep bg-primary hover:from-primary hover:deep text-white py-2 px-2 rounded-full shadow-md transition duration-300 ease-in-out ", extraStyle)
+        twMerge("hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-white hover:text-deep bg-primary  ", extraStyle)
       }
       onClick={(e) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ const Primary = ({
       <button
       onMouseEnter={()=>{setHovering(true)}}
       onMouseLeave={()=>{setHovering(false)}}
-        className={`py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out ${extraStyle}`}
+        className={`py-2 my-3 px-5 mx-auto text-deep flex items-center rounded-full border-2 border-deep  bg-white hover:bg-deep hover:text-white ${extraStyle}`}
         type={type || "button"}
         onClick={(e) => {
           e.preventDefault();
@@ -77,7 +77,32 @@ const Centered = ({
           e.preventDefault();
           handleClick();
         }}
-        className={` text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out ${extraStyle} `}>
+        className={` text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep ${extraStyle} `}>
+        {Icon && <Icon className="inline-block " />} {text}
+      </button>
+    </div>
+  );
+};
+
+const CenteredDesignerBtn = ({
+  handleClick,
+  text,
+  extraStyle,
+  Icon,
+}: {
+  handleClick: Function;
+  text: string;
+  extraStyle?: string;
+  Icon?: React.ElementType;
+}) => {
+  return (
+    <div className="flex justify-center mb-[50px]">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          handleClick();
+        }}
+        className={twMerge("text-deep border-none rounded-md hover:border-primary hover:bg-white bg-primary py-3 px-5 shadow-lg shadow-deep bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out", extraStyle)}>
         {Icon && <Icon className="inline-block " />} {text}
       </button>
     </div>
@@ -127,6 +152,32 @@ const FocusSensitive = ({
         e.preventDefault();
         handleClick();
       }}
+      className={twMerge("transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep ",
+      extraStyle, isFocused ? focusedStyle : " ")}>
+      {text}
+    </button>
+  );
+};
+
+const DesignerBtn = ({
+  text,
+  handleClick,
+  extraStyle,
+  focusedStyle,
+  isFocused,
+}: {
+  text: string;
+  handleClick: () => void;
+  extraStyle?: string;
+  focusedStyle: string;
+  isFocused: boolean;
+}) => {
+  return (
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        handleClick();
+      }}
       className={twMerge(`transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out`,
       extraStyle, isFocused ? focusedStyle : " ")}>
       {text}
@@ -134,4 +185,4 @@ const FocusSensitive = ({
   );
 };
 
-export default { Auth, Primary, Centered, Round, FocusSensitive } as const;
+export default { Auth, Primary, Centered, Round, FocusSensitive, DesignerBtn, CenteredDesignerBtn } as const;

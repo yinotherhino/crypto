@@ -11,7 +11,7 @@ const Footer = () => {
   const linkStyle = "cursor-pointer hover:text-blue-500 hover:underline";
   const bottomMargin = "mb-[30px]";
   return (
-    <div className="bg-faint  bottom-0 left-0 flex flex-col px-[50px] md:flex-row md:flex-wrap md:justify-between py-[50px] md:px-[200px] ">
+    <div className="bg-xlBlue  bottom-0 left-0 flex flex-col px-[50px] md:flex-row md:flex-wrap md:justify-between py-[50px] md:px-[200px] ">
       <div className={bottomMargin}>
         <Logo extraStyle="font-bold text-primary " />
       </div>

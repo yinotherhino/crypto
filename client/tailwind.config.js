@@ -27,10 +27,12 @@ export default {
         modal: "rgba(0, 0, 0, 0.5)",
         glass: "rgba(200,200,200,0.5)",
         faint: "#F6F1F1",
+        xlBlue: "#ADC4CE",
         lBlue: "#D4FAFC",
         dBlue: "#213555",
         ldBlue: "#4F709C",
         lGreen: "#176B87",
+        gray: "#F0F0F0",
         gold: "#FFD700",
         platinum: "#FF8400"
       },

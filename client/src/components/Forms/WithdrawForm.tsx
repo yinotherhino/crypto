@@ -76,7 +76,7 @@ const WithdrawForm = () => {
    return (
       <>
          <Modal isOpen={isOpen} closeModal={() => setIsOpen(false)}>
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center bg-dBlue">
                <h1 className="text-2xl font-roboto mb-3">Enter your password</h1>
                <Input.Text
                   placeholder="Password"
@@ -89,8 +89,8 @@ const WithdrawForm = () => {
                <SubmitWithdrawal />
             </div>
          </Modal>
-         <form>
-            <h1 className="text-2xl font-roboto mb-3">Withdraw to wallet</h1>
+         <form className="sm:mx-auto sm:w-[30%]">
+            <h1 className="text-2xl font-roboto mb-[30px] text-lBlue">Withdraw to wallet</h1>
 
             <Input.Text
                placeholder="Wallet Address"
@@ -113,6 +113,7 @@ const WithdrawForm = () => {
                name="walletType"
                list={["BTC", "ETH", "SOL", "USDT"]}
                handleChange={handleChange}
+               extraStyle="text-lBlue"
             />
 
             <SubmitWithdrawal />

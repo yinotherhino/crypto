@@ -4,7 +4,7 @@ import WithdrawForm from '../components/Forms/WithdrawForm'
 
 const Withdraw = () => {
   return (
-    <div className='mx-[10%] sm:w-[30%] my-[50px] sm:mx-auto'>
+    <div className='px-[10%] py-[50px]  sm:py-[150px] bg-dBlue'>
       <WithdrawForm />
     </div>
   )

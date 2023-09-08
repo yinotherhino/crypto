@@ -63,7 +63,7 @@ const Navbar = () => {
     <>
       {showNavbar && (
         <nav
-          className="sticky top-0 z-20 w-full min-h-[50px] bg-slate-300 xsm:flex xsm:items-center xsm:justify-between xsm:px-10 bg-[#053B50]"
+          className="sticky top-0 z-20 w-full min-h-[50px] xsm:flex xsm:items-center xsm:justify-between xsm:px-10 bg-xlBlue"
           style={{ opacity }}>
           <div className=" px-7 xsm:px-0 flex justify-between items-center ">
             <Logo />
@@ -72,7 +72,7 @@ const Navbar = () => {
               {isLoggedIn && <ProfileIcon className=" xsm:hidden" />}
             </div>
           </div>
-          <div className="bg-[#ADC4CE] py-0 xsm:bg-slate-300 xsm:py-0">
+          <div className="bg-xlBlue py-0 xsm:bg-xlBlue xsm:py-0">
             <ul className={`${showHamburger ? "block" : "hidden"} xsm:flex`}>
               <NavItem text="ABOUT" type="about" dropContent={null} />
               <NavItem

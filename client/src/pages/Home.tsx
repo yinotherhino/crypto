@@ -65,13 +65,13 @@ const Home = () => {
         />
       </div>
       {isLoggedIn ? (
-        <Button.Centered
+        <Button.CenteredDesignerBtn
           text="Deposit!"
           Icon={Icons.BsArrowRightCircle}
           handleClick={() => navigate("/deposit")}
         />
       ) : (
-        <Button.Centered
+        <Button.CenteredDesignerBtn
           text="Start here!"
           Icon={Icons.BsArrowRightCircle}
           handleClick={showAuthModal}
