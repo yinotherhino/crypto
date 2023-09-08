@@ -152,7 +152,7 @@ const FocusSensitive = ({
         e.preventDefault();
         handleClick();
       }}
-      className={twMerge("transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-deep hover:text-deep ",
+      className={twMerge("transition ease-in duration-700 py-3 px-7 hover:bg-white bg-deep flex items-center rounded-full border-2 hover:border-deep text-lBlue hover:text-deep ",
       extraStyle, isFocused ? focusedStyle : " ")}>
       {text}
     </button>

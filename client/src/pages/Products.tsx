@@ -56,7 +56,7 @@ const Products = () => {
               handleClick={() =>
                 dispatch(changeProductCurrentlyShowing("monthly"))
               }
-              focusedStyle="bg-white"
+              focusedStyle="bg-white text-deep"
               isFocused={productCurrentlyShowing === "monthly"}
               extraStyle={"bg-gray-200 border-none my-0 rounded-full"}
               text="Monthly"
@@ -66,7 +66,7 @@ const Products = () => {
                 dispatch(changeProductCurrentlyShowing("biannually"))
               }
               text="Bi-Annually"
-              focusedStyle="bg-white"
+              focusedStyle="bg-white text-deep"
               isFocused={productCurrentlyShowing === "biannually"}
               extraStyle={"bg-gray-200 border-none my-0 rounded-full"}
             />
@@ -75,7 +75,7 @@ const Products = () => {
                 dispatch(changeProductCurrentlyShowing("yearly"))
               }
               text="Annually"
-              focusedStyle="bg-white"
+              focusedStyle="bg-white text-deep"
               isFocused={productCurrentlyShowing === "yearly"}
               extraStyle={"bg-gray-200 border-none my-0 rounded-full"}
             />
