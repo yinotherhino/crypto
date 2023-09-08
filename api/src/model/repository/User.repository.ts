@@ -20,7 +20,7 @@ class UserRepositoryClass {
         if (user) {
             return user;
         } else {
-            throw new Error("User not found");
+            throw new Error("User not found", {cause: "NOT_FOUND"});
         }
     }
 
@@ -29,7 +29,7 @@ class UserRepositoryClass {
         if (user) {
             return user;
         }
-        throw new Error("User not found");
+        throw new Error("User not found", { cause: "NOT_FOUND" });
     }
 
     public async getAll() {
@@ -42,7 +42,7 @@ class UserRepositoryClass {
         if (user) {
             return user;
         }
-        throw new Error("User not found");
+        throw new Error("User not found", { cause: "NOT_FOUND" });
     }
 
     public async deleteOne(pkeyValue: string) {

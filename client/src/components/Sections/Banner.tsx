@@ -18,7 +18,7 @@ const Banner = () => {
   };
   
   return (
-    <div className="banner mb-[50px] flex items-center justify-center xsm:mb-[100px]">
+    <div className="banner flex items-center justify-center">
       <div className="flex justify-center mb-[2rem]">
         <div className="flex w-min p-[5px] rounded-full bg-gray-200">
           {isLoggedIn ?

@@ -28,6 +28,9 @@ export default {
         glass: "rgba(200,200,200,0.5)",
         faint: "#F6F1F1",
         lBlue: "#D4FAFC",
+        dBlue: "#213555",
+        ldBlue: "#4F709C",
+        lGreen: "#176B87",
         gold: "#FFD700",
         platinum: "#FF8400"
       },
