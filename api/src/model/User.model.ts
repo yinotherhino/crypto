@@ -52,12 +52,12 @@ const userSchema = new mongoose.Schema<UserModel>({
    },
    gender: {
       type: String,
-      required: true,
+      required: false,
       default: "prefer not to say"
    },
    verified: {
       type: Boolean,
-      required: true,
+      required: false,
       default: false,
    }
 })
