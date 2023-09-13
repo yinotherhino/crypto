@@ -75,27 +75,27 @@ const Deposit = () => {
 
 export const adminAddresses: {[key:string]: {address: string; network:string}} = {
   BTC: {
-    address: "bc1qmgup4aez9dr9vrhg96ux255r64ldp7jsx3jtqa",
+    address:"",
     network: "Bitcoin"
   },
   BNB: {
-    address:"0xF62DED0C78721d8939A36Dc7eAE8AefCbfF1178E",
+    address:"8E",
     network: "Bep20"
   },
   ETH: {
-    address: "0x2db34549654E6519Ef64e70d72cED5ae123E1d18",
+    address:"d18",
     network: "ETH"
   },
   USDT: {
-    address:"TTKH1EXMGjH2Wms3wPhtiig3ej3n7Xi7xv",
+    address:" ",
     network: "TRC20"
   },
   SOL: {
-    address: "FcytsSTGhrmoWwiW8bSnH6GDFbo8YHjRFGdjtux8Wkvn",
+    address:"8Wkvn",
     network: "Sol"
   },
   MATIC: {
-    address:"0xCBFa0D652e5e8fAc5Dee7e55cDe76cd6fdcD8d97",
+    address:"97",
     network: "Polygon"
   }
 }
